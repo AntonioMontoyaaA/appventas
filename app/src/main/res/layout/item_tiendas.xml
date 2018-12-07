@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+
+        <variable
+            name="listener"
+            type="neto.com.mx.reporte.adapter.VentasHolder.Listener"/>
+
+        <variable
+            name="ventas"
+            type="neto.com.mx.reporte.model.dashboard.Ventas"/>
+
+
+    </data>
+    <android.support.constraint.ConstraintLayout
+        android:layout_marginBottom="2dp"
+        android:onClick="@{view -> listener.onProcesoSelect(ventas)}"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="80dp">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:background="@color/circle_background"
+                android:layout_width="140dp"
+                android:layout_height="80dp">
+
+                <LinearLayout
+                    android:layout_gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        android:backgroundTint="@{ventas.porcentaje >= 80 ? @color/colorVerde : ventas.porcentaje >= 60 ? @color/amarillo : @color/colorRojo}"
+                        android:clickable="false"
+                        android:id="@+id/circulo"
+                        android:layout_marginTop="6dp"
+                        android:layout_marginStart="4dp"
+                        android:background="@drawable/boton_circulo_azul"
+                        android:layout_width="7dp"
+                        android:layout_height="7dp" />
+
+                    <neto.com.mx.reporte.utils.font.RobotoTextView
+                        android:text="@{String.valueOf(ventas.nombreTienda)}"
+                        android:layout_marginTop="0dp"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginEnd="2dp"
+                        android:id="@+id/tiendas_venta"
+                        android:layout_width="match_parent"
+                        android:layout_height="18dp"
+                        tools:text="TOLUCA"
+                        android:textColor="@color/blanco"
+                        android:textSize="12dp"
+                        app:typeface="robotoRegular"
+
+                        />
+                </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <neto.com.mx.reporte.utils.font.RobotoTextView
+                        android:layout_marginTop="4dp"
+                        android:layout_marginStart="4dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tiendas"
+                        android:textColor="@color/blanco"
+                        android:textSize="10dp"
+                        app:typeface="robotoRegular" />
+                    <neto.com.mx.reporte.utils.font.RobotoTextView
+                        android:layout_marginTop="4dp"
+                        android:layout_marginStart="4dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ticket Prom"
+                        android:textColor="@color/blanco"
+                        android:textSize="10dp"
+                        app:typeface="robotoRegular" />
+                    <neto.com.mx.reporte.utils.font.RobotoTextView
+                        android:layout_marginTop="4dp"
+                        android:layout_marginStart="4dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ventas P"
+                        android:textColor="@color/blanco"
+                        android:textSize="10dp"
+                        app:typeface="robotoRegular" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginEnd="4dp"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <neto.com.mx.reporte.utils.font.RobotoTextView
+                        android:text="@{String.valueOf(ventas.numeroTiendas)}"
+
+                        android:layout_gravity="end"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="81"
+                        android:textColor="@color/blanco"
+                        android:textSize="10dp"
+                        app:typeface="robotoBold" />
+                    <neto.com.mx.reporte.utils.font.RobotoTextView
+                        android:text="@{ventas.converter(ventas.ticketPromedio)}"
+
+                        android:layout_gravity="end"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="$2,695"
+                        android:textColor="@color/blanco"
+                        android:textSize="10dp"
+                        app:typeface="robotoBold" />
+                    <neto.com.mx.reporte.utils.font.RobotoTextView
+                        android:text="@{ventas.converter(ventas.ventaPerdida)}"
+                        android:layout_gravity="end"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="$95,304"
+                        android:textColor="@color/blanco"
+                        android:textSize="10dp"
+                        app:typeface="robotoBold" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:background="@color/colorPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:background="@color/colorPrimaryDark"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content">
+
+                            <neto.com.mx.reporte.utils.font.RobotoTextView
+                                android:layout_marginTop="4dp"
+                                android:layout_marginStart="4dp"
+                                android:layout_gravity="center"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/venta_real"
+                                android:textColor="@color/blanco"
+                                android:textSize="10dp"
+                                app:typeface="robotoRegular" />
+                            <neto.com.mx.reporte.utils.font.RobotoTextView
+                                android:text="@{ventas.converter(ventas.ventaReal)}"
+                                android:layout_marginTop="4dp"
+                                android:layout_marginStart="4dp"
+                                android:layout_gravity="center"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                tools:text="$863,333"
+                                android:textColor="@color/amarillo"
+                                android:textSize="10dp"
+                                app:typeface="robotoRegular" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_marginEnd="4dp"
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <neto.com.mx.reporte.utils.font.RobotoTextView
+                                android:layout_gravity="center"
+                                android:layout_marginTop="4dp"
+                                android:layout_marginStart="8dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/presupuesto"
+                                android:textColor="@color/blanco"
+                                android:textSize="10dp"
+                                app:typeface="robotoBold" />
+                            <neto.com.mx.reporte.utils.font.RobotoTextView
+                                android:text="@{ventas.converter(ventas.ventaObjetivo)}"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="4dp"
+                                android:layout_marginStart="8dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/turquesa"
+                                android:textSize="10dp"
+                                tools:text="$18, 888, 888"
+                                app:typeface="robotoBold" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>

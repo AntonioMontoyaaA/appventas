@@ -1,0 +1,44 @@
+<resources>
+    <string name="app_name">Reporte de Ventas</string>
+
+    <!-- splash screen -->
+
+    <string name="reintenta">Reintente más tarde</string>
+    <string name="reintentar">Reintentar</string>
+    <string name="internet">Necesitas estar conectado a internet</string>
+    <string name="tituloAnimacion">REPORTE DE VENTAS</string>
+
+    <!-- activity login -->
+    <string name="sizeContra">Usuario y contraseña debe tener más de 10 carácteres</string>
+    <string name="usuarioLogin">Usuario</string>
+    <string name="contraLogin">Contraseña</string>
+    <string name="entrarLogin">Iniciar sesión</string>
+    <string name="accion_ver">Ver 2.0.0</string>
+    <string name="intentaSalir">Presiona de nuevo para salir\u0020</string>
+
+    <!-- activity main -->
+
+    <string name="ventas">VENTAS</string>
+    <string name="dia">DÍA</string>
+    <string name="semana">SEMANA</string>
+    <string name="mes">MES</string>
+    <string name="venta_real">VENTA REAL</string>
+    <string name="tiendas_venta">TIENDAS CON VENTA</string>
+    <string name="ticket_promedio">TICKET PROMEDIO</string>
+    <string name="venta_perdida">VENTA PERDIDA</string>
+    <string name="zero">0</string>
+    <string name="mdp">\u0020mdp VENTA OBJETIVO</string>
+
+
+    <!-- item tiendas -->
+    <string name="presupuesto">PRESUPUESTO</string>
+    <string name="buscar">Buscar</string>
+    <string name="ok">OK</string>
+    <string name="sucedio">Algo sucedio, intenta nuevamente</string>
+    <string name="notiendas">Este usuario no tiene tiendas asignadas</string>
+    <string name="verifique">El Usuario no cuenta con tiendas asignadas. Por favor verifique</string>
+    <string name="no_tiendas">no tiendas</string>
+    <string name="idapp">4</string>
+
+
+</resources>

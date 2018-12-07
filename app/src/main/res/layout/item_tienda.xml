@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+
+        <variable
+            name="listener"
+            type="neto.com.mx.reporte.adapter.TiendasHolder.Listener"/>
+
+        <variable
+            name="tienda"
+            type="neto.com.mx.reporte.model.dashboard.Tienda"/>
+
+
+    </data>
+    <android.support.constraint.ConstraintLayout
+        android:background="@color/colorPrimaryDark"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:onClick="@{view -> listener.onTiendasSelect(tienda)}"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <neto.com.mx.reporte.utils.font.RobotoTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="@{tienda.nombreTienda}"
+            android:textColor="@color/amarillo"
+            android:textSize="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:typeface="robotoRegular"
+            tools:text="$18, 888, 888" />
+
+
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>

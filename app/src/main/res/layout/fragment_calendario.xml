@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="vertical"
+        android:id="@+id/view"
+        android:background="@color/colorPrimaryDark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <DatePicker
+            android:id="@+id/calendario"
+            android:theme="@style/datepicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:background="@drawable/fill_button"
+                app:typeface="robotoRegular"
+                android:id="@+id/seleccionar"
+                android:textColor="@color/blanco"
+                android:layout_gravity="end|bottom"
+                android:fontFamily="sans-serif-light"
+                android:text="@string/ok"
+                android:textSize="14dp"
+                android:layout_width="65dp"
+                android:layout_height="26dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="8dp"/>
+
+        </DatePicker>
+
+
+    </LinearLayout>
+
+</layout>

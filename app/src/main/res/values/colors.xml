@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#284451</color>
+    <color name="colorPrimaryDark">#284451</color>
+    <color name="colorAccent">#4EBFCD</color>
+
+    <color name="blanco">#FFFFFF</color>
+    <color name="turquesa">#4EBFCD</color>
+    <color name="circle_background">#24303E</color>
+
+    <color name="amarillo">#F3C61C</color>
+
+    <color name="colorVerde">#41c677</color>
+    <color name="colorRojo">#A12218</color>
+
+
+</resources>
