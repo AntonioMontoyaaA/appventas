@@ -66,11 +66,14 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
         getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
         int width = displaymetrics.widthPixels;
+        int height = displaymetrics.heightPixels;
 
         binding  = DataBindingUtil.setContentView(this, R.layout.activity_main);
-
+        
+        if(height <= 1920){
+            resizeRecycler(binding, 210, this);
+        }
         if(width<500){
-
             binding.tacometro.getLayoutParams().height = 190;
             binding.tacometro.getLayoutParams().width = 190;
             binding.total.setTextSize(18);
