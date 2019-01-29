@@ -35,6 +35,7 @@ import neto.com.mx.reporte.adapter.AdapterVentas;
 import neto.com.mx.reporte.adapter.VentasHolder;
 import neto.com.mx.reporte.databinding.ActivityMainBinding;
 import neto.com.mx.reporte.databinding.ActivityMainWidhtBinding;
+import neto.com.mx.reporte.fragment.Aceptar;
 import neto.com.mx.reporte.fragment.FragmentCalendario;
 import neto.com.mx.reporte.fragment.FragmentTiendas;
 import neto.com.mx.reporte.model.dashboard.Consulta;
@@ -68,12 +69,12 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
         int width = displaymetrics.widthPixels;
         int height = displaymetrics.heightPixels;
 
-        binding  = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        
-        if(height <= 1920){
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+
+        if (height <= 1920) {
             resizeRecycler(binding, 210, this);
         }
-        if(width<500){
+        if (width < 500) {
             binding.tacometro.getLayoutParams().height = 190;
             binding.tacometro.getLayoutParams().width = 190;
             binding.total.setTextSize(18);
@@ -91,13 +92,12 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
 
         preferences = getSharedPreferences("datosReporte", MODE_PRIVATE);
         final String fechaSeleccionada = preferences.getString("fechaSeleccionada", "");
-        final String usuario = preferences.getString("usuario","");
+        final String usuario = preferences.getString("usuario", "");
 
 
-
-        day = preferences.getInt("day",0);
-        month = preferences.getInt("month",0);
-        year = preferences.getInt("year",0);
+        day = preferences.getInt("day", 0);
+        month = preferences.getInt("month", 0);
+        year = preferences.getInt("year", 0);
 
 
         editor = preferences.edit();
@@ -121,25 +121,17 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
         binding.dia.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
 
 
-
         binding.dia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 editor.putInt("button", 0);
                 editor.apply();
 
-                binding.dia.setBackground(getDrawable(R.drawable.fill_left));
-                binding.dia.setTextColor(ContextCompat.getColor(ActivityMain.this,R.color.colorPrimary));
-                binding.semana.setBackground(getDrawable(R.drawable.square_center));
-                binding.semana.setTextColor(ContextCompat.getColor(ActivityMain.this,R.color.turquesa));
-                binding.mes.setBackground(getDrawable(R.drawable.square_right));
-                binding.mes.setTextColor(ContextCompat.getColor(ActivityMain.this,R.color.turquesa));
-
                 date = new Date();
                 fechaInicial = sdf.format(date);
                 fechaFinal = sdf.format(date);
 
-                if(fechaSeleccionada.length()>0){
+                if (fechaSeleccionada.length() > 0) {
                     fechaInicial = fechaSeleccionada;
                     fechaFinal = fechaSeleccionada;
                     consulta[0] = new Consulta(
@@ -151,7 +143,7 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
                             fechaFinal
                     );
                     obtenerVentas(binding, consulta[0]);
-                }else{
+                } else {
                     Consulta consulta = new Consulta(
                             usuario,
                             getString(R.string.zero),
@@ -175,13 +167,6 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
                 editor.putInt("button", 1);
                 editor.apply();
 
-                binding.dia.setBackground(getDrawable(R.drawable.square_left));
-                binding.dia.setTextColor(ContextCompat.getColor(ActivityMain.this,R.color.turquesa));
-                binding.semana.setBackground(getDrawable(R.drawable.fill_center));
-                binding.semana.setTextColor(ContextCompat.getColor(ActivityMain.this,R.color.colorPrimary));
-                binding.mes.setBackground(getDrawable(R.drawable.square_right));
-                binding.mes.setTextColor(ContextCompat.getColor(ActivityMain.this,R.color.turquesa));
-
                 c = Calendar.getInstance();
                 c.setFirstDayOfWeek(Calendar.MONDAY);
                 c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
@@ -189,7 +174,7 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
                 fechaInicial = sdf.format(c.getTime());
                 fechaFinal = sdf.format(date);
 
-                if(fechaSeleccionada.length()>0){
+                if (fechaSeleccionada.length() > 0) {
                     c = Calendar.getInstance();
                     c.set(year, month, day);
                     c.setFirstDayOfWeek(Calendar.MONDAY);
@@ -210,7 +195,7 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
 
                     obtenerVentas(binding, consulta);
 
-                }else{
+                } else {
                     Consulta consulta = new Consulta(
                             usuario,
                             getString(R.string.zero),
@@ -232,12 +217,7 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
 
                 editor.putInt("button", 2);
                 editor.apply();
-                binding.dia.setBackground(getDrawable(R.drawable.square_left));
-                binding.dia.setTextColor(ContextCompat.getColor(ActivityMain.this,R.color.turquesa));
-                binding.semana.setBackground(getDrawable(R.drawable.square_center));
-                binding.semana.setTextColor(ContextCompat.getColor(ActivityMain.this,R.color.turquesa));
-                binding.mes.setBackground(getDrawable(R.drawable.fill_right));
-                binding.mes.setTextColor(ContextCompat.getColor(ActivityMain.this,R.color.colorPrimary));
+
 
                 Calendar c = Calendar.getInstance();   // this takes current date
                 c.set(Calendar.DAY_OF_MONTH, 1);
@@ -246,7 +226,7 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
                 fechaInicial = sdf.format(c.getTime());
                 fechaFinal = sdf.format(date);
 
-                if(fechaSeleccionada.length()>0){
+                if (fechaSeleccionada.length() > 0) {
                     c = Calendar.getInstance();
                     c.set(year, month, day);
                     c.set(Calendar.DAY_OF_MONTH, 1);
@@ -266,7 +246,7 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
                     );
 
                     obtenerVentas(binding, consulta[0]);
-                }else{
+                } else {
                     Consulta consulta = new Consulta(
                             usuario,
                             getString(R.string.zero),
@@ -286,7 +266,7 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
             @Override
             public void onClick(View v) {
                 FragmentTiendas a = new FragmentTiendas();
-                a.show(getSupportFragmentManager(),"child");
+                a.show(getSupportFragmentManager(), "child");
             }
         });
 
@@ -297,23 +277,22 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
                 Bundle arg = new Bundle();
                 arg.putInt("type", 0);
                 a.setArguments(arg);
-                a.show(getSupportFragmentManager(),"child");
+                a.show(getSupportFragmentManager(), "child");
             }
         });
 
 
-
-        if(fechaSeleccionada.length()>0){
+        if (fechaSeleccionada.length() > 0) {
             banderaBoton = preferences.getInt("button", 0);
 
-            if(banderaBoton==0){
+            if (banderaBoton == 0) {
 
                 binding.dia.setBackground(getDrawable(R.drawable.fill_left));
-                binding.dia.setTextColor(ContextCompat.getColor(ActivityMain.this,R.color.colorPrimary));
+                binding.dia.setTextColor(ContextCompat.getColor(ActivityMain.this, R.color.colorPrimary));
                 binding.semana.setBackground(getDrawable(R.drawable.square_center));
-                binding.semana.setTextColor(ContextCompat.getColor(ActivityMain.this,R.color.turquesa));
+                binding.semana.setTextColor(ContextCompat.getColor(ActivityMain.this, R.color.turquesa));
                 binding.mes.setBackground(getDrawable(R.drawable.square_right));
-                binding.mes.setTextColor(ContextCompat.getColor(ActivityMain.this,R.color.turquesa));
+                binding.mes.setTextColor(ContextCompat.getColor(ActivityMain.this, R.color.turquesa));
 
                 fechaInicial = fechaSeleccionada;
                 fechaFinal = fechaSeleccionada;
@@ -328,14 +307,14 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
 
                 obtenerVentas(binding, consulta[0]);
 
-            }else if(banderaBoton==1){
+            } else if (banderaBoton == 1) {
 
                 binding.dia.setBackground(getDrawable(R.drawable.square_left));
-                binding.dia.setTextColor(ContextCompat.getColor(ActivityMain.this,R.color.turquesa));
+                binding.dia.setTextColor(ContextCompat.getColor(ActivityMain.this, R.color.turquesa));
                 binding.semana.setBackground(getDrawable(R.drawable.fill_center));
-                binding.semana.setTextColor(ContextCompat.getColor(ActivityMain.this,R.color.colorPrimary));
+                binding.semana.setTextColor(ContextCompat.getColor(ActivityMain.this, R.color.colorPrimary));
                 binding.mes.setBackground(getDrawable(R.drawable.square_right));
-                binding.mes.setTextColor(ContextCompat.getColor(ActivityMain.this,R.color.turquesa));
+                binding.mes.setTextColor(ContextCompat.getColor(ActivityMain.this, R.color.turquesa));
 
                 c = Calendar.getInstance();
                 c.set(year, month, day);
@@ -357,14 +336,14 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
 
                 obtenerVentas(binding, consulta[0]);
 
-            }else if(banderaBoton==2){
+            } else if (banderaBoton == 2) {
 
                 binding.dia.setBackground(getDrawable(R.drawable.square_left));
-                binding.dia.setTextColor(ContextCompat.getColor(ActivityMain.this,R.color.turquesa));
+                binding.dia.setTextColor(ContextCompat.getColor(ActivityMain.this, R.color.turquesa));
                 binding.semana.setBackground(getDrawable(R.drawable.square_center));
-                binding.semana.setTextColor(ContextCompat.getColor(ActivityMain.this,R.color.turquesa));
+                binding.semana.setTextColor(ContextCompat.getColor(ActivityMain.this, R.color.turquesa));
                 binding.mes.setBackground(getDrawable(R.drawable.fill_right));
-                binding.mes.setTextColor(ContextCompat.getColor(ActivityMain.this,R.color.colorPrimary));
+                binding.mes.setTextColor(ContextCompat.getColor(ActivityMain.this, R.color.colorPrimary));
 
                 c = Calendar.getInstance();
                 c.set(year, month, day);
@@ -387,55 +366,56 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
                 obtenerVentas(binding, consulta[0]);
 
             }
-        }else{
+        } else {
             obtenerVentas(binding, consulta[0]);
         }
 
     }
 
-    public String converter(double conver){
+    public String converter(double conver) {
         DecimalFormat formatter = new DecimalFormat("#,###");
-        return "$"+formatter.format(conver);
+        return "$" + formatter.format(conver);
     }
 
-    public static void resizeRecycler(ActivityMainBinding binding, int tam, Context context){
+    public static void resizeRecycler(ActivityMainBinding binding, int tam, Context context) {
         ViewGroup.LayoutParams params = binding.recyclerview.getLayoutParams();
         final float scale = context.getResources().getDisplayMetrics().density;
         int pixels = (int) (tam * scale + 0.5f);
-        params.height=pixels;
+        params.height = pixels;
         binding.recyclerview.setLayoutParams(params);
     }
 
-    public void resizeRecyclerWidth(ActivityMainBinding binding, int tam){
+    public void resizeRecyclerWidth(ActivityMainBinding binding, int tam) {
         ViewGroup.LayoutParams params = binding.recyclerview.getLayoutParams();
         final float scale = getResources().getDisplayMetrics().density;
         int pixels = (int) (tam * scale + 0.5f);
-        params.width=pixels;
+        params.width = pixels;
         binding.recyclerview.setLayoutParams(params);
     }
 
     ProgressDialog progressDialog;
     AdapterVentas adapter;
 
-    public void obtenerVentas(final ActivityMainBinding binding, Consulta consulta){
+    public void obtenerVentas(final ActivityMainBinding binding, Consulta consulta) {
         progressDialog = new ProgressDialog(ActivityMain.this);
         Util.loadingProgress(progressDialog, 0);
         ProviderDashboard.getInstance(this).getVentas(consulta, new ProviderDashboard.ConsultaVentas() {
             @Override
             public void resolve(VentasResponse ventasResponse) {
-                if(ventasResponse!=null){
-                    if(!ventasResponse.getMensaje().contains("no tiendas")){
+                if (ventasResponse != null) {
+                    if (!ventasResponse.getMensaje().contains("no tiendas")) {
+                        logicaPintadatos();
                         Util.loadingProgress(progressDialog, 1);
-                        binding.tiendasVenta.setText(ventasResponse.getTiendasConVentaGeneral()+"");
+                        binding.tiendasVenta.setText(ventasResponse.getTiendasConVentaGeneral() + "");
                         binding.tiendasPromedio.setText(converter(Double.parseDouble(ventasResponse.getTickPromGeneral())));
                         binding.ventaPerdida.setText(converter(Double.parseDouble(ventasResponse.getvPerdidaGeneral())));
-                        binding.ventaObjetivo.setText(String.valueOf("$"+ventasResponse.getvObjetivoGeneral()));
+                        binding.ventaObjetivo.setText(String.valueOf("$" + ventasResponse.getvObjetivoGeneral()));
                         binding.total.setText(converter(Double.parseDouble(ventasResponse.getvRealGeneral())));
 
                         double real = Integer.valueOf(ventasResponse.getvRealGeneral());
                         double objetivo = Integer.valueOf(ventasResponse.getvObjetivoGeneral());
 
-                        double operacion = real/objetivo*100;
+                        double operacion = real / objetivo * 100;
 
                         StringBuilder stringBuilder = new StringBuilder();
                         stringBuilder.append(converter(Double.parseDouble(ventasResponse.getvObjetivoGeneral())));
@@ -455,7 +435,8 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
                             }
 
                             @Override
-                            public void onAnimationEnd() { }
+                            public void onAnimationEnd() {
+                            }
                         });
 
 
@@ -464,15 +445,18 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
                         adapter.edit().replaceAll(ventasResponse.getListaVentas()).commit();
                         adapter.notifyItemRangeRemoved(0, adapter.getItemCount());
                         binding.recyclerview.setAdapter(adapter);
-                    }else{
+                    } else {
                         editor.apply();
                         Toast.makeText(getApplicationContext(), getString(R.string.notiendas), Toast.LENGTH_SHORT).show();
                         Util.loadingProgress(progressDialog, 1);
                     }
-                }else{
+                } else {
                     editor.apply();
-                    Toast.makeText(getApplicationContext(), getString(R.string.sucedio), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), getString(R.string.sucedio), Toast.LENGTH_SHORT).show();
                     Util.loadingProgress(progressDialog, 1);
+                    Aceptar a = new Aceptar();
+                    a.setMensaje("Necesitas estar conectado a internet");
+                    a.show(getSupportFragmentManager(), "child");
                 }
 
             }
@@ -498,11 +482,38 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
 
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("region", String.valueOf(model.getTiendaId()));
-        editor.putInt("button",0);
+        editor.putInt("button", 0);
         editor.apply();
 
         Intent intent = new Intent(this, ActivityRegion.class);
         startActivity(intent);
 
+    }
+
+    public void logicaPintadatos() {
+        banderaBoton = preferences.getInt("button", 0);
+        if (banderaBoton == 0) {
+
+            binding.dia.setBackground(getDrawable(R.drawable.fill_left));
+            binding.dia.setTextColor(ContextCompat.getColor(ActivityMain.this, R.color.colorPrimary));
+            binding.semana.setBackground(getDrawable(R.drawable.square_center));
+            binding.semana.setTextColor(ContextCompat.getColor(ActivityMain.this, R.color.turquesa));
+            binding.mes.setBackground(getDrawable(R.drawable.square_right));
+            binding.mes.setTextColor(ContextCompat.getColor(ActivityMain.this, R.color.turquesa));
+        }else if( banderaBoton == 1){
+            binding.dia.setBackground(getDrawable(R.drawable.square_left));
+            binding.dia.setTextColor(ContextCompat.getColor(ActivityMain.this, R.color.turquesa));
+            binding.semana.setBackground(getDrawable(R.drawable.fill_center));
+            binding.semana.setTextColor(ContextCompat.getColor(ActivityMain.this, R.color.colorPrimary));
+            binding.mes.setBackground(getDrawable(R.drawable.square_right));
+            binding.mes.setTextColor(ContextCompat.getColor(ActivityMain.this, R.color.turquesa));
+        }else if(banderaBoton == 2){
+            binding.dia.setBackground(getDrawable(R.drawable.square_left));
+            binding.dia.setTextColor(ContextCompat.getColor(ActivityMain.this, R.color.turquesa));
+            binding.semana.setBackground(getDrawable(R.drawable.square_center));
+            binding.semana.setTextColor(ContextCompat.getColor(ActivityMain.this, R.color.turquesa));
+            binding.mes.setBackground(getDrawable(R.drawable.fill_right));
+            binding.mes.setTextColor(ContextCompat.getColor(ActivityMain.this, R.color.colorPrimary));
+        }
     }
 }

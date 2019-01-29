@@ -96,11 +96,18 @@ public class Usuario {
                             unblockUI();
 
                         }else{
-                            Snackbar snackbar = Snackbar.make(binding.container,
+                            Snackbar snackbar;
+                            if(login.getMensaje() != null){
+                                snackbar = Snackbar.make(binding.container,
                                     Html.fromHtml("<b><font color=\"#254581\">" +
-                                            "Este perfil no tiene permisos"+
+                                            login.getMensaje()+
                                             "</font></b>"), Snackbar.LENGTH_SHORT);
-
+                            }else{
+                                snackbar = Snackbar.make(binding.container,
+                                Html.fromHtml("<b><font color=\"#254581\">" +
+                                        "Este perfil no tiene permisos"+
+                                        "</font></b>"), Snackbar.LENGTH_SHORT);
+                            }
                             View snackBarView = snackbar.getView();
                             snackBarView.setBackgroundColor(context.getResources().getColor(R.color.blanco));
                             snackbar.show();
