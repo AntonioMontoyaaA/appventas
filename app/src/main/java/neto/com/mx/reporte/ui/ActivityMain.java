@@ -311,6 +311,7 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
                 );
 
                 obtenerVentas(binding, consulta[0]);
+                binding.rangoFechas.setText("Consulta al día: " + fechaInicial);
 
             } else if (banderaBoton == 1) {
 
@@ -340,6 +341,7 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
                 );
 
                 obtenerVentas(binding, consulta[0]);
+                binding.rangoFechas.setText("Consulta del " + fechaInicial + " al " + fechaFinal);
 
             } else if (banderaBoton == 2) {
 
@@ -369,10 +371,12 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
                 );
 
                 obtenerVentas(binding, consulta[0]);
+                binding.rangoFechas.setText("Consulta del " + fechaInicial + " al " + fechaFinal);
 
             }
         } else {
             obtenerVentas(binding, consulta[0]);
+            binding.rangoFechas.setText("Consulta al día: " + fechaInicial);
         }
 
     }
