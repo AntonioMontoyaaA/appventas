@@ -47,6 +47,8 @@ public class FragmentCalendario extends DialogFragment {
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
 
+    int day, month, year;
+
     @Override
     public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -57,6 +59,12 @@ public class FragmentCalendario extends DialogFragment {
         editor = preferences.edit();
 
         final int type = getArguments().getInt("type");
+
+        day = preferences.getInt("day", 0);
+        month = preferences.getInt("month", 0);
+        year = preferences.getInt("year", 0);
+
+        binding.calendario.updateDate(year, month, day);
 
         binding.seleccionar.setOnClickListener(new View.OnClickListener() {
             @Override
