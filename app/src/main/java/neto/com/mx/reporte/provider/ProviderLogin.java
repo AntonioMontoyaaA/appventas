@@ -52,11 +52,8 @@ public class ProviderLogin {
                 try {
 
                     SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
-                    //request.addProperty("usuario", usuario);
-                    request.addProperty("usuario", "224523");
-                    //request.addProperty("password", "3007432f4f3aef701575c9326a7df4d4");
-                    //request.addProperty("password", serviciosObject.md5(contrasena));
-                    request.addProperty("password","b97917bbf4dded6f71b22ef4839bd907");
+                    request.addProperty("usuario", usuario);
+                    request.addProperty("password", serviciosObject.md5(contrasena));
                     request.addProperty("idApp", context.getString(neto.com.mx.reporte.R.string.idapp));
 
                     SoapSerializationEnvelope soapEnvolve = new SoapSerializationEnvelope(SoapEnvelope.VER11);
