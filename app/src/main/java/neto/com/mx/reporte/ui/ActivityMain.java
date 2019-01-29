@@ -156,6 +156,7 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
                     obtenerVentas(binding, consulta);
                 }
 
+                binding.rangoFechas.setText("Consulta al día: " + fechaInicial);
 
             }
         });
@@ -208,6 +209,8 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
                     obtenerVentas(binding, consulta);
                 }
 
+                binding.rangoFechas.setText("Consulta del " + fechaInicial + " al " + fechaFinal);
+
             }
         });
 
@@ -258,6 +261,8 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
 
                     obtenerVentas(binding, consulta);
                 }
+
+                binding.rangoFechas.setText("Consulta del " + fechaInicial + " al " + fechaFinal);
 
             }
         });
