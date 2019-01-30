@@ -71,10 +71,7 @@ public class FragmentCalendario extends DialogFragment {
         month = preferences.getInt("month", Integer.parseInt(mesActual) - 1);
         year = preferences.getInt("year", Integer.parseInt(anioActual));
 
-        System.out.println("***** dia: " + day);
-        System.out.println("***** mes: " + month);
-        System.out.println("***** año: " + year);
-
+        binding.calendario.setMaxDate(new Date().getTime());
         binding.calendario.updateDate(year, month, day);
 
         binding.seleccionar.setOnClickListener(new View.OnClickListener() {
