@@ -34,7 +34,7 @@
     <string name="presupuesto">PRESUPUESTO</string>
     <string name="buscar">Buscar</string>
     <string name="ok">OK</string>
-    <string name="sucedio">Algo sucedio, intenta nuevamente</string>
+    <!--<string name="sucedio">Algo sucedio, intenta nuevamente</string>-->
     <string name="notiendas">Este usuario no tiene tiendas asignadas</string>
     <string name="verifique">El Usuario no cuenta con tiendas asignadas. Por favor verifique</string>
     <string name="no_tiendas">no tiendas</string>

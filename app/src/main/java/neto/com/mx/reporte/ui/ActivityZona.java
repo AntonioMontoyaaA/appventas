@@ -28,6 +28,7 @@ import neto.com.mx.reporte.R;
 import neto.com.mx.reporte.adapter.AdapterVentas;
 import neto.com.mx.reporte.adapter.VentasHolder;
 import neto.com.mx.reporte.databinding.ActivityMainBinding;
+import neto.com.mx.reporte.fragment.Aceptar;
 import neto.com.mx.reporte.fragment.FragmentCalendario;
 import neto.com.mx.reporte.fragment.FragmentTiendas;
 import neto.com.mx.reporte.model.dashboard.Consulta;
@@ -431,8 +432,11 @@ public class ActivityZona extends AppCompatActivity implements VentasHolder.List
 
 
                 }else{
-                    Toast.makeText(getApplicationContext(), "Algo sucedio, intenta nuevamente", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), "Algo sucedio, intenta nuevamente", Toast.LENGTH_SHORT).show();
                     Util.loadingProgress(progressDialog, 1);
+                    Aceptar a = new Aceptar();
+                    a.setMensaje("Necesitas estar conectado a internet");
+                    a.show(getSupportFragmentManager(), "child");
                 }
             }
 
