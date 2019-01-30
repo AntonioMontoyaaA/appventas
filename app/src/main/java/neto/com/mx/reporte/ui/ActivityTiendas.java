@@ -149,6 +149,7 @@ public class ActivityTiendas extends AppCompatActivity implements VentasHolder.L
 
                     obtenerVentas(binding, consulta);
                 }
+                binding.rangoFechas.setText("Consulta al día: " + fechaInicial);
 
             }
         });
@@ -205,7 +206,7 @@ public class ActivityTiendas extends AppCompatActivity implements VentasHolder.L
 
                     obtenerVentas(binding, consulta);
                 }
-
+                binding.rangoFechas.setText("Consulta del " + fechaInicial + " al " + fechaFinal);
 
 
             }
@@ -267,6 +268,7 @@ public class ActivityTiendas extends AppCompatActivity implements VentasHolder.L
                     );
                     obtenerVentas(binding, consulta);
                 }
+                binding.rangoFechas.setText("Consulta del " + fechaInicial + " al " + fechaFinal);
 
             }
         });
@@ -313,6 +315,7 @@ public class ActivityTiendas extends AppCompatActivity implements VentasHolder.L
                         fechaFinal
                 );
                 obtenerVentas(binding, consulta[0]);
+                binding.rangoFechas.setText("Consulta al día: " + fechaInicial);
             }else if(banderaBoton==1){
                 binding.dia.setBackground(getDrawable(R.drawable.square_left));
                 binding.dia.setTextColor(ContextCompat.getColor(ActivityTiendas.this,R.color.turquesa));
@@ -337,6 +340,7 @@ public class ActivityTiendas extends AppCompatActivity implements VentasHolder.L
                         fechaFinal
                 );
                 obtenerVentas(binding, consulta[0]);
+                binding.rangoFechas.setText("Consulta del " + fechaInicial + " al " + fechaFinal);
             }else if(banderaBoton==2){
                 binding.dia.setBackground(getDrawable(R.drawable.square_left));
                 binding.dia.setTextColor(ContextCompat.getColor(ActivityTiendas.this,R.color.turquesa));
@@ -361,9 +365,11 @@ public class ActivityTiendas extends AppCompatActivity implements VentasHolder.L
                         fechaFinal
                 );
                 obtenerVentas(binding, consulta[0]);
+                binding.rangoFechas.setText("Consulta del " + fechaInicial + " al " + fechaFinal);
             }
         }else{
             obtenerVentas(binding, consulta[0]);
+            binding.rangoFechas.setText("Consulta al día: " + fechaInicial);
         }
     }
 

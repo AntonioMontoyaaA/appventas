@@ -13,7 +13,7 @@
     <string name="usuarioLogin">Usuario</string>
     <string name="contraLogin">Contraseña</string>
     <string name="entrarLogin">Iniciar sesión</string>
-    <string name="accion_ver">Ver 2.0.0</string>
+    <string name="accion_ver">Ver 2.0.1</string>
     <string name="intentaSalir">Presiona de nuevo para salir\u0020</string>
 
     <!-- activity main -->

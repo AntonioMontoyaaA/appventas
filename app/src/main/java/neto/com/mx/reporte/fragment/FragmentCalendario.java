@@ -12,6 +12,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import neto.com.mx.reporte.R;
@@ -60,9 +62,18 @@ public class FragmentCalendario extends DialogFragment {
 
         final int type = getArguments().getInt("type");
 
-        day = preferences.getInt("day", 0);
-        month = preferences.getInt("month", 0);
-        year = preferences.getInt("year", 0);
+        Date fechaActual = new Date();
+        String diaActual    = (String) DateFormat.format("dd",   fechaActual);
+        String mesActual    = (String) DateFormat.format("MM",   fechaActual);
+        String anioActual   = (String) DateFormat.format("yyyy", fechaActual);
+
+        day = preferences.getInt("day", Integer.parseInt(diaActual));
+        month = preferences.getInt("month", Integer.parseInt(mesActual) - 1);
+        year = preferences.getInt("year", Integer.parseInt(anioActual));
+
+        System.out.println("***** dia: " + day);
+        System.out.println("***** mes: " + month);
+        System.out.println("***** año: " + year);
 
         binding.calendario.updateDate(year, month, day);
 

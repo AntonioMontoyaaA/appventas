@@ -158,6 +158,7 @@ public class ActivityRegion extends AppCompatActivity implements VentasHolder.Li
                     obtenerVentas(binding, consulta);
                 }
 
+                binding.rangoFechas.setText("Consulta al día: " + fechaInicial);
 
 
             }
@@ -216,6 +217,7 @@ public class ActivityRegion extends AppCompatActivity implements VentasHolder.Li
 
                     obtenerVentas(binding, consulta);
                 }
+                binding.rangoFechas.setText("Consulta del " + fechaInicial + " al " + fechaFinal);
 
             }
         });
@@ -272,6 +274,7 @@ public class ActivityRegion extends AppCompatActivity implements VentasHolder.Li
 
                     obtenerVentas(binding, consulta);
                 }
+                binding.rangoFechas.setText("Consulta del " + fechaInicial + " al " + fechaFinal);
 
             }
         });
@@ -317,6 +320,7 @@ public class ActivityRegion extends AppCompatActivity implements VentasHolder.Li
                         fechaFinal
                 );
                 obtenerVentas(binding, consulta[0]);
+                binding.rangoFechas.setText("Consulta al día: " + fechaInicial);
             }else if(banderaBoton==1){
 
                 binding.dia.setBackground(getDrawable(R.drawable.square_left));
@@ -343,6 +347,7 @@ public class ActivityRegion extends AppCompatActivity implements VentasHolder.Li
                         fechaFinal
                 );
                 obtenerVentas(binding, consulta[0]);
+                binding.rangoFechas.setText("Consulta del " + fechaInicial + " al " + fechaFinal);
             }else if(banderaBoton==2){
                 binding.dia.setBackground(getDrawable(R.drawable.square_left));
                 binding.dia.setTextColor(ContextCompat.getColor(ActivityRegion.this,R.color.turquesa));
@@ -367,9 +372,11 @@ public class ActivityRegion extends AppCompatActivity implements VentasHolder.Li
                         fechaFinal
                 );
                 obtenerVentas(binding, consulta[0]);
+                binding.rangoFechas.setText("Consulta del " + fechaInicial + " al " + fechaFinal);
             }
         }else{
             obtenerVentas(binding, consulta[0]);
+            binding.rangoFechas.setText("Consulta al día: " + fechaInicial);
         }
     }
 
