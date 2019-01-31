@@ -21,8 +21,9 @@ public class ProviderDashboard {
     private static ProviderDashboard instance;
 
     String NAMESPACE = "http://servicio.rutas.movil.abasto.neto";
-    String METHOD_NAME = "obtieneVentasPorEmpleado";
-    String URL = "https://www.servicios.tiendasneto.com/WSSIANMoviles/services/WSRutasMovil/";
+    String METHOD_NAME = "obtieneVentasPorEmpleado2";
+    //String URL = "https://www.servicios.tiendasneto.com/WSSIANMoviles/services/WSRutasMovil/";
+    String URL = "http://10.81.12.45:7777/WSSIANMoviles/services/WSRutasMovil/";
 
     private Context context;
     private ProviderDashboard() {}
@@ -50,6 +51,7 @@ public class ProviderDashboard {
                 try {
 
                     SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
+                    request.addProperty("tipoConsulta", 2);
                     request.addProperty("numeroEmpleado", consulta.getNumeroEmpleado());
                     request.addProperty("region", consulta.getRegion());
                     request.addProperty("zona", consulta.getZona());
@@ -70,8 +72,10 @@ public class ProviderDashboard {
 
                 } catch (IOException e) {
                     e.printStackTrace();
+                    System.out.println("Un error");
                 } catch (XmlPullParserException e) {
                     e.printStackTrace();
+                    System.out.println("Un error (2)");
                 }
 
                 return consultaVentas;
