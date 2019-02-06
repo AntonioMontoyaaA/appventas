@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
@@ -15,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -108,6 +110,11 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
         fechaInicial = sdf.format(date);
         fechaFinal = sdf.format(date);
         binding.header.back.setVisibility(View.INVISIBLE);
+        try{
+            binding.header.txtappversion.setText("v" + getPackageManager().getPackageInfo(getPackageName(), 0).versionName);
+        } catch(PackageManager.NameNotFoundException ne) {
+            Log.e("CARGA_FOLIO_TAG", "Error al obtener la versión: " + ne.getMessage());
+        }
 
         final Consulta[] consulta = {new Consulta(
                 usuario,

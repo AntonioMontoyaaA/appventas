@@ -1,11 +1,13 @@
 package neto.com.mx.reporte.ui;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -42,6 +44,11 @@ public class ActivityLogin extends AppCompatActivity {
         Usuario usuario = new Usuario("", "", this, binding);
         binding.setLoginViewModel(usuario);
         binding.entrar.setEnabled(true);
+        try{
+        binding.txtAppVersion.setText("v" + getPackageManager().getPackageInfo(getPackageName(), 0).versionName);
+        } catch(PackageManager.NameNotFoundException ne) {
+            Log.e("CARGA_FOLIO_TAG", "Error al obtener la versión: " + ne.getMessage());
+        }
     }
 
     @Override

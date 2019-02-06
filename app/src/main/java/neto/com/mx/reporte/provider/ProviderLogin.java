@@ -21,8 +21,8 @@ public class ProviderLogin {
 
     String NAMESPACE = "http://servicio.rutas.movil.abasto.neto";
     String METHOD_NAME = "validaUsuario";
-    String URL_PRUEBAS = "https://www.servicios.tiendasneto.com/WSSIANMoviles/services/WSRutasMovil/";
-    //String URL_PRUEBAS = "http://10.81.12.46:7777/appWSSIANMovilesPAR/services/WSRutasMovil/"; //QA
+    //String URL_PRUEBAS = "https://www.servicios.tiendasneto.com/WSSIANMoviles/services/WSRutasMovil/";
+    String URL_PRUEBAS = "http://10.81.12.46:7777/appWSSIANMovilesPAR/services/WSRutasMovil/"; //QA
 
     private Context context;
 

@@ -26,9 +26,9 @@ public class ProviderDashboard {
     String NAMESPACE = "http://servicio.rutas.movil.abasto.neto";
     String METHOD_NAME = "obtieneVentasPorEmpleado2";
 
-    // String URL = "http://10.81.12.46:7777/appWSSIANMovilesPAR/services/WSRutasMovil/"; //QA
+     String URL = "http://10.81.12.46:7777/appWSSIANMovilesPAR/services/WSRutasMovil/"; //QA
     // String URL = "http://10.81.12.45:7777/WSSIANMoviles/services/WSRutasMovil/"; //DESA
-    String URL = "https://www.servicios.tiendasneto.com/WSSIANMoviles/services/WSRutasMovil/";
+    //String URL = "https://www.servicios.tiendasneto.com/WSSIANMoviles/services/WSRutasMovil/";
 
     private Context context;
 

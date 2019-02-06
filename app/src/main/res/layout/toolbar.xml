@@ -37,7 +37,16 @@
                     android:backgroundTint="@color/turquesa"
                     android:background="@drawable/flechaizqblanca" />
             </LinearLayout>
-
+            <neto.com.mx.reporte.utils.font.RobotoTextView
+                android:id="@+id/txtappversion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/blanco"
+                android:textSize="8dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginTop="0dp"
+                app:typeface="robotoLight" />
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="0dp"

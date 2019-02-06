@@ -2,6 +2,7 @@ package neto.com.mx.reporte.ui;
 
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -64,7 +66,11 @@ public class ActivityTiendas extends AppCompatActivity implements VentasHolder.L
         int width = displaymetrics.widthPixels;
 
         binding  = DataBindingUtil.setContentView(this, R.layout.activity_main);
-
+        try{
+            binding.header.txtappversion.setText("v" + getPackageManager().getPackageInfo(getPackageName(), 0).versionName);
+        } catch(PackageManager.NameNotFoundException ne) {
+            Log.e("CARGA_FOLIO_TAG", "Error al obtener la versión: " + ne.getMessage());
+        }
         if(width<500){
 
             binding.tacometro.getLayoutParams().height = 190;
