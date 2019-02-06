@@ -12,6 +12,7 @@ public class VentasResponse implements Serializable {
     private String tiendasConVentaGeneral;
     private String ubicacionId;
     private String vObjetivoGeneral;
+    private String vObjetivoTotal;
     private String vPerdidaGeneral;
     private String vRealGeneral;
     private ArrayList<Ventas> listaVentas;
@@ -71,6 +72,14 @@ public class VentasResponse implements Serializable {
     public void setvObjetivoGeneral(String vObjetivoGeneral) {
         this.vObjetivoGeneral = vObjetivoGeneral;
     }
+    public String getvObjetivoTotal() {
+        return vObjetivoTotal;
+    }
+
+    public void setvObjetivoTotal(String vObjetivoTotal) {
+        this.vObjetivoTotal = vObjetivoTotal;
+    }
+
 
     public String getvPerdidaGeneral() {
         return vPerdidaGeneral;

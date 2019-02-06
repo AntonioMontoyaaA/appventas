@@ -65,7 +65,14 @@ public class ActivityRegion extends AppCompatActivity implements VentasHolder.Li
         int width = displaymetrics.widthPixels;
 
         binding  = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        int height = displaymetrics.heightPixels;
 
+
+        if (height <= 1776) {
+            resizeRecycler(binding, 140, this);
+        } else if (height <= 1920) {
+            resizeRecycler(binding, 200, this);
+        }
         if(width<500){
 
             binding.tacometro.getLayoutParams().height = 190;
@@ -75,8 +82,9 @@ public class ActivityRegion extends AppCompatActivity implements VentasHolder.Li
             binding.tiendasVenta.setTextSize(16);
             binding.ventaPerdida.setTextSize(16);
             binding.robotoTextView.setTextSize(12);
+            binding.robotoTextViewTotal.setTextSize(12);
             binding.ventareal.setTextSize(12);
-            resizeRecycler(binding, 222, this);
+            resizeRecycler(binding, 200, this);
         }
 
 
@@ -403,6 +411,9 @@ public class ActivityRegion extends AppCompatActivity implements VentasHolder.Li
                     binding.ventaObjetivo.setText(String.valueOf("$"+ventasResponse.getvObjetivoGeneral()));
                     binding.total.setText(converter(Double.parseDouble(ventasResponse.getvRealGeneral())));
 
+                    String regionNombre = preferences.getString("regionNombre","");
+                    binding.lugar.setText("Región  " + regionNombre);
+
                     double real = Integer.valueOf(ventasResponse.getvRealGeneral());
                     double objetivo = Integer.valueOf(ventasResponse.getvObjetivoGeneral());
 
@@ -411,6 +422,17 @@ public class ActivityRegion extends AppCompatActivity implements VentasHolder.Li
                     StringBuilder stringBuilder = new StringBuilder();
                     stringBuilder.append(converter(Double.parseDouble(ventasResponse.getvObjetivoGeneral())));
                     stringBuilder.append(getString(R.string.mdp));
+
+                    banderaBoton = preferences.getInt("button", 0);
+                    if (banderaBoton == 1 || banderaBoton == 2) {
+                        binding.robotoTextViewTotal.setVisibility(View.VISIBLE);
+                        StringBuilder stringBuilderTotal = new StringBuilder();
+                        stringBuilderTotal.append(converter(Double.parseDouble(ventasResponse.getvObjetivoTotal())));
+                        stringBuilderTotal.append(getString(R.string.mdpTotal));
+                        binding.robotoTextViewTotal.setText(stringBuilderTotal);
+                    } else {
+                        binding.robotoTextViewTotal.setVisibility(View.GONE);
+                    }
 
                     binding.robotoTextView.setText(stringBuilder);
 
@@ -468,6 +490,7 @@ public class ActivityRegion extends AppCompatActivity implements VentasHolder.Li
 
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("zona", String.valueOf(model.getTiendaId()));
+        editor.putString("zonaNombre",model.getNombreTienda());
         editor.putInt("button",0);
 
         editor.apply();

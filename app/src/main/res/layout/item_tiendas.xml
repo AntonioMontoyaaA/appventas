@@ -171,12 +171,12 @@
                         android:orientation="horizontal">
                         <LinearLayout
                             android:orientation="vertical"
-                            android:layout_width="80dp"
+                            android:layout_width="70dp"
                             android:layout_height="wrap_content">
 
                             <neto.com.mx.reporte.utils.font.RobotoTextView
                                 android:layout_marginTop="4dp"
-                                android:layout_marginStart="4dp"
+                                android:layout_marginStart="2dp"
                                 android:layout_gravity="center"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -187,7 +187,7 @@
                             <neto.com.mx.reporte.utils.font.RobotoTextView
                                 android:text="@{ventas.converter(ventas.ventaReal)}"
                                 android:layout_marginTop="4dp"
-                                android:layout_marginStart="4dp"
+                                android:layout_marginStart="2dp"
                                 android:layout_gravity="center"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -206,24 +206,24 @@
                             <neto.com.mx.reporte.utils.font.RobotoTextView
                                 android:layout_gravity="center"
                                 android:layout_marginTop="4dp"
-                                android:layout_marginStart="8dp"
+                                android:layout_marginStart="2dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/presupuesto"
                                 android:textColor="@color/blanco"
                                 android:textSize="10dp"
-                                app:typeface="robotoBold" />
+                                app:typeface="robotoRegular" />
                             <neto.com.mx.reporte.utils.font.RobotoTextView
                                 android:text="@{ventas.converter(ventas.ventaObjetivo)}"
                                 android:layout_gravity="center"
                                 android:layout_marginTop="4dp"
-                                android:layout_marginStart="8dp"
+                                android:layout_marginStart="2dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/turquesa"
                                 android:textSize="10dp"
                                 tools:text="$18, 888, 888"
-                                app:typeface="robotoBold" />
+                                app:typeface="robotoRegular"/>
                         </LinearLayout>
 
                     </LinearLayout>

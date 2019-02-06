@@ -27,7 +27,8 @@
     <string name="ticket_promedio">TICKET PROMEDIO</string>
     <string name="venta_perdida">VENTA PERDIDA</string>
     <string name="zero">0</string>
-    <string name="mdp">\u0020mdp VENTA OBJETIVO</string>
+    <string name="mdp">\u0020 VENTA OBJETIVO</string>
+    <string name="mdpTotal">\u0020 VENTA OBJETIVO TOTAL</string>
 
 
     <!-- item tiendas -->

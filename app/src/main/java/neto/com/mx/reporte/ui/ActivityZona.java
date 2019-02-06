@@ -65,6 +65,14 @@ public class ActivityZona extends AppCompatActivity implements VentasHolder.List
 
         binding  = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
+        int height = displaymetrics.heightPixels;
+
+        if (height <= 1776) {
+            resizeRecycler(binding, 140, this);
+        } else if (height <= 1920) {
+            resizeRecycler(binding, 200, this);
+        }
+
         if(width<500){
             binding.tacometro.getLayoutParams().height = 190;
             binding.tacometro.getLayoutParams().width = 190;
@@ -73,9 +81,10 @@ public class ActivityZona extends AppCompatActivity implements VentasHolder.List
             binding.tiendasVenta.setTextSize(16);
             binding.ventaPerdida.setTextSize(16);
             binding.robotoTextView.setTextSize(12);
+            binding.robotoTextViewTotal.setTextSize(12);
             binding.ventaObjetivo.setTextSize(12);
             binding.ventareal.setTextSize(12);
-            resizeRecycler(binding, 222, this);
+            resizeRecycler(binding, 200, this);
         }
 
 
@@ -223,7 +232,7 @@ public class ActivityZona extends AppCompatActivity implements VentasHolder.List
         binding.mes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editor.putInt("button", 0);
+                editor.putInt("button", 2);
                 editor.apply();
                 binding.dia.setBackground(getDrawable(R.drawable.square_left));
                 binding.dia.setTextColor(ContextCompat.getColor(ActivityZona.this,R.color.turquesa));
@@ -397,6 +406,9 @@ public class ActivityZona extends AppCompatActivity implements VentasHolder.List
                     binding.ventaObjetivo.setText(String.valueOf("$"+ventasResponse.getvObjetivoGeneral()));
                     binding.total.setText(converter(Double.parseDouble(ventasResponse.getvRealGeneral())));
 
+                    String zonaNombre = preferences.getString("zonaNombre","");
+                    binding.lugar.setText("Zona  " + zonaNombre);
+
                     double real = Integer.valueOf(ventasResponse.getvRealGeneral());
                     double objetivo = Integer.valueOf(ventasResponse.getvObjetivoGeneral());
 
@@ -405,6 +417,17 @@ public class ActivityZona extends AppCompatActivity implements VentasHolder.List
                     StringBuilder stringBuilder = new StringBuilder();
                     stringBuilder.append(converter(Double.parseDouble(ventasResponse.getvObjetivoGeneral())));
                     stringBuilder.append(getString(R.string.mdp));
+
+                    banderaBoton = preferences.getInt("button", 0);
+                    if (banderaBoton == 1 || banderaBoton == 2) {
+                        binding.robotoTextViewTotal.setVisibility(View.VISIBLE);
+                        StringBuilder stringBuilderTotal = new StringBuilder();
+                        stringBuilderTotal.append(converter(Double.parseDouble(ventasResponse.getvObjetivoTotal())));
+                        stringBuilderTotal.append(getString(R.string.mdpTotal));
+                        binding.robotoTextViewTotal.setText(stringBuilderTotal);
+                    } else {
+                        binding.robotoTextViewTotal.setVisibility(View.GONE);
+                    }
 
                     binding.robotoTextView.setText(stringBuilder);
 

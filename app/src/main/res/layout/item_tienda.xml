@@ -22,7 +22,8 @@
         android:layout_marginBottom="4dp"
         android:onClick="@{view -> listener.onTiendasSelect(tienda)}"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:typeface="robotoRegular">
 
 
         <neto.com.mx.reporte.utils.font.RobotoTextView

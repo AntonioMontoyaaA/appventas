@@ -194,6 +194,7 @@ public class Util {
                 SoapPrimitive tiendasConVentaGeneral = (SoapPrimitive) servicio.getProperty("tiendasConVentaGeneral");
                 SoapPrimitive ubicacionId = (SoapPrimitive) servicio.getProperty("ubicacionId");
                 SoapPrimitive vObjetivoGeneral = (SoapPrimitive) servicio.getProperty("vObjetivoGeneral");
+                SoapPrimitive vObjetivoTotal = (SoapPrimitive) servicio.getProperty("vObjetivoTotal");
                 SoapPrimitive vPerdidaGeneral = (SoapPrimitive) servicio.getProperty("vPerdidaGeneral");
                 SoapPrimitive vRealGeneral = (SoapPrimitive) servicio.getProperty("vRealGeneral");
 
@@ -204,6 +205,7 @@ public class Util {
                 item.setTiendasConVentaGeneral((String) tiendasConVentaGeneral.getValue());
                 item.setUbicacionId((String) ubicacionId.getValue());
                 item.setvObjetivoGeneral((String) vObjetivoGeneral.getValue());
+                item.setvObjetivoTotal((String) vObjetivoTotal.getValue());
                 item.setvPerdidaGeneral((String) vPerdidaGeneral.getValue());
                 item.setvRealGeneral((String) vRealGeneral.getValue());
 

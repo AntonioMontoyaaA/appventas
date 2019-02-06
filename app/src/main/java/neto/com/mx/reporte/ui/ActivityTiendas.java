@@ -52,6 +52,7 @@ public class ActivityTiendas extends AppCompatActivity implements VentasHolder.L
     int banderaBoton = 0;
     SharedPreferences.Editor editor;
     int day, month, year;
+    SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +82,7 @@ public class ActivityTiendas extends AppCompatActivity implements VentasHolder.L
         setSupportActionBar(binding.header.toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        SharedPreferences preferences = getSharedPreferences("datosReporte", MODE_PRIVATE);
+        preferences = getSharedPreferences("datosReporte", MODE_PRIVATE);
         final String usuario = preferences.getString("usuario","");
         region = preferences.getString("region","");
         zona = preferences.getString("zona","");
@@ -388,53 +389,74 @@ public class ActivityTiendas extends AppCompatActivity implements VentasHolder.L
         ProviderDashboard.getInstance(this).getVentas(consulta, new ProviderDashboard.ConsultaVentas() {
             @Override
             public void resolve(VentasResponse ventasResponse) {
-                if(ventasResponse!=null){
-                    Util.loadingProgress(progressDialog, 1);
-                    binding.tiendasVenta.setText(ventasResponse.getTiendasConVentaGeneral()+"");
-                    binding.tiendasPromedio.setText(converter(Double.parseDouble(ventasResponse.getTickPromGeneral())));
-                    binding.ventaPerdida.setText(converter(Double.parseDouble(ventasResponse.getvPerdidaGeneral())));
-                    binding.ventaObjetivo.setText(String.valueOf("$"+ventasResponse.getvObjetivoGeneral()));
-                    binding.total.setText(converter(Double.parseDouble(ventasResponse.getvRealGeneral())));
+                try {
+                    if (ventasResponse != null) {
+                        Util.loadingProgress(progressDialog, 1);
+                        binding.tiendasVenta.setText(ventasResponse.getTiendasConVentaGeneral() + "");
+                        binding.tiendasPromedio.setText(converter(Double.parseDouble(ventasResponse.getTickPromGeneral())));
+                        binding.ventaPerdida.setText(converter(Double.parseDouble(ventasResponse.getvPerdidaGeneral())));
+                        binding.ventaObjetivo.setText(String.valueOf("$" + ventasResponse.getvObjetivoGeneral()));
+                        binding.total.setText(converter(Double.parseDouble(ventasResponse.getvRealGeneral())));
 
-                    double real = Integer.valueOf(ventasResponse.getvRealGeneral());
-                    double objetivo = Integer.valueOf(ventasResponse.getvObjetivoGeneral());
 
-                    double operacion = real/objetivo*100;
+                        binding.lugar.setText("Tienda " + ventasResponse.getListaVentas().get(0).getNombreTienda());
 
-                    StringBuilder stringBuilder = new StringBuilder();
-                    stringBuilder.append(converter(Double.parseDouble(ventasResponse.getvObjetivoGeneral())));
-                    stringBuilder.append(getString(R.string.mdp));
+                        double real = Integer.valueOf(ventasResponse.getvRealGeneral());
+                        double objetivo = Integer.valueOf(ventasResponse.getvObjetivoGeneral());
 
-                    binding.robotoTextView.setText(stringBuilder);
+                        double operacion = real / objetivo * 100;
 
-                    binding.tacometro.setTextEnabled(false);
-                    binding.tacometro.setInterpolator(new AccelerateDecelerateInterpolator());
-                    binding.tacometro.setStartAngle(270);
-                    binding.tacometro.setProgressWithAnimation((float) operacion, 2000);
+                        StringBuilder stringBuilder = new StringBuilder();
+                        stringBuilder.append(converter(Double.parseDouble(ventasResponse.getvObjetivoGeneral())));
+                        stringBuilder.append(getString(R.string.mdp));
 
-                    binding.tacometro.addAnimationListener(new ProgressAnimationListener() {
-                        @Override
-                        public void onValueChanged(float value) {
-
+                        banderaBoton = preferences.getInt("button", 0);
+                        if (banderaBoton == 1 || banderaBoton == 2) {
+                            binding.robotoTextViewTotal.setVisibility(View.VISIBLE);
+                            StringBuilder stringBuilderTotal = new StringBuilder();
+                            stringBuilderTotal.append(converter(Double.parseDouble(ventasResponse.getvObjetivoTotal())));
+                            stringBuilderTotal.append(getString(R.string.mdpTotal));
+                            binding.robotoTextViewTotal.setText(stringBuilderTotal);
+                        } else {
+                            binding.robotoTextViewTotal.setVisibility(View.GONE);
                         }
 
-                        @Override
-                        public void onAnimationEnd() { }
-                    });
+                        binding.robotoTextView.setText(stringBuilder);
+
+                        binding.tacometro.setTextEnabled(false);
+                        binding.tacometro.setInterpolator(new AccelerateDecelerateInterpolator());
+                        binding.tacometro.setStartAngle(270);
+                        binding.tacometro.setProgressWithAnimation((float) operacion, 2000);
+
+                        binding.tacometro.addAnimationListener(new ProgressAnimationListener() {
+                            @Override
+                            public void onValueChanged(float value) {
+
+                            }
+
+                            @Override
+                            public void onAnimationEnd() {
+                            }
+                        });
 
 
-                    adapter = new AdapterVentas(getApplicationContext(), ALPHABETICAL_COMPARATOR, ActivityTiendas.this);
-                    binding.recyclerview.setLayoutManager(new LinearLayoutManager(ActivityTiendas.this));
-                    adapter.edit().replaceAll(ventasResponse.getListaVentas()).commit();
-                    adapter.notifyItemRangeRemoved(0, adapter.getItemCount());
-                    binding.recyclerview.setAdapter(adapter);
+                        adapter = new AdapterVentas(getApplicationContext(), ALPHABETICAL_COMPARATOR, ActivityTiendas.this);
+                        binding.recyclerview.setLayoutManager(new LinearLayoutManager(ActivityTiendas.this));
+                        adapter.edit().replaceAll(ventasResponse.getListaVentas()).commit();
+                        adapter.notifyItemRangeRemoved(0, adapter.getItemCount());
+                        binding.recyclerview.setAdapter(adapter);
 
 
-                }else{
-                    //Toast.makeText(getApplicationContext(), "Algo sucedio, intenta nuevamente", Toast.LENGTH_SHORT).show();
-                    Util.loadingProgress(progressDialog, 1);
+                    } else {
+                        //Toast.makeText(getApplicationContext(), "Algo sucedio, intenta nuevamente", Toast.LENGTH_SHORT).show();
+                        Util.loadingProgress(progressDialog, 1);
+                        Aceptar a = new Aceptar();
+                        a.setMensaje("Necesitas estar conectado a internet");
+                        a.show(getSupportFragmentManager(), "child");
+                    }
+                }catch (Exception e){
                     Aceptar a = new Aceptar();
-                    a.setMensaje("Necesitas estar conectado a internet");
+                    a.setMensaje("No hay datos");
                     a.show(getSupportFragmentManager(), "child");
                 }
             }

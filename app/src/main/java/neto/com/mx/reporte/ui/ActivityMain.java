@@ -71,8 +71,9 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
-        if (height <= 1920) {
-            resizeRecycler(binding, 210, this);
+         if (height <= 1776) {
+            resizeRecycler(binding, 140, this);
+        } else if (height <= 1920) {resizeRecycler(binding, 200, this);
         }
         if (width < 500) {
             binding.tacometro.getLayoutParams().height = 190;
@@ -82,8 +83,9 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
             binding.tiendasVenta.setTextSize(16);
             binding.ventaPerdida.setTextSize(16);
             binding.robotoTextView.setTextSize(12);
+            binding.robotoTextViewTotal.setTextSize(12);
             binding.ventareal.setTextSize(12);
-            resizeRecycler(binding, 222, this);
+            resizeRecycler(binding, 200, this);
         }
 
 
@@ -432,6 +434,15 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
 
                         binding.robotoTextView.setText(stringBuilder);
 
+                        if (banderaBoton == 1 || banderaBoton == 2) {
+                            binding.robotoTextViewTotal.setVisibility(View.VISIBLE);
+                            StringBuilder stringBuilderTotal = new StringBuilder();
+                            stringBuilderTotal.append(converter(Double.parseDouble(ventasResponse.getvObjetivoTotal())));
+                            stringBuilderTotal.append(getString(R.string.mdpTotal));
+                            binding.robotoTextViewTotal.setText(stringBuilderTotal);
+                        } else {
+                            binding.robotoTextViewTotal.setVisibility(View.GONE);
+                        }
                         binding.tacometro.setTextEnabled(false);
                         binding.tacometro.setInterpolator(new AccelerateDecelerateInterpolator());
                         binding.tacometro.setStartAngle(270);
@@ -491,6 +502,7 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
 
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("region", String.valueOf(model.getTiendaId()));
+        editor.putString("regionNombre",model.getNombreTienda() );
         editor.putInt("button", 0);
         editor.apply();
 
@@ -509,14 +521,14 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
             binding.semana.setTextColor(ContextCompat.getColor(ActivityMain.this, R.color.turquesa));
             binding.mes.setBackground(getDrawable(R.drawable.square_right));
             binding.mes.setTextColor(ContextCompat.getColor(ActivityMain.this, R.color.turquesa));
-        }else if( banderaBoton == 1){
+        } else if (banderaBoton == 1) {
             binding.dia.setBackground(getDrawable(R.drawable.square_left));
             binding.dia.setTextColor(ContextCompat.getColor(ActivityMain.this, R.color.turquesa));
             binding.semana.setBackground(getDrawable(R.drawable.fill_center));
             binding.semana.setTextColor(ContextCompat.getColor(ActivityMain.this, R.color.colorPrimary));
             binding.mes.setBackground(getDrawable(R.drawable.square_right));
             binding.mes.setTextColor(ContextCompat.getColor(ActivityMain.this, R.color.turquesa));
-        }else if(banderaBoton == 2){
+        } else if (banderaBoton == 2) {
             binding.dia.setBackground(getDrawable(R.drawable.square_left));
             binding.dia.setTextColor(ContextCompat.getColor(ActivityMain.this, R.color.turquesa));
             binding.semana.setBackground(getDrawable(R.drawable.square_center));

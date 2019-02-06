@@ -96,19 +96,27 @@ public class FragmentCalendario extends DialogFragment {
                 Intent intent;
                 switch (type){
                     case 0:
+                        getDialog().dismiss();
+                        getActivity().finish();
                         intent = new Intent(getContext(), ActivityMain.class);
                         startActivity(intent);
                         break;
 
                     case 1:
+                        getDialog().dismiss();
+                        getActivity().finish();
                         intent = new Intent(getContext(), ActivityRegion.class);
                         startActivity(intent);
                         break;
                     case 2:
+                        getDialog().dismiss();
+                        getActivity().finish();
                         intent = new Intent(getContext(), ActivityZona.class);
                         startActivity(intent);
                         break;
                     case 3:
+                        getDialog().dismiss();
+                        getActivity().finish();
                         intent = new Intent(getContext(), ActivityTiendas.class);
                         startActivity(intent);
                         break;
