@@ -431,7 +431,7 @@ public class ActivityRegion extends AppCompatActivity implements VentasHolder.Li
 
                     banderaBoton = preferences.getInt("button", 0);
                     if (banderaBoton == 1 || banderaBoton == 2) {
-                        binding.robotoTextViewTotal.setVisibility(View.VISIBLE);
+                        //binding.robotoTextViewTotal.setVisibility(View.VISIBLE);
                         StringBuilder stringBuilderTotal = new StringBuilder();
                         stringBuilderTotal.append(converter(Double.parseDouble(ventasResponse.getvObjetivoTotal())));
                         stringBuilderTotal.append(getString(R.string.mdpTotal));
