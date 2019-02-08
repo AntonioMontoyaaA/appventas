@@ -65,13 +65,13 @@ public class ActivityTiendas extends AppCompatActivity implements VentasHolder.L
         getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
         int width = displaymetrics.widthPixels;
 
-        binding  = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        try{
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        try {
             binding.header.txtappversion.setText("v" + getPackageManager().getPackageInfo(getPackageName(), 0).versionName);
-        } catch(PackageManager.NameNotFoundException ne) {
+        } catch (PackageManager.NameNotFoundException ne) {
             Log.e("CARGA_FOLIO_TAG", "Error al obtener la versión: " + ne.getMessage());
         }
-        if(width<500){
+        if (width < 500) {
 
             binding.tacometro.getLayoutParams().height = 190;
             binding.tacometro.getLayoutParams().width = 190;
@@ -89,16 +89,16 @@ public class ActivityTiendas extends AppCompatActivity implements VentasHolder.L
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         preferences = getSharedPreferences("datosReporte", MODE_PRIVATE);
-        final String usuario = preferences.getString("usuario","");
-        region = preferences.getString("region","");
-        zona = preferences.getString("zona","");
-        tienda = preferences.getString("tienda","");
+        final String usuario = preferences.getString("usuario", "");
+        region = preferences.getString("region", "");
+        zona = preferences.getString("zona", "");
+        tienda = preferences.getString("tienda", "");
         editor = preferences.edit();
 
         final String fechaSeleccionada = preferences.getString("fechaSeleccionada", "");
-        day = preferences.getInt("day",0);
-        month = preferences.getInt("month",0);
-        year = preferences.getInt("year",0);
+        day = preferences.getInt("day", 0);
+        month = preferences.getInt("month", 0);
+        year = preferences.getInt("year", 0);
 
         date = new Date();
         sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -115,7 +115,7 @@ public class ActivityTiendas extends AppCompatActivity implements VentasHolder.L
         )};
 
         binding.dia.setBackground(getDrawable(R.drawable.fill_left));
-        binding.dia.setTextColor(ContextCompat.getColor(ActivityTiendas.this,R.color.colorPrimary));
+        binding.dia.setTextColor(ContextCompat.getColor(ActivityTiendas.this, R.color.colorPrimary));
 
         binding.dia.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,17 +123,17 @@ public class ActivityTiendas extends AppCompatActivity implements VentasHolder.L
                 editor.putInt("button", 0);
                 editor.apply();
                 binding.dia.setBackground(getDrawable(R.drawable.fill_left));
-                binding.dia.setTextColor(ContextCompat.getColor(ActivityTiendas.this,R.color.colorPrimary));
+                binding.dia.setTextColor(ContextCompat.getColor(ActivityTiendas.this, R.color.colorPrimary));
                 binding.semana.setBackground(getDrawable(R.drawable.square_center));
-                binding.semana.setTextColor(ContextCompat.getColor(ActivityTiendas.this,R.color.turquesa));
+                binding.semana.setTextColor(ContextCompat.getColor(ActivityTiendas.this, R.color.turquesa));
                 binding.mes.setBackground(getDrawable(R.drawable.square_right));
-                binding.mes.setTextColor(ContextCompat.getColor(ActivityTiendas.this,R.color.turquesa));
+                binding.mes.setTextColor(ContextCompat.getColor(ActivityTiendas.this, R.color.turquesa));
 
                 date = new Date();
                 fechaInicial = sdf.format(date);
                 fechaFinal = sdf.format(date);
 
-                if(fechaSeleccionada.length()>0){
+                if (fechaSeleccionada.length() > 0) {
                     fechaInicial = fechaSeleccionada;
                     fechaFinal = fechaSeleccionada;
                     consulta[0] = new Consulta(
@@ -145,7 +145,7 @@ public class ActivityTiendas extends AppCompatActivity implements VentasHolder.L
                             fechaFinal
                     );
                     obtenerVentas(binding, consulta[0]);
-                }else{
+                } else {
                     Consulta consulta = new Consulta(
                             usuario,
                             region,
@@ -168,11 +168,11 @@ public class ActivityTiendas extends AppCompatActivity implements VentasHolder.L
                 editor.putInt("button", 1);
                 editor.apply();
                 binding.dia.setBackground(getDrawable(R.drawable.square_left));
-                binding.dia.setTextColor(ContextCompat.getColor(ActivityTiendas.this,R.color.turquesa));
+                binding.dia.setTextColor(ContextCompat.getColor(ActivityTiendas.this, R.color.turquesa));
                 binding.semana.setBackground(getDrawable(R.drawable.fill_center));
-                binding.semana.setTextColor(ContextCompat.getColor(ActivityTiendas.this,R.color.colorPrimary));
+                binding.semana.setTextColor(ContextCompat.getColor(ActivityTiendas.this, R.color.colorPrimary));
                 binding.mes.setBackground(getDrawable(R.drawable.square_right));
-                binding.mes.setTextColor(ContextCompat.getColor(ActivityTiendas.this,R.color.turquesa));
+                binding.mes.setTextColor(ContextCompat.getColor(ActivityTiendas.this, R.color.turquesa));
 
                 c = Calendar.getInstance();
                 c.setFirstDayOfWeek(Calendar.MONDAY);
@@ -181,12 +181,35 @@ public class ActivityTiendas extends AppCompatActivity implements VentasHolder.L
                 fechaInicial = sdf.format(c.getTime());
                 fechaFinal = sdf.format(date);
 
-                if(fechaSeleccionada.length()>0){
+                if (fechaSeleccionada.length() > 0) {
                     c = Calendar.getInstance();
-                    c.set(year, month, day);
                     c.setFirstDayOfWeek(Calendar.MONDAY);
-                    c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-
+                    c.set(year, month, day);
+                    //c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+                    int diaSemana = c.get(Calendar.DAY_OF_WEEK);
+                    for (int i = 0; i < 7; i++) {
+                        if (diaSemana != Calendar.MONDAY) {
+                            if (day > 2) {
+                                day--;
+                                c.set(year, month, day);
+                                diaSemana = c.get(Calendar.DAY_OF_WEEK);
+                            } else {
+                                if (month > 0) {
+                                    month--;
+                                    c.set(year, month, 1);
+                                    day = c.getActualMaximum(Calendar.DAY_OF_MONTH);
+                                    c.set(year, month, day);
+                                } else {
+                                    month = 12;
+                                    year--;
+                                    c.set(year, month, 31);
+                                }
+                                diaSemana = c.get(Calendar.DAY_OF_WEEK);
+                            }
+                        } else {
+                            break;
+                        }
+                    }
                     date = new Date();
                     fechaInicial = sdf.format(c.getTime());
                     fechaFinal = fechaSeleccionada;
@@ -202,7 +225,7 @@ public class ActivityTiendas extends AppCompatActivity implements VentasHolder.L
 
                     obtenerVentas(binding, consulta);
 
-                }else{
+                } else {
                     Consulta consulta = new Consulta(
                             usuario,
                             region,
@@ -233,11 +256,11 @@ public class ActivityTiendas extends AppCompatActivity implements VentasHolder.L
                 editor.putInt("button", 2);
                 editor.apply();
                 binding.dia.setBackground(getDrawable(R.drawable.square_left));
-                binding.dia.setTextColor(ContextCompat.getColor(ActivityTiendas.this,R.color.turquesa));
+                binding.dia.setTextColor(ContextCompat.getColor(ActivityTiendas.this, R.color.turquesa));
                 binding.semana.setBackground(getDrawable(R.drawable.square_center));
-                binding.semana.setTextColor(ContextCompat.getColor(ActivityTiendas.this,R.color.turquesa));
+                binding.semana.setTextColor(ContextCompat.getColor(ActivityTiendas.this, R.color.turquesa));
                 binding.mes.setBackground(getDrawable(R.drawable.fill_right));
-                binding.mes.setTextColor(ContextCompat.getColor(ActivityTiendas.this,R.color.colorPrimary));
+                binding.mes.setTextColor(ContextCompat.getColor(ActivityTiendas.this, R.color.colorPrimary));
 
                 Calendar c = Calendar.getInstance();   // this takes current date
                 c.set(Calendar.DAY_OF_MONTH, 1);
@@ -246,7 +269,7 @@ public class ActivityTiendas extends AppCompatActivity implements VentasHolder.L
                 fechaInicial = sdf.format(c.getTime());
                 fechaFinal = sdf.format(date);
 
-                if(fechaSeleccionada.length()>0){
+                if (fechaSeleccionada.length() > 0) {
                     c = Calendar.getInstance();
                     c.set(year, month, day);
                     c.set(Calendar.DAY_OF_MONTH, 1);
@@ -265,7 +288,7 @@ public class ActivityTiendas extends AppCompatActivity implements VentasHolder.L
                             fechaFinal
                     );
                     obtenerVentas(binding, consulta[0]);
-                }else{
+                } else {
                     Consulta consulta = new Consulta(
                             usuario,
                             region,
@@ -285,7 +308,7 @@ public class ActivityTiendas extends AppCompatActivity implements VentasHolder.L
             @Override
             public void onClick(View v) {
                 FragmentTiendas a = new FragmentTiendas();
-                a.show(getSupportFragmentManager(),"child");
+                a.show(getSupportFragmentManager(), "child");
             }
         });
 
@@ -296,21 +319,21 @@ public class ActivityTiendas extends AppCompatActivity implements VentasHolder.L
                 Bundle arg = new Bundle();
                 arg.putInt("type", 3);
                 a.setArguments(arg);
-                a.show(getSupportFragmentManager(),"child");
+                a.show(getSupportFragmentManager(), "child");
             }
         });
 
-        if(fechaSeleccionada.length()>0){
+        if (fechaSeleccionada.length() > 0) {
             banderaBoton = preferences.getInt("button", 0);
 
-            if(banderaBoton==0){
+            if (banderaBoton == 0) {
 
                 binding.dia.setBackground(getDrawable(R.drawable.fill_left));
-                binding.dia.setTextColor(ContextCompat.getColor(ActivityTiendas.this,R.color.colorPrimary));
+                binding.dia.setTextColor(ContextCompat.getColor(ActivityTiendas.this, R.color.colorPrimary));
                 binding.semana.setBackground(getDrawable(R.drawable.square_center));
-                binding.semana.setTextColor(ContextCompat.getColor(ActivityTiendas.this,R.color.turquesa));
+                binding.semana.setTextColor(ContextCompat.getColor(ActivityTiendas.this, R.color.turquesa));
                 binding.mes.setBackground(getDrawable(R.drawable.square_right));
-                binding.mes.setTextColor(ContextCompat.getColor(ActivityTiendas.this,R.color.turquesa));
+                binding.mes.setTextColor(ContextCompat.getColor(ActivityTiendas.this, R.color.turquesa));
                 fechaInicial = fechaSeleccionada;
                 fechaFinal = fechaSeleccionada;
 
@@ -324,17 +347,41 @@ public class ActivityTiendas extends AppCompatActivity implements VentasHolder.L
                 );
                 obtenerVentas(binding, consulta[0]);
                 binding.rangoFechas.setText("Consulta al día: " + fechaInicial);
-            }else if(banderaBoton==1){
+            } else if (banderaBoton == 1) {
                 binding.dia.setBackground(getDrawable(R.drawable.square_left));
-                binding.dia.setTextColor(ContextCompat.getColor(ActivityTiendas.this,R.color.turquesa));
+                binding.dia.setTextColor(ContextCompat.getColor(ActivityTiendas.this, R.color.turquesa));
                 binding.semana.setBackground(getDrawable(R.drawable.fill_center));
-                binding.semana.setTextColor(ContextCompat.getColor(ActivityTiendas.this,R.color.colorPrimary));
+                binding.semana.setTextColor(ContextCompat.getColor(ActivityTiendas.this, R.color.colorPrimary));
                 binding.mes.setBackground(getDrawable(R.drawable.square_right));
-                binding.mes.setTextColor(ContextCompat.getColor(ActivityTiendas.this,R.color.turquesa));
+                binding.mes.setTextColor(ContextCompat.getColor(ActivityTiendas.this, R.color.turquesa));
                 c = Calendar.getInstance();
-                c.set(year, month, day);
                 c.setFirstDayOfWeek(Calendar.MONDAY);
-                c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+                c.set(year, month, day);
+                //c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+                int diaSemana = c.get(Calendar.DAY_OF_WEEK);
+                for (int i = 0; i < 7; i++) {
+                    if (diaSemana != Calendar.MONDAY) {
+                        if (day > 2) {
+                            day--;
+                            c.set(year, month, day);
+                            diaSemana = c.get(Calendar.DAY_OF_WEEK);
+                        } else {
+                            if (month > 0) {
+                                month--;
+                                c.set(year, month, 1);
+                                day = c.getActualMaximum(Calendar.DAY_OF_MONTH);
+                                c.set(year, month, day);
+                            } else {
+                                month = 12;
+                                year--;
+                                c.set(year, month, 31);
+                            }
+                            diaSemana = c.get(Calendar.DAY_OF_WEEK);
+                        }
+                    } else {
+                        break;
+                    }
+                }
                 date = new Date();
                 fechaInicial = sdf.format(c.getTime());
                 fechaFinal = fechaSeleccionada;
@@ -342,20 +389,20 @@ public class ActivityTiendas extends AppCompatActivity implements VentasHolder.L
                 consulta[0] = new Consulta(
                         usuario,
                         region,
-                        zona    ,
+                        zona,
                         tienda,
                         fechaInicial,
                         fechaFinal
                 );
                 obtenerVentas(binding, consulta[0]);
                 binding.rangoFechas.setText("Consulta del " + fechaInicial + " al " + fechaFinal);
-            }else if(banderaBoton==2){
+            } else if (banderaBoton == 2) {
                 binding.dia.setBackground(getDrawable(R.drawable.square_left));
-                binding.dia.setTextColor(ContextCompat.getColor(ActivityTiendas.this,R.color.turquesa));
+                binding.dia.setTextColor(ContextCompat.getColor(ActivityTiendas.this, R.color.turquesa));
                 binding.semana.setBackground(getDrawable(R.drawable.square_center));
-                binding.semana.setTextColor(ContextCompat.getColor(ActivityTiendas.this,R.color.turquesa));
+                binding.semana.setTextColor(ContextCompat.getColor(ActivityTiendas.this, R.color.turquesa));
                 binding.mes.setBackground(getDrawable(R.drawable.fill_right));
-                binding.mes.setTextColor(ContextCompat.getColor(ActivityTiendas.this,R.color.colorPrimary));
+                binding.mes.setTextColor(ContextCompat.getColor(ActivityTiendas.this, R.color.colorPrimary));
                 c = Calendar.getInstance();
                 c.set(year, month, day);
                 c.set(Calendar.DAY_OF_MONTH, 1);
@@ -367,7 +414,7 @@ public class ActivityTiendas extends AppCompatActivity implements VentasHolder.L
                 consulta[0] = new Consulta(
                         usuario,
                         region,
-                        zona    ,
+                        zona,
                         tienda,
                         fechaInicial,
                         fechaFinal
@@ -375,21 +422,21 @@ public class ActivityTiendas extends AppCompatActivity implements VentasHolder.L
                 obtenerVentas(binding, consulta[0]);
                 binding.rangoFechas.setText("Consulta del " + fechaInicial + " al " + fechaFinal);
             }
-        }else{
+        } else {
             obtenerVentas(binding, consulta[0]);
             binding.rangoFechas.setText("Consulta al día: " + fechaInicial);
         }
     }
 
-    public String converter(double conver){
+    public String converter(double conver) {
         DecimalFormat formatter = new DecimalFormat("#,###");
-        return "$"+formatter.format(conver);
+        return "$" + formatter.format(conver);
     }
 
     ProgressDialog progressDialog;
     AdapterVentas adapter;
 
-    public void obtenerVentas(final ActivityMainBinding binding, Consulta consulta){
+    public void obtenerVentas(final ActivityMainBinding binding, Consulta consulta) {
         progressDialog = new ProgressDialog(ActivityTiendas.this);
         Util.loadingProgress(progressDialog, 0);
         ProviderDashboard.getInstance(this).getVentas(consulta, new ProviderDashboard.ConsultaVentas() {
@@ -405,7 +452,7 @@ public class ActivityTiendas extends AppCompatActivity implements VentasHolder.L
                         binding.total.setText(converter(Double.parseDouble(ventasResponse.getvRealGeneral())));
 
 
-                        binding.lugar.setText("Tienda " + ventasResponse.getListaVentas().get(0).getNombreTienda());
+                        binding.lugar.setText("Tienda \n" + ventasResponse.getListaVentas().get(0).getNombreTienda());
 
                         double real = Integer.valueOf(ventasResponse.getvRealGeneral());
                         double objetivo = Integer.valueOf(ventasResponse.getvObjetivoGeneral());
@@ -460,7 +507,7 @@ public class ActivityTiendas extends AppCompatActivity implements VentasHolder.L
                         a.setMensaje("Necesitas estar conectado a internet");
                         a.show(getSupportFragmentManager(), "child");
                     }
-                }catch (Exception e){
+                } catch (Exception e) {
                     Aceptar a = new Aceptar();
                     a.setMensaje("No hay datos");
                     a.show(getSupportFragmentManager(), "child");
@@ -485,7 +532,6 @@ public class ActivityTiendas extends AppCompatActivity implements VentasHolder.L
 
     @Override
     public void onProcesoSelect(Ventas model) {
-
 
 
     }

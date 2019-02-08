@@ -48,69 +48,21 @@ public class FragmentTiendas extends DialogFragment implements TiendasHolder.Lis
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_tiendas,container,false);
-
-        preferences = getContext().getSharedPreferences("datosReporte", Context.MODE_PRIVATE);
-        String usuario = preferences.getString("usuario", "");
-
-        adapter = new AdapterTiendas(getContext(), ALPHABETICAL_COMPARATOR, this);
-        binding.recyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
-        obtenerTiendas(usuario);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_tiendas, container, false);
         View view = binding.getRoot();
-
-        binding.buscar.addTextChangedListener(new TextWatcher() {
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-            }
-
-            @SuppressLint("DefaultLocale")
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if(listaTiendas!=null){
-                    String texto = binding.buscar.getText().toString();
-                    List<Tienda> listaTemporal = new ArrayList<>();
-
-                    binding.recyclerview.removeAllViews();
-                    adapter.edit().removeAll().commit();
-                    if (texto.equals("")) {
-                        adapter.edit().replaceAll(listaTiendas).commit();
-                        adapter.notifyItemRangeRemoved(0, adapter.getItemCount());
-                    } else {
-                        for(Tienda memoria : listaTiendas) {
-                            if(memoria.getNombreTienda().toLowerCase().contains(texto.toLowerCase())) {
-                                listaTemporal.add(memoria);
-                            }
-                        }
-                        adapter.edit().replaceAll(listaTemporal).commit();
-                        adapter.notifyItemRangeRemoved(0, adapter.getItemCount());
-                    }
-                }
-            }
-        });
-
-
         return view;
     }
 
     ProgressDialog progressDialog;
 
-    public void obtenerTiendas(String usuario){
+    public void obtenerTiendas(String usuario) {
         progressDialog = new ProgressDialog(getContext());
         Util.loadingProgress(progressDialog, 0);
         ProviderTiendas.getInstance(getContext()).getVentas(usuario, new ProviderTiendas.ConsultaTiendas() {
             @Override
             public void resolve(Tiendas tiendas) {
-                if(tiendas!=null){
+                if (tiendas != null) {
                     Util.loadingProgress(progressDialog, 1);
                     listaTiendas = tiendas.getTiendas();
                     adapter.edit().replaceAll(tiendas.getTiendas()).commit();
@@ -118,7 +70,7 @@ public class FragmentTiendas extends DialogFragment implements TiendasHolder.Lis
                     binding.recyclerview.setAdapter(adapter);
                     binding.view.setVisibility(View.VISIBLE);
 
-                }else{
+                } else {
                     dismiss();
                     Util.loadingProgress(progressDialog, 1);
                 }
@@ -145,6 +97,54 @@ public class FragmentTiendas extends DialogFragment implements TiendasHolder.Lis
 //        Window window = getDialog().getWindow();
 //        window.setLayout(666, 160);
 //        window.setGravity(Gravity.CENTER);
+        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+
+        preferences = getContext().getSharedPreferences("datosReporte", Context.MODE_PRIVATE);
+        String usuario = preferences.getString("usuario", "");
+
+        adapter = new AdapterTiendas(getContext(), ALPHABETICAL_COMPARATOR, this);
+        binding.recyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
+        obtenerTiendas(usuario);
+
+
+        binding.buscar.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before,
+                                      int count) {
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+            }
+
+            @SuppressLint("DefaultLocale")
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (listaTiendas != null) {
+                    String texto = binding.buscar.getText().toString();
+                    List<Tienda> listaTemporal = new ArrayList<>();
+
+                    binding.recyclerview.removeAllViews();
+                    adapter.edit().removeAll().commit();
+                    if (texto.equals("")) {
+                        adapter.edit().replaceAll(listaTiendas).commit();
+                        adapter.notifyItemRangeRemoved(0, adapter.getItemCount());
+                    } else {
+                        for (Tienda memoria : listaTiendas) {
+                            if (memoria.getNombreTienda().toLowerCase().contains(texto.toLowerCase())) {
+                                listaTemporal.add(memoria);
+                            }
+                        }
+                        adapter.edit().replaceAll(listaTemporal).commit();
+                        adapter.notifyItemRangeRemoved(0, adapter.getItemCount());
+                    }
+                }
+            }
+        });
+
+
     }
 
     public void onResume() {

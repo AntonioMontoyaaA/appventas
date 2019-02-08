@@ -28,6 +28,7 @@ import com.eralp.circleprogressview.ProgressAnimationListener;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.time.YearMonth;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
@@ -73,9 +74,10 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
-         if (height <= 1776) {
+        if (height <= 1776) {
             resizeRecycler(binding, 140, this);
-        } else if (height <= 1920) {resizeRecycler(binding, 200, this);
+        } else if (height <= 1920) {
+            resizeRecycler(binding, 200, this);
         }
         if (width < 500) {
             binding.tacometro.getLayoutParams().height = 190;
@@ -110,9 +112,9 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
         fechaInicial = sdf.format(date);
         fechaFinal = sdf.format(date);
         binding.header.back.setVisibility(View.INVISIBLE);
-        try{
+        try {
             binding.header.txtappversion.setText("v" + getPackageManager().getPackageInfo(getPackageName(), 0).versionName);
-        } catch(PackageManager.NameNotFoundException ne) {
+        } catch (PackageManager.NameNotFoundException ne) {
             Log.e("CARGA_FOLIO_TAG", "Error al obtener la versión: " + ne.getMessage());
         }
 
@@ -179,17 +181,41 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
 
                 c = Calendar.getInstance();
                 c.setFirstDayOfWeek(Calendar.MONDAY);
-                c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-                date = new Date();
-                fechaInicial = sdf.format(c.getTime());
-                fechaFinal = sdf.format(date);
+                //c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+                //date = new Date();
+                //fechaInicial = sdf.format(c.getTime());
+                //fechaFinal = sdf.format(date);
 
                 if (fechaSeleccionada.length() > 0) {
                     c = Calendar.getInstance();
-                    c.set(year, month, day);
                     c.setFirstDayOfWeek(Calendar.MONDAY);
-                    c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+                    c.set(year, month, day);
+                    //c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
 
+                    int diaSemana = c.get(Calendar.DAY_OF_WEEK);
+                    for (int i = 0; i < 7; i++) {
+                        if (diaSemana != Calendar.MONDAY) {
+                            if (day > 2) {
+                                day--;
+                                c.set(year, month, day);
+                                diaSemana = c.get(Calendar.DAY_OF_WEEK);
+                            } else {
+                                if (month > 0) {
+                                    month--;
+                                    c.set(year, month, 1);
+                                    day = c.getActualMaximum(Calendar.DAY_OF_MONTH);
+                                    c.set(year, month, day);
+                                } else {
+                                    month = 12;
+                                    year--;
+                                    c.set(year, month, 31);
+                                }
+                                diaSemana = c.get(Calendar.DAY_OF_WEEK);
+                            }
+                        } else {
+                            break;
+                        }
+                    }
                     date = new Date();
                     fechaInicial = sdf.format(c.getTime());
                     fechaFinal = fechaSeleccionada;
@@ -334,12 +360,37 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
                 c = Calendar.getInstance();
                 c.set(year, month, day);
                 c.setFirstDayOfWeek(Calendar.MONDAY);
-                c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+                //c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+
+                int diaSemana = c.get(Calendar.DAY_OF_WEEK);
+                for (int i = 0; i < 7; i++) {
+                    if (diaSemana != Calendar.MONDAY) {
+                        if (day > 2) {
+                            day--;
+                            c.set(year, month, day);
+                            diaSemana = c.get(Calendar.DAY_OF_WEEK);
+                        } else {
+                            if (month > 0) {
+                                month--;
+                                c.set(year, month, 1);
+                                day = c.getActualMaximum(Calendar.DAY_OF_MONTH);
+                                c.set(year, month, day);
+                            } else {
+                                month = 12;
+                                year--;
+                                c.set(year, month, 31);
+                            }
+                            diaSemana = c.get(Calendar.DAY_OF_WEEK);
+                        }
+                    } else {
+                        break;
+                    }
+                }
+
 
                 date = new Date();
                 fechaInicial = sdf.format(c.getTime());
                 fechaFinal = fechaSeleccionada;
-
                 consulta[0] = new Consulta(
                         usuario,
                         getString(R.string.zero),
@@ -484,6 +535,7 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
                     Aceptar a = new Aceptar();
                     a.setMensaje("Necesitas estar conectado a internet");
                     a.show(getSupportFragmentManager(), "child");
+
                 }
 
             }
@@ -509,7 +561,7 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
 
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("region", String.valueOf(model.getTiendaId()));
-        editor.putString("regionNombre",model.getNombreTienda() );
+        editor.putString("regionNombre", model.getNombreTienda());
         editor.putInt("button", 0);
         editor.apply();
 

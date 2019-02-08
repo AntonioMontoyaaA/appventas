@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -17,6 +18,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -55,7 +57,7 @@ public class FragmentCalendario extends DialogFragment {
     public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_calendario,container,false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_calendario, container, false);
         View view = binding.getRoot();
         preferences = getContext().getSharedPreferences("datosReporte", Context.MODE_PRIVATE);
         editor = preferences.edit();
@@ -63,15 +65,22 @@ public class FragmentCalendario extends DialogFragment {
         final int type = getArguments().getInt("type");
 
         Date fechaActual = new Date();
-        String diaActual    = (String) DateFormat.format("dd",   fechaActual);
-        String mesActual    = (String) DateFormat.format("MM",   fechaActual);
-        String anioActual   = (String) DateFormat.format("yyyy", fechaActual);
+        String diaActual = (String) DateFormat.format("dd", fechaActual);
+        String mesActual = (String) DateFormat.format("MM", fechaActual);
+        String anioActual = (String) DateFormat.format("yyyy", fechaActual);
 
         day = preferences.getInt("day", Integer.parseInt(diaActual));
         month = preferences.getInt("month", Integer.parseInt(mesActual) - 1);
         year = preferences.getInt("year", Integer.parseInt(anioActual));
 
-        binding.calendario.setMaxDate(new Date().getTime());
+
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP_MR1) {
+            Calendar c = Calendar.getInstance();
+            c.add(Calendar.DATE, 1);
+            binding.calendario.setMaxDate(c.getTimeInMillis());
+        } else {
+            binding.calendario.setMaxDate(new Date().getTime());
+        }
         binding.calendario.updateDate(year, month, day);
 
         binding.seleccionar.setOnClickListener(new View.OnClickListener() {
@@ -94,7 +103,7 @@ public class FragmentCalendario extends DialogFragment {
                 editor.putString("fechaSeleccionada", fecha);
                 editor.apply();
                 Intent intent;
-                switch (type){
+                switch (type) {
                     case 0:
                         getDialog().dismiss();
                         getActivity().finish();
@@ -121,7 +130,7 @@ public class FragmentCalendario extends DialogFragment {
                         startActivity(intent);
                         break;
                     default:
-                            break;
+                        break;
                 }
 
 

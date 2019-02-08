@@ -76,14 +76,36 @@
 
         </LinearLayout>
 
+        <neto.com.mx.reporte.utils.font.RobotoTextView
+            android:id="@+id/rangoFechas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tacometro"
+            android:layout_alignTop="@+id/tacometro"
+            android:layout_alignRight="@+id/tacometro"
+            android:layout_alignBottom="@+id/tacometro"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="4dp"
+            android:gravity="center"
+            android:text="---"
+            android:textColor="@color/turquesa"
+            android:textSize="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tacometro"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/linearLayout"
+            app:layout_constraintVertical_bias="0"
+            app:typeface="robotoLight" />
+
 
         <com.eralp.circleprogressview.CircleProgressView
             android:id="@+id/tacometro"
-            android:layout_width="230dp"
-            android:layout_height="230dp"
+            android:layout_width="210dp"
+            android:layout_height="210dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             app:cpv_background_circle_color="@color/circle_background"
             app:cpv_background_circle_width="6dp"
@@ -92,7 +114,7 @@
             app:cpv_text_color="@color/colorPrimaryDark"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+            app:layout_constraintTop_toBottomOf="@+id/rangoFechas">
 
         </com.eralp.circleprogressview.CircleProgressView>
 
@@ -116,7 +138,7 @@
             app:layout_constraintHorizontal_bias="0.502"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tacometro"
-            app:layout_constraintVertical_bias="0.250"
+            app:layout_constraintVertical_bias="0.15"
             tools:text="" />
 
 
@@ -133,7 +155,7 @@
             android:fontFamily="sans-serif-light"
             android:gravity="center"
             android:textColor="@color/blanco"
-            android:textSize="33dp"
+            android:textSize="30sp"
             app:layout_constraintBottom_toBottomOf="@+id/tacometro"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.502"
@@ -156,28 +178,6 @@
             android:text="@string/venta_real"
             android:textColor="@color/blanco"
             android:textSize="18dp"
-            app:layout_constraintBottom_toBottomOf="@+id/tacometro"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tacometro"
-            app:layout_constraintVertical_bias="0.624"
-            app:typeface="robotoLight" />
-
-        <neto.com.mx.reporte.utils.font.RobotoTextView
-            android:id="@+id/rangoFechas"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/tacometro"
-            android:layout_alignTop="@+id/tacometro"
-            android:layout_alignRight="@+id/tacometro"
-            android:layout_alignBottom="@+id/tacometro"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="70dp"
-            android:layout_marginEnd="8dp"
-            android:gravity="center"
-            android:text="---"
-            android:textColor="@color/turquesa"
-            android:textSize="10dp"
             app:layout_constraintBottom_toBottomOf="@+id/tacometro"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -216,10 +216,10 @@
             android:layout_alignTop="@+id/tacometro"
             android:layout_alignRight="@+id/tacometro"
             android:layout_alignBottom="@+id/tacometro"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:gravity="center"
             android:textColor="@color/turquesa"
-            android:textSize="14dp"
+            android:textSize="11sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tacometro"
@@ -234,10 +234,10 @@
             android:layout_alignTop="@+id/robotoTextView"
             android:layout_alignEnd="@+id/robotoTextView"
             android:layout_alignBottom="@+id/robotoTextView"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:gravity="center"
             android:textColor="@color/turquesa"
-            android:textSize="14sp"
+            android:textSize="11sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/robotoTextView"
@@ -249,7 +249,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:layout_marginEnd="20dp"
             android:background="@color/blanco"
             app:layout_constraintTop_toBottomOf="@+id/robotoTextViewTotal" />
@@ -362,7 +362,6 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
 
 
-
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerview"
             android:layout_width="match_parent"
@@ -374,8 +373,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view3"
-            app:layout_constraintVertical_bias="0.0">
-        </android.support.v7.widget.RecyclerView>
+            app:layout_constraintVertical_bias="0.0"></android.support.v7.widget.RecyclerView>
 
 
     </android.support.constraint.ConstraintLayout>

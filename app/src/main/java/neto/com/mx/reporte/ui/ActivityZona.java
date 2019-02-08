@@ -65,11 +65,11 @@ public class ActivityZona extends AppCompatActivity implements VentasHolder.List
         getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
         int width = displaymetrics.widthPixels;
 
-        binding  = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
-        try{
+        try {
             binding.header.txtappversion.setText("v" + getPackageManager().getPackageInfo(getPackageName(), 0).versionName);
-        } catch(PackageManager.NameNotFoundException ne) {
+        } catch (PackageManager.NameNotFoundException ne) {
             Log.e("CARGA_FOLIO_TAG", "Error al obtener la versión: " + ne.getMessage());
         }
         int height = displaymetrics.heightPixels;
@@ -80,7 +80,7 @@ public class ActivityZona extends AppCompatActivity implements VentasHolder.List
             resizeRecycler(binding, 200, this);
         }
 
-        if(width<500){
+        if (width < 500) {
             binding.tacometro.getLayoutParams().height = 190;
             binding.tacometro.getLayoutParams().width = 190;
             binding.total.setTextSize(18);
@@ -99,15 +99,15 @@ public class ActivityZona extends AppCompatActivity implements VentasHolder.List
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         preferences = getSharedPreferences("datosReporte", MODE_PRIVATE);
-        final String usuario = preferences.getString("usuario","");
-        region = preferences.getString("region","");
-        zona = preferences.getString("zona","");
+        final String usuario = preferences.getString("usuario", "");
+        region = preferences.getString("region", "");
+        zona = preferences.getString("zona", "");
         editor = preferences.edit();
 
         final String fechaSeleccionada = preferences.getString("fechaSeleccionada", "");
-        day = preferences.getInt("day",0);
-        month = preferences.getInt("month",0);
-        year = preferences.getInt("year",0);
+        day = preferences.getInt("day", 0);
+        month = preferences.getInt("month", 0);
+        year = preferences.getInt("year", 0);
 
         date = new Date();
         sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -124,7 +124,7 @@ public class ActivityZona extends AppCompatActivity implements VentasHolder.List
         )};
 
         binding.dia.setBackground(getDrawable(R.drawable.fill_left));
-        binding.dia.setTextColor(ContextCompat.getColor(ActivityZona.this,R.color.colorPrimary));
+        binding.dia.setTextColor(ContextCompat.getColor(ActivityZona.this, R.color.colorPrimary));
 
         binding.dia.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,17 +133,17 @@ public class ActivityZona extends AppCompatActivity implements VentasHolder.List
                 editor.putInt("button", 0);
                 editor.apply();
                 binding.dia.setBackground(getDrawable(R.drawable.fill_left));
-                binding.dia.setTextColor(ContextCompat.getColor(ActivityZona.this,R.color.colorPrimary));
+                binding.dia.setTextColor(ContextCompat.getColor(ActivityZona.this, R.color.colorPrimary));
                 binding.semana.setBackground(getDrawable(R.drawable.square_center));
-                binding.semana.setTextColor(ContextCompat.getColor(ActivityZona.this,R.color.turquesa));
+                binding.semana.setTextColor(ContextCompat.getColor(ActivityZona.this, R.color.turquesa));
                 binding.mes.setBackground(getDrawable(R.drawable.square_right));
-                binding.mes.setTextColor(ContextCompat.getColor(ActivityZona.this,R.color.turquesa));
+                binding.mes.setTextColor(ContextCompat.getColor(ActivityZona.this, R.color.turquesa));
 
                 date = new Date();
                 fechaInicial = sdf.format(date);
                 fechaFinal = sdf.format(date);
 
-                if(fechaSeleccionada.length()>0){
+                if (fechaSeleccionada.length() > 0) {
                     fechaInicial = fechaSeleccionada;
                     fechaFinal = fechaSeleccionada;
                     consulta[0] = new Consulta(
@@ -155,7 +155,7 @@ public class ActivityZona extends AppCompatActivity implements VentasHolder.List
                             fechaFinal
                     );
                     obtenerVentas(binding, consulta[0]);
-                }else{
+                } else {
                     Consulta consulta = new Consulta(
                             usuario,
                             region,
@@ -178,11 +178,11 @@ public class ActivityZona extends AppCompatActivity implements VentasHolder.List
                 editor.putInt("button", 1);
                 editor.apply();
                 binding.dia.setBackground(getDrawable(R.drawable.square_left));
-                binding.dia.setTextColor(ContextCompat.getColor(ActivityZona.this,R.color.turquesa));
+                binding.dia.setTextColor(ContextCompat.getColor(ActivityZona.this, R.color.turquesa));
                 binding.semana.setBackground(getDrawable(R.drawable.fill_center));
-                binding.semana.setTextColor(ContextCompat.getColor(ActivityZona.this,R.color.colorPrimary));
+                binding.semana.setTextColor(ContextCompat.getColor(ActivityZona.this, R.color.colorPrimary));
                 binding.mes.setBackground(getDrawable(R.drawable.square_right));
-                binding.mes.setTextColor(ContextCompat.getColor(ActivityZona.this,R.color.turquesa));
+                binding.mes.setTextColor(ContextCompat.getColor(ActivityZona.this, R.color.turquesa));
 
                 c = Calendar.getInstance();
                 c.setFirstDayOfWeek(Calendar.MONDAY);
@@ -191,11 +191,35 @@ public class ActivityZona extends AppCompatActivity implements VentasHolder.List
                 fechaInicial = sdf.format(c.getTime());
                 fechaFinal = sdf.format(date);
 
-                if(fechaSeleccionada.length()>0){
+                if (fechaSeleccionada.length() > 0) {
                     c = Calendar.getInstance();
-                    c.set(year, month, day);
                     c.setFirstDayOfWeek(Calendar.MONDAY);
-                    c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+                    c.set(year, month, day);
+                    //c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+                    int diaSemana = c.get(Calendar.DAY_OF_WEEK);
+                    for (int i = 0; i < 7; i++) {
+                        if (diaSemana != Calendar.MONDAY) {
+                            if (day > 2) {
+                                day--;
+                                c.set(year, month, day);
+                                diaSemana = c.get(Calendar.DAY_OF_WEEK);
+                            } else {
+                                if (month > 0) {
+                                    month--;
+                                    c.set(year, month, 1);
+                                    day = c.getActualMaximum(Calendar.DAY_OF_MONTH);
+                                    c.set(year, month, day);
+                                } else {
+                                    month = 12;
+                                    year--;
+                                    c.set(year, month, 31);
+                                }
+                                diaSemana = c.get(Calendar.DAY_OF_WEEK);
+                            }
+                        } else {
+                            break;
+                        }
+                    }
 
                     date = new Date();
                     fechaInicial = sdf.format(c.getTime());
@@ -212,7 +236,7 @@ public class ActivityZona extends AppCompatActivity implements VentasHolder.List
 
                     obtenerVentas(binding, consulta);
 
-                }else{
+                } else {
                     Consulta consulta = new Consulta(
                             usuario,
                             region,
@@ -242,11 +266,11 @@ public class ActivityZona extends AppCompatActivity implements VentasHolder.List
                 editor.putInt("button", 2);
                 editor.apply();
                 binding.dia.setBackground(getDrawable(R.drawable.square_left));
-                binding.dia.setTextColor(ContextCompat.getColor(ActivityZona.this,R.color.turquesa));
+                binding.dia.setTextColor(ContextCompat.getColor(ActivityZona.this, R.color.turquesa));
                 binding.semana.setBackground(getDrawable(R.drawable.square_center));
-                binding.semana.setTextColor(ContextCompat.getColor(ActivityZona.this,R.color.turquesa));
+                binding.semana.setTextColor(ContextCompat.getColor(ActivityZona.this, R.color.turquesa));
                 binding.mes.setBackground(getDrawable(R.drawable.fill_right));
-                binding.mes.setTextColor(ContextCompat.getColor(ActivityZona.this,R.color.colorPrimary));
+                binding.mes.setTextColor(ContextCompat.getColor(ActivityZona.this, R.color.colorPrimary));
 
                 Calendar c = Calendar.getInstance();   // this takes current date
                 c.set(Calendar.DAY_OF_MONTH, 1);
@@ -255,7 +279,7 @@ public class ActivityZona extends AppCompatActivity implements VentasHolder.List
                 fechaInicial = sdf.format(c.getTime());
                 fechaFinal = sdf.format(date);
 
-                if(fechaSeleccionada.length()>0){
+                if (fechaSeleccionada.length() > 0) {
                     c = Calendar.getInstance();
                     c.set(year, month, day);
                     c.set(Calendar.DAY_OF_MONTH, 1);
@@ -274,7 +298,7 @@ public class ActivityZona extends AppCompatActivity implements VentasHolder.List
                             fechaFinal
                     );
                     obtenerVentas(binding, consulta[0]);
-                }else{
+                } else {
                     Consulta consulta = new Consulta(
                             usuario,
                             region,
@@ -294,7 +318,7 @@ public class ActivityZona extends AppCompatActivity implements VentasHolder.List
             @Override
             public void onClick(View v) {
                 FragmentTiendas a = new FragmentTiendas();
-                a.show(getSupportFragmentManager(),"child");
+                a.show(getSupportFragmentManager(), "child");
             }
         });
 
@@ -306,21 +330,21 @@ public class ActivityZona extends AppCompatActivity implements VentasHolder.List
                 Bundle arg = new Bundle();
                 arg.putInt("type", 2);
                 a.setArguments(arg);
-                a.show(getSupportFragmentManager(),"child");
+                a.show(getSupportFragmentManager(), "child");
             }
         });
 
 
-        if(fechaSeleccionada.length()>0){
+        if (fechaSeleccionada.length() > 0) {
             banderaBoton = preferences.getInt("button", 0);
 
-            if(banderaBoton==0){
+            if (banderaBoton == 0) {
                 binding.dia.setBackground(getDrawable(R.drawable.fill_left));
-                binding.dia.setTextColor(ContextCompat.getColor(ActivityZona.this,R.color.colorPrimary));
+                binding.dia.setTextColor(ContextCompat.getColor(ActivityZona.this, R.color.colorPrimary));
                 binding.semana.setBackground(getDrawable(R.drawable.square_center));
-                binding.semana.setTextColor(ContextCompat.getColor(ActivityZona.this,R.color.turquesa));
+                binding.semana.setTextColor(ContextCompat.getColor(ActivityZona.this, R.color.turquesa));
                 binding.mes.setBackground(getDrawable(R.drawable.square_right));
-                binding.mes.setTextColor(ContextCompat.getColor(ActivityZona.this,R.color.turquesa));
+                binding.mes.setTextColor(ContextCompat.getColor(ActivityZona.this, R.color.turquesa));
                 fechaInicial = fechaSeleccionada;
                 fechaFinal = fechaSeleccionada;
                 consulta[0] = new Consulta(
@@ -333,17 +357,41 @@ public class ActivityZona extends AppCompatActivity implements VentasHolder.List
                 );
                 obtenerVentas(binding, consulta[0]);
                 binding.rangoFechas.setText("Consulta al día: " + fechaInicial);
-            }else if(banderaBoton==1){
+            } else if (banderaBoton == 1) {
                 binding.dia.setBackground(getDrawable(R.drawable.square_left));
-                binding.dia.setTextColor(ContextCompat.getColor(ActivityZona.this,R.color.turquesa));
+                binding.dia.setTextColor(ContextCompat.getColor(ActivityZona.this, R.color.turquesa));
                 binding.semana.setBackground(getDrawable(R.drawable.fill_center));
-                binding.semana.setTextColor(ContextCompat.getColor(ActivityZona.this,R.color.colorPrimary));
+                binding.semana.setTextColor(ContextCompat.getColor(ActivityZona.this, R.color.colorPrimary));
                 binding.mes.setBackground(getDrawable(R.drawable.square_right));
-                binding.mes.setTextColor(ContextCompat.getColor(ActivityZona.this,R.color.turquesa));
+                binding.mes.setTextColor(ContextCompat.getColor(ActivityZona.this, R.color.turquesa));
                 c = Calendar.getInstance();
                 c.set(year, month, day);
                 c.setFirstDayOfWeek(Calendar.MONDAY);
-                c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+                //c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+                int diaSemana = c.get(Calendar.DAY_OF_WEEK);
+                for (int i = 0; i < 7; i++) {
+                    if (diaSemana != Calendar.MONDAY) {
+                        if (day > 2) {
+                            day--;
+                            c.set(year, month, day);
+                            diaSemana = c.get(Calendar.DAY_OF_WEEK);
+                        } else {
+                            if (month > 0) {
+                                month--;
+                                c.set(year, month, 1);
+                                day = c.getActualMaximum(Calendar.DAY_OF_MONTH);
+                                c.set(year, month, day);
+                            } else {
+                                month = 12;
+                                year--;
+                                c.set(year, month, 31);
+                            }
+                            diaSemana = c.get(Calendar.DAY_OF_WEEK);
+                        }
+                    } else {
+                        break;
+                    }
+                }
                 date = new Date();
                 fechaInicial = sdf.format(c.getTime());
                 fechaFinal = fechaSeleccionada;
@@ -351,20 +399,20 @@ public class ActivityZona extends AppCompatActivity implements VentasHolder.List
                 consulta[0] = new Consulta(
                         usuario,
                         region,
-                        zona    ,
+                        zona,
                         getString(R.string.zero),
                         fechaInicial,
                         fechaFinal
                 );
                 obtenerVentas(binding, consulta[0]);
                 binding.rangoFechas.setText("Consulta del " + fechaInicial + " al " + fechaFinal);
-            }else if(banderaBoton==2){
+            } else if (banderaBoton == 2) {
                 binding.dia.setBackground(getDrawable(R.drawable.square_left));
-                binding.dia.setTextColor(ContextCompat.getColor(ActivityZona.this,R.color.turquesa));
+                binding.dia.setTextColor(ContextCompat.getColor(ActivityZona.this, R.color.turquesa));
                 binding.semana.setBackground(getDrawable(R.drawable.square_center));
-                binding.semana.setTextColor(ContextCompat.getColor(ActivityZona.this,R.color.turquesa));
+                binding.semana.setTextColor(ContextCompat.getColor(ActivityZona.this, R.color.turquesa));
                 binding.mes.setBackground(getDrawable(R.drawable.fill_right));
-                binding.mes.setTextColor(ContextCompat.getColor(ActivityZona.this,R.color.colorPrimary));
+                binding.mes.setTextColor(ContextCompat.getColor(ActivityZona.this, R.color.colorPrimary));
 
                 Calendar c = Calendar.getInstance();
                 c.set(year, month, day);
@@ -377,7 +425,7 @@ public class ActivityZona extends AppCompatActivity implements VentasHolder.List
                 consulta[0] = new Consulta(
                         usuario,
                         region,
-                        zona    ,
+                        zona,
                         getString(R.string.zero),
                         fechaInicial,
                         fechaFinal
@@ -385,41 +433,41 @@ public class ActivityZona extends AppCompatActivity implements VentasHolder.List
                 obtenerVentas(binding, consulta[0]);
                 binding.rangoFechas.setText("Consulta del " + fechaInicial + " al " + fechaFinal);
             }
-        }else{
+        } else {
             obtenerVentas(binding, consulta[0]);
             binding.rangoFechas.setText("Consulta al día: " + fechaInicial);
         }
     }
 
-    public String converter(double conver){
+    public String converter(double conver) {
         DecimalFormat formatter = new DecimalFormat("#,###");
-        return "$"+formatter.format(conver);
+        return "$" + formatter.format(conver);
     }
 
     ProgressDialog progressDialog;
     AdapterVentas adapter;
 
-    public void obtenerVentas(final ActivityMainBinding binding, Consulta consulta){
+    public void obtenerVentas(final ActivityMainBinding binding, Consulta consulta) {
         progressDialog = new ProgressDialog(ActivityZona.this);
         Util.loadingProgress(progressDialog, 0);
         ProviderDashboard.getInstance(this).getVentas(consulta, new ProviderDashboard.ConsultaVentas() {
             @Override
             public void resolve(VentasResponse ventasResponse) {
-                if(ventasResponse!=null){
+                if (ventasResponse != null) {
                     Util.loadingProgress(progressDialog, 1);
-                    binding.tiendasVenta.setText(ventasResponse.getTiendasConVentaGeneral()+"");
+                    binding.tiendasVenta.setText(ventasResponse.getTiendasConVentaGeneral() + "");
                     binding.tiendasPromedio.setText(converter(Double.parseDouble(ventasResponse.getTickPromGeneral())));
                     binding.ventaPerdida.setText(converter(Double.parseDouble(ventasResponse.getvPerdidaGeneral())));
-                    binding.ventaObjetivo.setText(String.valueOf("$"+ventasResponse.getvObjetivoGeneral()));
+                    binding.ventaObjetivo.setText(String.valueOf("$" + ventasResponse.getvObjetivoGeneral()));
                     binding.total.setText(converter(Double.parseDouble(ventasResponse.getvRealGeneral())));
 
-                    String zonaNombre = preferences.getString("zonaNombre","");
-                    binding.lugar.setText("Zona  " + zonaNombre);
+                    String zonaNombre = preferences.getString("zonaNombre", "");
+                    binding.lugar.setText("Zona \n" + zonaNombre);
 
                     double real = Integer.valueOf(ventasResponse.getvRealGeneral());
                     double objetivo = Integer.valueOf(ventasResponse.getvObjetivoGeneral());
 
-                    double operacion = real/objetivo*100;
+                    double operacion = real / objetivo * 100;
 
                     StringBuilder stringBuilder = new StringBuilder();
                     stringBuilder.append(converter(Double.parseDouble(ventasResponse.getvObjetivoGeneral())));
@@ -450,7 +498,8 @@ public class ActivityZona extends AppCompatActivity implements VentasHolder.List
                         }
 
                         @Override
-                        public void onAnimationEnd() { }
+                        public void onAnimationEnd() {
+                        }
                     });
 
 
@@ -461,7 +510,7 @@ public class ActivityZona extends AppCompatActivity implements VentasHolder.List
                     binding.recyclerview.setAdapter(adapter);
 
 
-                }else{
+                } else {
                     //Toast.makeText(getApplicationContext(), "Algo sucedio, intenta nuevamente", Toast.LENGTH_SHORT).show();
                     Util.loadingProgress(progressDialog, 1);
                     Aceptar a = new Aceptar();
@@ -491,7 +540,7 @@ public class ActivityZona extends AppCompatActivity implements VentasHolder.List
 
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("tienda", String.valueOf(model.getTiendaId()));
-        editor.putInt("button",0);
+        editor.putInt("button", 0);
         editor.apply();
 
         Intent intent = new Intent(this, ActivityTiendas.class);
