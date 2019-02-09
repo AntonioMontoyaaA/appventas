@@ -15,6 +15,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.format.DateFormat;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -66,7 +67,7 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        DisplayMetrics displaymetrics = new DisplayMetrics();
+        final DisplayMetrics displaymetrics = new DisplayMetrics();
         getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
         int width = displaymetrics.widthPixels;
@@ -97,6 +98,7 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         preferences = getSharedPreferences("datosReporte", MODE_PRIVATE);
+        int aaa = preferences.getInt("button", 0);
         final String fechaSeleccionada = preferences.getString("fechaSeleccionada", "");
         final String usuario = preferences.getString("usuario", "");
 
@@ -178,72 +180,62 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
 
                 editor.putInt("button", 1);
                 editor.apply();
-
                 c = Calendar.getInstance();
                 c.setFirstDayOfWeek(Calendar.MONDAY);
-                //c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-                //date = new Date();
-                //fechaInicial = sdf.format(c.getTime());
-                //fechaFinal = sdf.format(date);
-
                 if (fechaSeleccionada.length() > 0) {
-                    c = Calendar.getInstance();
-                    c.setFirstDayOfWeek(Calendar.MONDAY);
-                    c.set(year, month, day);
-                    //c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-
-                    int diaSemana = c.get(Calendar.DAY_OF_WEEK);
-                    for (int i = 0; i < 7; i++) {
-                        if (diaSemana != Calendar.MONDAY) {
-                            if (day > 2) {
-                                day--;
-                                c.set(year, month, day);
-                                diaSemana = c.get(Calendar.DAY_OF_WEEK);
-                            } else {
-                                if (month > 0) {
-                                    month--;
-                                    c.set(year, month, 1);
-                                    day = c.getActualMaximum(Calendar.DAY_OF_MONTH);
-                                    c.set(year, month, day);
-                                } else {
-                                    month = 12;
-                                    year--;
-                                    c.set(year, month, 31);
-                                }
-                                diaSemana = c.get(Calendar.DAY_OF_WEEK);
-                            }
-                        } else {
-                            break;
-                        }
-                    }
-                    date = new Date();
-                    fechaInicial = sdf.format(c.getTime());
                     fechaFinal = fechaSeleccionada;
-
-                    Consulta consulta = new Consulta(
-                            usuario,
-                            getString(R.string.zero),
-                            getString(R.string.zero),
-                            getString(R.string.zero),
-                            fechaInicial,
-                            fechaFinal
-                    );
-
-                    obtenerVentas(binding, consulta);
-
                 } else {
-                    Consulta consulta = new Consulta(
-                            usuario,
-                            getString(R.string.zero),
-                            getString(R.string.zero),
-                            getString(R.string.zero),
-                            fechaInicial,
-                            fechaFinal
-                    );
-
-                    obtenerVentas(binding, consulta);
+                    Calendar calendar = Calendar.getInstance();
+                    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                    String fecha = format.format(calendar.getTime());
+                    editor.putString("fechaSeleccionada", fecha);
+                    fechaFinal = fecha;
+                    editor.putInt("day", calendar.get(Calendar.DAY_OF_MONTH));
+                    editor.putInt("month",  calendar.get(Calendar.MONTH));
+                    editor.putInt("year", calendar.get(Calendar.YEAR));
+                    year = calendar.get(Calendar.YEAR);
+                    month = calendar.get(Calendar.MONTH);
+                    day = calendar.get(Calendar.DAY_OF_MONTH);
                 }
+                c = Calendar.getInstance();
+                c.setFirstDayOfWeek(Calendar.MONDAY);
+                c.set(year, month, day);
+                int diaSemana = c.get(Calendar.DAY_OF_WEEK);
+                for (int i = 0; i < 7; i++) {
+                    if (diaSemana != Calendar.MONDAY) {
+                        if (day > 2) {
+                            day--;
+                            c.set(year, month, day);
+                            diaSemana = c.get(Calendar.DAY_OF_WEEK);
+                        } else {
+                            if (month > 0) {
+                                month--;
+                                c.set(year, month, 1);
+                                day = c.getActualMaximum(Calendar.DAY_OF_MONTH);
+                                c.set(year, month, day);
+                            } else {
+                                month = 12;
+                                year--;
+                                c.set(year, month, 31);
+                            }
+                            diaSemana = c.get(Calendar.DAY_OF_WEEK);
+                        }
+                    } else {
+                        break;
+                    }
+                }
+                date = new Date();
+                fechaInicial = sdf.format(c.getTime());
 
+                Consulta consulta = new Consulta(
+                        usuario,
+                        getString(R.string.zero),
+                        getString(R.string.zero),
+                        getString(R.string.zero),
+                        fechaInicial,
+                        fechaFinal
+                );
+                obtenerVentas(binding, consulta);
                 binding.rangoFechas.setText("Consulta del " + fechaInicial + " al " + fechaFinal);
 
             }
@@ -493,7 +485,7 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
                         binding.robotoTextView.setText(stringBuilder);
 
                         if (banderaBoton == 1 || banderaBoton == 2) {
-                            //binding.robotoTextViewTotal.setVisibility(View.VISIBLE);
+                            binding.robotoTextViewTotal.setVisibility(View.VISIBLE);
                             StringBuilder stringBuilderTotal = new StringBuilder();
                             stringBuilderTotal.append(converter(Double.parseDouble(ventasResponse.getvObjetivoTotal())));
                             stringBuilderTotal.append(getString(R.string.mdpTotal));

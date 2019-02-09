@@ -475,7 +475,7 @@ public class ActivityZona extends AppCompatActivity implements VentasHolder.List
 
                     banderaBoton = preferences.getInt("button", 0);
                     if (banderaBoton == 1 || banderaBoton == 2) {
-                        //binding.robotoTextViewTotal.setVisibility(View.VISIBLE);
+                        binding.robotoTextViewTotal.setVisibility(View.VISIBLE);
                         StringBuilder stringBuilderTotal = new StringBuilder();
                         stringBuilderTotal.append(converter(Double.parseDouble(ventasResponse.getvObjetivoTotal())));
                         stringBuilderTotal.append(getString(R.string.mdpTotal));
@@ -483,42 +483,31 @@ public class ActivityZona extends AppCompatActivity implements VentasHolder.List
                     } else {
                         binding.robotoTextViewTotal.setVisibility(View.GONE);
                     }
-
                     binding.robotoTextView.setText(stringBuilder);
-
                     binding.tacometro.setTextEnabled(false);
                     binding.tacometro.setInterpolator(new AccelerateDecelerateInterpolator());
                     binding.tacometro.setStartAngle(270);
                     binding.tacometro.setProgressWithAnimation((float) operacion, 2000);
-
                     binding.tacometro.addAnimationListener(new ProgressAnimationListener() {
                         @Override
                         public void onValueChanged(float value) {
-
                         }
-
                         @Override
                         public void onAnimationEnd() {
                         }
                     });
-
-
                     adapter = new AdapterVentas(getApplicationContext(), ALPHABETICAL_COMPARATOR, ActivityZona.this);
                     binding.recyclerview.setLayoutManager(new LinearLayoutManager(ActivityZona.this));
                     adapter.edit().replaceAll(ventasResponse.getListaVentas()).commit();
                     adapter.notifyItemRangeRemoved(0, adapter.getItemCount());
                     binding.recyclerview.setAdapter(adapter);
-
-
                 } else {
-                    //Toast.makeText(getApplicationContext(), "Algo sucedio, intenta nuevamente", Toast.LENGTH_SHORT).show();
                     Util.loadingProgress(progressDialog, 1);
                     Aceptar a = new Aceptar();
                     a.setMensaje("Necesitas estar conectado a internet");
                     a.show(getSupportFragmentManager(), "child");
                 }
             }
-
             @Override
             public void reject(Exception e) {
 
@@ -537,14 +526,11 @@ public class ActivityZona extends AppCompatActivity implements VentasHolder.List
 
     @Override
     public void onProcesoSelect(Ventas model) {
-
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("tienda", String.valueOf(model.getTiendaId()));
         editor.putInt("button", 0);
         editor.apply();
-
         Intent intent = new Intent(this, ActivityTiendas.class);
         startActivity(intent);
-
     }
 }

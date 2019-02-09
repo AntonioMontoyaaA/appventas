@@ -140,48 +140,4 @@ public class FragmentCalendario extends DialogFragment {
         return view;
     }
 
-//    public void obtenerDatosCalendario(int type, String idBoton, Calendar calendar, SimpleDateFormat format){
-//        if(idBoton.equals("1")){
-//
-//            fechaInicial = format.format(calendar.getTime());
-//            fechaFinal = format.format(calendar.getTime());
-//
-//
-//
-//            switch (type){
-//                case 0:
-//
-//
-//                    Consulta consulta = new Consulta(
-//                            usuario,
-//                            getString(R.string.zero),
-//                            getString(R.string.zero),
-//                            getString(R.string.zero),
-//                            fechaInicial,
-//                            fechaFinal
-//                    );
-//
-//                    break;
-//                case 1:
-//
-//                    break;
-//                case 2:
-//
-//                    break;
-//                default:
-//
-//                    break;
-//            }
-//
-//        }else if(idBoton.equals("2")){
-//
-//        }else if(idBoton.equals("3")){
-//
-//        }
-//    }
-//
-//    public void obtenerConsulta(Consulta consulta, int type){
-//
-//    }
-
 }

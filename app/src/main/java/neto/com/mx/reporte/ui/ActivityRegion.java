@@ -202,62 +202,59 @@ public class ActivityRegion extends AppCompatActivity implements VentasHolder.Li
                 fechaFinal = sdf.format(date);
 
                 if (fechaSeleccionada.length() > 0) {
-                    c = Calendar.getInstance();
-                    c.setFirstDayOfWeek(Calendar.MONDAY);
-                    c.set(year, month, day);
-                    // c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-
-                    int diaSemana = c.get(Calendar.DAY_OF_WEEK);
-                    for (int i = 0; i < 7; i++) {
-                        if (diaSemana != Calendar.MONDAY) {
-                            if (day > 2) {
-                                day--;
-                                c.set(year, month, day);
-                                diaSemana = c.get(Calendar.DAY_OF_WEEK);
-                            } else {
-                                if (month > 0) {
-                                    month--;
-                                    c.set(year, month, 1);
-                                    day = c.getActualMaximum(Calendar.DAY_OF_MONTH);
-                                    c.set(year, month, day);
-                                } else {
-                                    month = 12;
-                                    year--;
-                                    c.set(year, month, 31);
-                                }
-                                diaSemana = c.get(Calendar.DAY_OF_WEEK);
-                            }
-                        } else {
-                            break;
-                        }
-                    }
-                    date = new Date();
-                    fechaInicial = sdf.format(c.getTime());
                     fechaFinal = fechaSeleccionada;
-
-                    Consulta consulta = new Consulta(
-                            usuario,
-                            region,
-                            getString(R.string.zero),
-                            getString(R.string.zero),
-                            fechaInicial,
-                            fechaFinal
-                    );
-
-                    obtenerVentas(binding, consulta);
-
                 } else {
-                    Consulta consulta = new Consulta(
-                            usuario,
-                            region,
-                            getString(R.string.zero),
-                            getString(R.string.zero),
-                            fechaInicial,
-                            fechaFinal
-                    );
-
-                    obtenerVentas(binding, consulta);
+                    Calendar calendar = Calendar.getInstance();
+                    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                    String fecha = format.format(calendar.getTime());
+                    editor.putString("fechaSeleccionada", fecha);
+                    fechaFinal = fecha;
+                    editor.putInt("day", calendar.get(Calendar.DAY_OF_MONTH));
+                    editor.putInt("month",  calendar.get(Calendar.MONTH));
+                    editor.putInt("year", calendar.get(Calendar.YEAR));
+                    year = calendar.get(Calendar.YEAR);
+                    month = calendar.get(Calendar.MONTH);
+                    day = calendar.get(Calendar.DAY_OF_MONTH);
                 }
+                c = Calendar.getInstance();
+                c.setFirstDayOfWeek(Calendar.MONDAY);
+                c.set(year, month, day);
+                int diaSemana = c.get(Calendar.DAY_OF_WEEK);
+                for (int i = 0; i < 7; i++) {
+                    if (diaSemana != Calendar.MONDAY) {
+                        if (day > 2) {
+                            day--;
+                            c.set(year, month, day);
+                            diaSemana = c.get(Calendar.DAY_OF_WEEK);
+                        } else {
+                            if (month > 0) {
+                                month--;
+                                c.set(year, month, 1);
+                                day = c.getActualMaximum(Calendar.DAY_OF_MONTH);
+                                c.set(year, month, day);
+                            } else {
+                                month = 12;
+                                year--;
+                                c.set(year, month, 31);
+                            }
+                            diaSemana = c.get(Calendar.DAY_OF_WEEK);
+                        }
+                    } else {
+                        break;
+                    }
+                }
+                date = new Date();
+                fechaInicial = sdf.format(c.getTime());
+
+                Consulta consulta = new Consulta(
+                        usuario,
+                        getString(R.string.zero),
+                        getString(R.string.zero),
+                        getString(R.string.zero),
+                        fechaInicial,
+                        fechaFinal
+                );
+                obtenerVentas(binding, consulta);
                 binding.rangoFechas.setText("Consulta del " + fechaInicial + " al " + fechaFinal);
 
             }
@@ -483,7 +480,7 @@ public class ActivityRegion extends AppCompatActivity implements VentasHolder.Li
 
                     banderaBoton = preferences.getInt("button", 0);
                     if (banderaBoton == 1 || banderaBoton == 2) {
-                        //binding.robotoTextViewTotal.setVisibility(View.VISIBLE);
+                        binding.robotoTextViewTotal.setVisibility(View.VISIBLE);
                         StringBuilder stringBuilderTotal = new StringBuilder();
                         stringBuilderTotal.append(converter(Double.parseDouble(ventasResponse.getvObjetivoTotal())));
                         stringBuilderTotal.append(getString(R.string.mdpTotal));
@@ -519,13 +516,10 @@ public class ActivityRegion extends AppCompatActivity implements VentasHolder.Li
 
 
                 } else {
-                    //Toast.makeText(getApplicationContext(), "Algo sucedio, intenta nuevamente", Toast.LENGTH_SHORT).show();
                     Util.loadingProgress(progressDialog, 1);
                     Aceptar a = new Aceptar();
                     a.setMensaje("Necesitas estar conectado a internet");
                     a.show(getSupportFragmentManager(), "child");
-                    //ViewDialog alert = new ViewDialog(ActivityRegion.this);
-                    //alert.showDialog(ActivityRegion.this, "Necesitas estar conectado a internet ");
                 }
             }
 

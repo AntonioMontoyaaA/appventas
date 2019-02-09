@@ -450,22 +450,16 @@ public class ActivityTiendas extends AppCompatActivity implements VentasHolder.L
                         binding.ventaPerdida.setText(converter(Double.parseDouble(ventasResponse.getvPerdidaGeneral())));
                         binding.ventaObjetivo.setText(String.valueOf("$" + ventasResponse.getvObjetivoGeneral()));
                         binding.total.setText(converter(Double.parseDouble(ventasResponse.getvRealGeneral())));
-
-
                         binding.lugar.setText("Tienda \n" + ventasResponse.getListaVentas().get(0).getNombreTienda());
-
                         double real = Integer.valueOf(ventasResponse.getvRealGeneral());
                         double objetivo = Integer.valueOf(ventasResponse.getvObjetivoGeneral());
-
                         double operacion = real / objetivo * 100;
-
                         StringBuilder stringBuilder = new StringBuilder();
                         stringBuilder.append(converter(Double.parseDouble(ventasResponse.getvObjetivoGeneral())));
                         stringBuilder.append(getString(R.string.mdp));
-
                         banderaBoton = preferences.getInt("button", 0);
                         if (banderaBoton == 1 || banderaBoton == 2) {
-                            //binding.robotoTextViewTotal.setVisibility(View.VISIBLE);
+                            binding.robotoTextViewTotal.setVisibility(View.VISIBLE);
                             StringBuilder stringBuilderTotal = new StringBuilder();
                             stringBuilderTotal.append(converter(Double.parseDouble(ventasResponse.getvObjetivoTotal())));
                             stringBuilderTotal.append(getString(R.string.mdpTotal));
@@ -473,20 +467,15 @@ public class ActivityTiendas extends AppCompatActivity implements VentasHolder.L
                         } else {
                             binding.robotoTextViewTotal.setVisibility(View.GONE);
                         }
-
                         binding.robotoTextView.setText(stringBuilder);
-
                         binding.tacometro.setTextEnabled(false);
                         binding.tacometro.setInterpolator(new AccelerateDecelerateInterpolator());
                         binding.tacometro.setStartAngle(270);
                         binding.tacometro.setProgressWithAnimation((float) operacion, 2000);
-
                         binding.tacometro.addAnimationListener(new ProgressAnimationListener() {
                             @Override
                             public void onValueChanged(float value) {
-
                             }
-
                             @Override
                             public void onAnimationEnd() {
                             }
@@ -501,7 +490,6 @@ public class ActivityTiendas extends AppCompatActivity implements VentasHolder.L
 
 
                     } else {
-                        //Toast.makeText(getApplicationContext(), "Algo sucedio, intenta nuevamente", Toast.LENGTH_SHORT).show();
                         Util.loadingProgress(progressDialog, 1);
                         Aceptar a = new Aceptar();
                         a.setMensaje("Necesitas estar conectado a internet");
