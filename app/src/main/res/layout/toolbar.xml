@@ -63,9 +63,7 @@
                     android:layout_height="20dp"
                     android:layout_gravity="center"
                     android:layout_marginTop="-2dp"
-                    android:background="@drawable/scissors_cu"
-
-                    android:backgroundTint="@color/turquesa" />
+                    android:background="@drawable/tiendaa" />
             </LinearLayout>
 
             <LinearLayout
