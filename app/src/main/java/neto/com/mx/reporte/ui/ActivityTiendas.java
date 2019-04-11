@@ -107,16 +107,16 @@ public class ActivityTiendas extends AppCompatActivity implements VentasHolder.L
         fechaInicial = sdf.format(date);
         fechaFinal = sdf.format(date);
 
-        if(tipoTienda == 1){
+        if (tipoTienda == 1) {
             editor.putInt("tipoTienda", 1);
             binding.header.imgNuevaTiendaApertura.setImageResource(R.drawable.carritopuerta_azul);
-        }else{
+        } else {
             binding.header.imgNuevaTiendaApertura.setImageResource(R.drawable.carritopuerta_naranja);
         }
 
         if (tipoVenta == 0) {
             binding.header.imgTiendasSinVentas.setImageResource(R.drawable.carritonaranja);
-        }else {
+        } else {
             binding.header.imgTiendasSinVentas.setImageResource(R.drawable.carritoturquesa);
         }
 
@@ -360,11 +360,11 @@ public class ActivityTiendas extends AppCompatActivity implements VentasHolder.L
                         binding.ventaPerdida.setText(converter(Double.parseDouble(ventasResponse.getvPerdidaGeneral())));
                         binding.ventaObjetivo.setText(String.valueOf("$" + ventasResponse.getvObjetivoGeneral()));
                         binding.total.setText(converter(Double.parseDouble(ventasResponse.getvRealGeneral())));
-                        if(tipoTienda == 1 && tipoVenta == 1) {
+                        if (tipoTienda == 1 && tipoVenta == 1) {
                             String zonaNombre = preferences.getString("zonaNombre", "");
                             String regionNombre = preferences.getString("regionNombre", "");
                             binding.lugar.setText(regionNombre + " / " + zonaNombre + " / " + ventasResponse.getListaVentas().get(0).getNombreTienda());
-                        }else{
+                        } else {
                             binding.lugar.setText(ventasResponse.getListaVentas().get(0).getNombreTienda());
                         }
                         double real = Integer.valueOf(ventasResponse.getvRealGeneral());

@@ -72,9 +72,9 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
             resizeRecycler(binding, 140, this);
         } else if (height <= 1920) {
             resizeRecycler(binding, 190, this);
-        } else if (height <= 2049){
+        } else if (height <= 2049) {
             resizeRecycler(binding, 240, this);
-        }else {
+        } else {
             resizeRecycler(binding, 300, this);
         }
         if (width < 500) {

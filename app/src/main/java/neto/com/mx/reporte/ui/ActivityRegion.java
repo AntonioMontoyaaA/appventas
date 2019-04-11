@@ -83,9 +83,9 @@ public class ActivityRegion extends AppCompatActivity implements VentasHolder.Li
             resizeRecycler(binding, 140, this);
         } else if (height <= 1920) {
             resizeRecycler(binding, 190, this);
-        } else if (height <= 2049){
+        } else if (height <= 2049) {
             resizeRecycler(binding, 240, this);
-        }else {
+        } else {
             resizeRecycler(binding, 300, this);
         }
         if (width < 500) {
@@ -119,10 +119,10 @@ public class ActivityRegion extends AppCompatActivity implements VentasHolder.Li
 
         editor = preferences.edit();
         peticion = 1;
-        if(tipoTienda == 1){
+        if (tipoTienda == 1) {
             editor.putInt("tipoTienda", 1);
             binding.header.imgNuevaTiendaApertura.setImageResource(R.drawable.carritopuerta_azul);
-        }else{
+        } else {
             binding.header.imgNuevaTiendaApertura.setImageResource(R.drawable.carritopuerta_naranja);
         }
 
@@ -289,7 +289,7 @@ public class ActivityRegion extends AppCompatActivity implements VentasHolder.Li
                     editor.apply();
                     tipoTienda = 2;
                     Consulta consulta = new Consulta(usuario, region, getString(R.string.zero), getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta);
-                    peticion =4;
+                    peticion = 4;
                     obtenerVentas(binding, consulta);
                     binding.header.imgNuevaTiendaApertura.setImageResource(R.drawable.carritopuerta_naranja);
 
@@ -298,7 +298,7 @@ public class ActivityRegion extends AppCompatActivity implements VentasHolder.Li
                     editor.apply();
                     tipoTienda = 1;
                     Consulta consulta = new Consulta(usuario, region, getString(R.string.zero), getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta);
-                    peticion =5;
+                    peticion = 5;
                     obtenerVentas(binding, consulta);
                     binding.header.imgNuevaTiendaApertura.setImageResource(R.drawable.carritopuerta_azul);
                 }
@@ -488,6 +488,7 @@ public class ActivityRegion extends AppCompatActivity implements VentasHolder.Li
         Intent intent = new Intent(this, ActivityZona.class);
         startActivity(intent);
     }
+
     public void logicaPintadatos() {
         banderaBoton = preferences.getInt("button", 0);
         if (banderaBoton == 0) {
@@ -514,17 +515,17 @@ public class ActivityRegion extends AppCompatActivity implements VentasHolder.Li
         }
     }
 
-    public void actualizaSiUnaPetiiconFalla(){
-        if(peticion == 2){
+    public void actualizaSiUnaPetiiconFalla() {
+        if (peticion == 2) {
             binding.header.imgTiendasSinVentas.setImageResource(R.drawable.carritoturquesa);
         }
-        if(peticion == 3){
+        if (peticion == 3) {
             binding.header.imgTiendasSinVentas.setImageResource(R.drawable.carritonaranja);
         }
-        if(peticion == 4){
+        if (peticion == 4) {
             binding.header.imgNuevaTiendaApertura.setImageResource(R.drawable.carritopuerta_azul);
         }
-        if(peticion == 5){
+        if (peticion == 5) {
             binding.header.imgNuevaTiendaApertura.setImageResource(R.drawable.carritopuerta_naranja);
         }
     }
