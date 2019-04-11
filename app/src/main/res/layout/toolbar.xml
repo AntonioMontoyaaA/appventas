@@ -29,24 +29,59 @@
                 android:id="@+id/back"
                 android:layout_width="40dp"
                 android:layout_height="40dp">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="-2dp"
-                    android:backgroundTint="@color/turquesa"
-                    android:background="@drawable/flechaizqblanca" />
+                    android:background="@drawable/flechaizqblanca"
+                    android:backgroundTint="@color/turquesa" />
             </LinearLayout>
+
             <neto.com.mx.reporte.utils.font.RobotoTextView
                 android:id="@+id/txtappversion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="9dp"
+                android:layout_marginEnd="0dp"
                 android:text=""
                 android:textColor="@color/blanco"
-                android:textSize="8dp"
-                android:layout_marginEnd="0dp"
-                android:layout_marginTop="0dp"
+                android:textSize="8sp"
                 app:typeface="robotoLight" />
+
+            <LinearLayout
+                android:id="@+id/nuevasTiendas"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/nuevaTienda"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="-2dp"
+                    android:background="@drawable/scissors_cu"
+
+                    android:backgroundTint="@color/turquesa" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/nuevasTiendasAperturas"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imgNuevaTiendaApertura"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="-2dp"/>
+            </LinearLayout>
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="0dp"
@@ -56,61 +91,63 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <neto.com.mx.reporte.utils.font.RobotoTextView
-                    android:id="@+id/nombre_titulo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:gravity="center"
-                    android:text="@string/ventas"
-                    android:textColor="@color/turquesa"
-                    android:textSize="20dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.569"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:typeface="robotoRegular" />
+
 
             </android.support.constraint.ConstraintLayout>
 
-
-
             <LinearLayout
-                android:gravity="center"
-                android:id="@+id/tiendas"
-                android:orientation="vertical"
+                android:id="@+id/tiendasSinVentas"
                 android:layout_width="40dp"
-                android:layout_height="40dp">
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
                 <ImageView
-                    android:backgroundTint="@color/turquesa"
-                    android:layout_marginTop="0dp"
+                    android:id="@+id/imgTiendasSinVentas"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:background="@drawable/ic_shopping_cart_black_24dp" />
+                    android:layout_marginTop="0dp"
+
+                    />
+            </LinearLayout>
+            <!--
+            android:background="@drawable/carritoturquesa"
+            android:backgroundTint="@color/turquesa"-->
+            <LinearLayout
+                android:id="@+id/tiendas"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="0dp"
+                    android:background="@drawable/ic_shopping_cart_black_24dp"
+                    android:backgroundTint="@color/turquesa" />
             </LinearLayout>
 
             <LinearLayout
-                android:gravity="center"
                 android:id="@+id/calendario"
-                android:orientation="vertical"
                 android:layout_width="40dp"
-                android:layout_height="40dp">
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
                 <ImageView
-                    android:backgroundTint="@color/turquesa"
                     android:id="@+id/agregar"
-                    android:layout_marginTop="-2dp"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_gravity="center"
+                    android:layout_marginTop="-2dp"
+                    android:background="@drawable/ic_date_range_black_24dp"
 
-                    android:background="@drawable/ic_date_range_black_24dp" />
+                    android:backgroundTint="@color/turquesa" />
             </LinearLayout>
         </LinearLayout>
 
     </android.support.v7.widget.Toolbar>
-
-
 
 
 </layout>

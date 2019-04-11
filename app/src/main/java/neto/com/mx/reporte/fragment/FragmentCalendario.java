@@ -52,6 +52,7 @@ public class FragmentCalendario extends DialogFragment {
     SharedPreferences.Editor editor;
 
     int day, month, year;
+    private int tipoTienda = 1;
 
     @Override
     public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container,
@@ -72,7 +73,7 @@ public class FragmentCalendario extends DialogFragment {
         day = preferences.getInt("day", Integer.parseInt(diaActual));
         month = preferences.getInt("month", Integer.parseInt(mesActual) - 1);
         year = preferences.getInt("year", Integer.parseInt(anioActual));
-
+        tipoTienda = preferences.getInt("tipoTienda", 0);
 
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP_MR1) {
             Calendar c = Calendar.getInstance();
@@ -82,6 +83,13 @@ public class FragmentCalendario extends DialogFragment {
             binding.calendario.setMaxDate(new Date().getTime());
         }
         binding.calendario.updateDate(year, month, day);
+
+        if(tipoTienda == 2){
+            Calendar cal = Calendar.getInstance();
+            cal.add(Calendar.WEEK_OF_YEAR, -15);
+            Date result = cal.getTime();
+            binding.calendario.setMinDate(result.getTime());
+        }
 
         binding.seleccionar.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -102,4 +102,9 @@ public class Ventas implements SortedListAdapter.ViewModel {
         }
     }
 
+    public String nombre(String nombreLargo){
+        String[] items = nombreLargo.split("/");
+        return items[items.length-1];
+    }
+
 }

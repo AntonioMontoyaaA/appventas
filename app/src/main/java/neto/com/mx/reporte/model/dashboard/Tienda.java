@@ -9,6 +9,8 @@ public class Tienda implements SortedListAdapter.ViewModel{
     private int idTienda;
     private int idZona;
     private String nombreTienda;
+    private String nombreRegion;
+    private String nombreZona;
 
     public int getIdPais() {
         return idPais;
@@ -48,5 +50,21 @@ public class Tienda implements SortedListAdapter.ViewModel{
 
     public void setNombreTienda(String nombreTienda) {
         this.nombreTienda = nombreTienda;
+    }
+
+    public String getNombreRegion() {
+        return nombreRegion;
+    }
+
+    public void setNombreRegion(String nombreRegion) {
+        this.nombreRegion = nombreRegion;
+    }
+
+    public String getNombreZona() {
+        return nombreZona;
+    }
+
+    public void setNombreZona(String nombreZona) {
+        this.nombreZona = nombreZona;
     }
 }

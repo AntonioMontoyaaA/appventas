@@ -55,6 +55,7 @@ public class ActivityTiendas extends AppCompatActivity implements VentasHolder.L
     SharedPreferences.Editor editor;
     int day, month, year;
     SharedPreferences preferences;
+    private int tipoTienda = 0, tipoVenta = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +73,6 @@ public class ActivityTiendas extends AppCompatActivity implements VentasHolder.L
             Log.e("CARGA_FOLIO_TAG", "Error al obtener la versión: " + ne.getMessage());
         }
         if (width < 500) {
-
             binding.tacometro.getLayoutParams().height = 190;
             binding.tacometro.getLayoutParams().width = 190;
             binding.total.setTextSize(18);
@@ -90,6 +90,8 @@ public class ActivityTiendas extends AppCompatActivity implements VentasHolder.L
 
         preferences = getSharedPreferences("datosReporte", MODE_PRIVATE);
         final String usuario = preferences.getString("usuario", "");
+        tipoTienda = preferences.getInt("tipoTienda", 0);
+        tipoVenta = preferences.getInt("tipoVenta", 1);
         region = preferences.getString("region", "");
         zona = preferences.getString("zona", "");
         tienda = preferences.getString("tienda", "");
@@ -105,14 +107,20 @@ public class ActivityTiendas extends AppCompatActivity implements VentasHolder.L
         fechaInicial = sdf.format(date);
         fechaFinal = sdf.format(date);
 
-        final Consulta[] consulta = {new Consulta(
-                usuario,
-                region,
-                zona,
-                tienda,
-                fechaInicial,
-                fechaFinal
-        )};
+        if(tipoTienda == 1){
+            editor.putInt("tipoTienda", 1);
+            binding.header.imgNuevaTiendaApertura.setImageResource(R.drawable.carritopuerta_azul);
+        }else{
+            binding.header.imgNuevaTiendaApertura.setImageResource(R.drawable.carritopuerta_naranja);
+        }
+
+        if (tipoVenta == 0) {
+            binding.header.imgTiendasSinVentas.setImageResource(R.drawable.carritonaranja);
+        }else {
+            binding.header.imgTiendasSinVentas.setImageResource(R.drawable.carritoturquesa);
+        }
+
+        final Consulta[] consulta = {new Consulta(usuario, region, zona, tienda, fechaInicial, fechaFinal, tipoTienda, tipoVenta)};
 
         binding.dia.setBackground(getDrawable(R.drawable.fill_left));
         binding.dia.setTextColor(ContextCompat.getColor(ActivityTiendas.this, R.color.colorPrimary));
@@ -128,37 +136,19 @@ public class ActivityTiendas extends AppCompatActivity implements VentasHolder.L
                 binding.semana.setTextColor(ContextCompat.getColor(ActivityTiendas.this, R.color.turquesa));
                 binding.mes.setBackground(getDrawable(R.drawable.square_right));
                 binding.mes.setTextColor(ContextCompat.getColor(ActivityTiendas.this, R.color.turquesa));
-
                 date = new Date();
                 fechaInicial = sdf.format(date);
                 fechaFinal = sdf.format(date);
-
                 if (fechaSeleccionada.length() > 0) {
                     fechaInicial = fechaSeleccionada;
                     fechaFinal = fechaSeleccionada;
-                    consulta[0] = new Consulta(
-                            usuario,
-                            region,
-                            zona,
-                            tienda,
-                            fechaInicial,
-                            fechaFinal
-                    );
+                    consulta[0] = new Consulta(usuario, region, zona, tienda, fechaInicial, fechaFinal, tipoTienda, tipoVenta);
                     obtenerVentas(binding, consulta[0]);
                 } else {
-                    Consulta consulta = new Consulta(
-                            usuario,
-                            region,
-                            zona,
-                            tienda,
-                            fechaInicial,
-                            fechaFinal
-                    );
-
+                    Consulta consulta = new Consulta(usuario, region, zona, tienda, fechaInicial, fechaFinal, tipoTienda, tipoVenta);
                     obtenerVentas(binding, consulta);
                 }
                 binding.rangoFechas.setText("Consulta al día: " + fechaInicial);
-
             }
         });
 
@@ -173,14 +163,12 @@ public class ActivityTiendas extends AppCompatActivity implements VentasHolder.L
                 binding.semana.setTextColor(ContextCompat.getColor(ActivityTiendas.this, R.color.colorPrimary));
                 binding.mes.setBackground(getDrawable(R.drawable.square_right));
                 binding.mes.setTextColor(ContextCompat.getColor(ActivityTiendas.this, R.color.turquesa));
-
                 c = Calendar.getInstance();
                 c.setFirstDayOfWeek(Calendar.MONDAY);
                 c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
                 date = new Date();
                 fechaInicial = sdf.format(c.getTime());
                 fechaFinal = sdf.format(date);
-
                 if (fechaSeleccionada.length() > 0) {
                     c = Calendar.getInstance();
                     c.setFirstDayOfWeek(Calendar.MONDAY);
@@ -189,23 +177,10 @@ public class ActivityTiendas extends AppCompatActivity implements VentasHolder.L
                     int diaSemana = c.get(Calendar.DAY_OF_WEEK);
                     for (int i = 0; i < 7; i++) {
                         if (diaSemana != Calendar.MONDAY) {
-                            if (day > 2) {
-                                day--;
-                                c.set(year, month, day);
-                                diaSemana = c.get(Calendar.DAY_OF_WEEK);
-                            } else {
-                                if (month > 0) {
-                                    month--;
-                                    c.set(year, month, 1);
-                                    day = c.getActualMaximum(Calendar.DAY_OF_MONTH);
-                                    c.set(year, month, day);
-                                } else {
-                                    month = 12;
-                                    year--;
-                                    c.set(year, month, 31);
-                                }
-                                diaSemana = c.get(Calendar.DAY_OF_WEEK);
-                            }
+                            day--;
+                            c.set(year, month, day);
+                            diaSemana = c.get(Calendar.DAY_OF_WEEK);
+                            if (diaSemana == Calendar.MONDAY) break;
                         } else {
                             break;
                         }
@@ -213,33 +188,13 @@ public class ActivityTiendas extends AppCompatActivity implements VentasHolder.L
                     date = new Date();
                     fechaInicial = sdf.format(c.getTime());
                     fechaFinal = fechaSeleccionada;
-
-                    Consulta consulta = new Consulta(
-                            usuario,
-                            region,
-                            zona,
-                            tienda,
-                            fechaInicial,
-                            fechaFinal
-                    );
-
+                    Consulta consulta = new Consulta(usuario, region, zona, tienda, fechaInicial, fechaFinal, tipoTienda, tipoVenta);
                     obtenerVentas(binding, consulta);
-
                 } else {
-                    Consulta consulta = new Consulta(
-                            usuario,
-                            region,
-                            zona,
-                            tienda,
-                            fechaInicial,
-                            fechaFinal
-                    );
-
+                    Consulta consulta = new Consulta(usuario, region, zona, tienda, fechaInicial, fechaFinal, tipoTienda, tipoVenta);
                     obtenerVentas(binding, consulta);
                 }
                 binding.rangoFechas.setText("Consulta del " + fechaInicial + " al " + fechaFinal);
-
-
             }
         });
 
@@ -261,46 +216,38 @@ public class ActivityTiendas extends AppCompatActivity implements VentasHolder.L
                 binding.semana.setTextColor(ContextCompat.getColor(ActivityTiendas.this, R.color.turquesa));
                 binding.mes.setBackground(getDrawable(R.drawable.fill_right));
                 binding.mes.setTextColor(ContextCompat.getColor(ActivityTiendas.this, R.color.colorPrimary));
-
                 Calendar c = Calendar.getInstance();   // this takes current date
                 c.set(Calendar.DAY_OF_MONTH, 1);
                 date = new Date();
                 sdf = new SimpleDateFormat("dd/MM/yyyy");
                 fechaInicial = sdf.format(c.getTime());
                 fechaFinal = sdf.format(date);
-
                 if (fechaSeleccionada.length() > 0) {
                     c = Calendar.getInstance();
                     c.set(year, month, day);
                     c.set(Calendar.DAY_OF_MONTH, 1);
                     date = new Date();
-
                     sdf = new SimpleDateFormat("dd/MM/yyyy");
                     fechaInicial = sdf.format(c.getTime());
                     fechaFinal = fechaSeleccionada;
-
-                    consulta[0] = new Consulta(
-                            usuario,
-                            region,
-                            zona,
-                            tienda,
-                            fechaInicial,
-                            fechaFinal
-                    );
+                    consulta[0] = new Consulta(usuario, region, zona, tienda, fechaInicial, fechaFinal, tipoTienda, tipoVenta);
                     obtenerVentas(binding, consulta[0]);
                 } else {
-                    Consulta consulta = new Consulta(
-                            usuario,
-                            region,
-                            zona,
-                            tienda,
-                            fechaInicial,
-                            fechaFinal
-                    );
+                    Consulta consulta = new Consulta(usuario, region, zona, tienda, fechaInicial, fechaFinal, tipoTienda, tipoVenta);
                     obtenerVentas(binding, consulta);
                 }
                 binding.rangoFechas.setText("Consulta del " + fechaInicial + " al " + fechaFinal);
+            }
+        });
 
+        binding.header.nuevasTiendas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTiendas a = new FragmentTiendas();
+                Bundle bundle = new Bundle();
+                bundle.putInt("typeTiendas", 2);
+                a.setArguments(bundle);
+                a.show(getSupportFragmentManager(), "child");
             }
         });
 
@@ -308,6 +255,9 @@ public class ActivityTiendas extends AppCompatActivity implements VentasHolder.L
             @Override
             public void onClick(View v) {
                 FragmentTiendas a = new FragmentTiendas();
+                Bundle bundle = new Bundle();
+                bundle.putInt("typeTiendas", 1);
+                a.setArguments(bundle);
                 a.show(getSupportFragmentManager(), "child");
             }
         });
@@ -325,9 +275,7 @@ public class ActivityTiendas extends AppCompatActivity implements VentasHolder.L
 
         if (fechaSeleccionada.length() > 0) {
             banderaBoton = preferences.getInt("button", 0);
-
             if (banderaBoton == 0) {
-
                 binding.dia.setBackground(getDrawable(R.drawable.fill_left));
                 binding.dia.setTextColor(ContextCompat.getColor(ActivityTiendas.this, R.color.colorPrimary));
                 binding.semana.setBackground(getDrawable(R.drawable.square_center));
@@ -336,15 +284,7 @@ public class ActivityTiendas extends AppCompatActivity implements VentasHolder.L
                 binding.mes.setTextColor(ContextCompat.getColor(ActivityTiendas.this, R.color.turquesa));
                 fechaInicial = fechaSeleccionada;
                 fechaFinal = fechaSeleccionada;
-
-                consulta[0] = new Consulta(
-                        usuario,
-                        region,
-                        zona,
-                        tienda,
-                        fechaInicial,
-                        fechaFinal
-                );
+                consulta[0] = new Consulta(usuario, region, zona, tienda, fechaInicial, fechaFinal, tipoTienda, tipoVenta);
                 obtenerVentas(binding, consulta[0]);
                 binding.rangoFechas.setText("Consulta al día: " + fechaInicial);
             } else if (banderaBoton == 1) {
@@ -361,23 +301,10 @@ public class ActivityTiendas extends AppCompatActivity implements VentasHolder.L
                 int diaSemana = c.get(Calendar.DAY_OF_WEEK);
                 for (int i = 0; i < 7; i++) {
                     if (diaSemana != Calendar.MONDAY) {
-                        if (day > 2) {
-                            day--;
-                            c.set(year, month, day);
-                            diaSemana = c.get(Calendar.DAY_OF_WEEK);
-                        } else {
-                            if (month > 0) {
-                                month--;
-                                c.set(year, month, 1);
-                                day = c.getActualMaximum(Calendar.DAY_OF_MONTH);
-                                c.set(year, month, day);
-                            } else {
-                                month = 12;
-                                year--;
-                                c.set(year, month, 31);
-                            }
-                            diaSemana = c.get(Calendar.DAY_OF_WEEK);
-                        }
+                        day--;
+                        c.set(year, month, day);
+                        diaSemana = c.get(Calendar.DAY_OF_WEEK);
+                        if (diaSemana == Calendar.MONDAY) break;
                     } else {
                         break;
                     }
@@ -385,15 +312,7 @@ public class ActivityTiendas extends AppCompatActivity implements VentasHolder.L
                 date = new Date();
                 fechaInicial = sdf.format(c.getTime());
                 fechaFinal = fechaSeleccionada;
-
-                consulta[0] = new Consulta(
-                        usuario,
-                        region,
-                        zona,
-                        tienda,
-                        fechaInicial,
-                        fechaFinal
-                );
+                consulta[0] = new Consulta(usuario, region, zona, tienda, fechaInicial, fechaFinal, tipoTienda, tipoVenta);
                 obtenerVentas(binding, consulta[0]);
                 binding.rangoFechas.setText("Consulta del " + fechaInicial + " al " + fechaFinal);
             } else if (banderaBoton == 2) {
@@ -406,19 +325,10 @@ public class ActivityTiendas extends AppCompatActivity implements VentasHolder.L
                 c = Calendar.getInstance();
                 c.set(year, month, day);
                 c.set(Calendar.DAY_OF_MONTH, 1);
-                date = new Date();
                 sdf = new SimpleDateFormat("dd/MM/yyyy");
                 fechaInicial = sdf.format(c.getTime());
                 fechaFinal = fechaSeleccionada;
-
-                consulta[0] = new Consulta(
-                        usuario,
-                        region,
-                        zona,
-                        tienda,
-                        fechaInicial,
-                        fechaFinal
-                );
+                consulta[0] = new Consulta(usuario, region, zona, tienda, fechaInicial, fechaFinal, tipoTienda, tipoVenta);
                 obtenerVentas(binding, consulta[0]);
                 binding.rangoFechas.setText("Consulta del " + fechaInicial + " al " + fechaFinal);
             }
@@ -450,7 +360,13 @@ public class ActivityTiendas extends AppCompatActivity implements VentasHolder.L
                         binding.ventaPerdida.setText(converter(Double.parseDouble(ventasResponse.getvPerdidaGeneral())));
                         binding.ventaObjetivo.setText(String.valueOf("$" + ventasResponse.getvObjetivoGeneral()));
                         binding.total.setText(converter(Double.parseDouble(ventasResponse.getvRealGeneral())));
-                        binding.lugar.setText("Tienda \n" + ventasResponse.getListaVentas().get(0).getNombreTienda());
+                        if(tipoTienda == 1 && tipoVenta == 1) {
+                            String zonaNombre = preferences.getString("zonaNombre", "");
+                            String regionNombre = preferences.getString("regionNombre", "");
+                            binding.lugar.setText(regionNombre + " / " + zonaNombre + " / " + ventasResponse.getListaVentas().get(0).getNombreTienda());
+                        }else{
+                            binding.lugar.setText(ventasResponse.getListaVentas().get(0).getNombreTienda());
+                        }
                         double real = Integer.valueOf(ventasResponse.getvRealGeneral());
                         double objetivo = Integer.valueOf(ventasResponse.getvObjetivoGeneral());
                         double operacion = real / objetivo * 100;
@@ -476,19 +392,16 @@ public class ActivityTiendas extends AppCompatActivity implements VentasHolder.L
                             @Override
                             public void onValueChanged(float value) {
                             }
+
                             @Override
                             public void onAnimationEnd() {
                             }
                         });
-
-
                         adapter = new AdapterVentas(getApplicationContext(), ALPHABETICAL_COMPARATOR, ActivityTiendas.this);
                         binding.recyclerview.setLayoutManager(new LinearLayoutManager(ActivityTiendas.this));
                         adapter.edit().replaceAll(ventasResponse.getListaVentas()).commit();
                         adapter.notifyItemRangeRemoved(0, adapter.getItemCount());
                         binding.recyclerview.setAdapter(adapter);
-
-
                     } else {
                         Util.loadingProgress(progressDialog, 1);
                         Aceptar a = new Aceptar();
@@ -504,11 +417,8 @@ public class ActivityTiendas extends AppCompatActivity implements VentasHolder.L
 
             @Override
             public void reject(Exception e) {
-
             }
         });
-
-
     }
 
     private static final Comparator<Ventas> ALPHABETICAL_COMPARATOR = new Comparator<Ventas>() {
@@ -520,7 +430,6 @@ public class ActivityTiendas extends AppCompatActivity implements VentasHolder.L
 
     @Override
     public void onProcesoSelect(Ventas model) {
-
-
     }
+
 }

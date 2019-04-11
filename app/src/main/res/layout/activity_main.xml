@@ -15,7 +15,7 @@
         tools:context=".ui.ActivityMain">
 
         <LinearLayout
-            android:id="@+id/linearLayout2"
+            android:id="@+id/linearVentas"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
@@ -31,78 +31,102 @@
 
         </LinearLayout>
 
+
+
         <LinearLayout
-            android:id="@+id/linearLayout"
+            android:id="@+id/linearLayoutFecha"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="5dp"
             android:gravity="center"
             android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+            app:layout_constraintTop_toBottomOf="@+id/linearVentas">
             <!-- android:backgroundTint="@color/turquesa" -->
 
             <Button
                 android:id="@+id/dia"
                 android:layout_width="100dp"
-                android:layout_height="28dp"
+                android:layout_height="25dp"
                 android:background="@drawable/square_left"
                 android:fontFamily="sans-serif-light"
                 android:singleLine="true"
                 android:text="@string/dia"
                 android:textColor="@color/turquesa"
-                android:textSize="14sp" />
+                android:textSize="12sp" />
 
             <Button
                 android:id="@+id/semana"
                 android:layout_width="100dp"
-                android:layout_height="28dp"
+                android:layout_height="25dp"
                 android:background="@drawable/square_center"
                 android:fontFamily="sans-serif-light"
                 android:singleLine="true"
                 android:text="@string/semana"
                 android:textColor="@color/turquesa"
-                android:textSize="14sp" />
+                android:textSize="12sp" />
 
             <Button
                 android:id="@+id/mes"
                 android:layout_width="100dp"
-                android:layout_height="28dp"
+                android:layout_height="25dp"
                 android:background="@drawable/square_right"
                 android:fontFamily="sans-serif-light"
                 android:singleLine="true"
                 android:text="@string/mes"
                 android:textColor="@color/turquesa"
-                android:textSize="14sp" />
+                android:textSize="12sp" />
 
         </LinearLayout>
+
 
         <neto.com.mx.reporte.utils.font.RobotoTextView
             android:id="@+id/rangoFechas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/tacometro"
+            android:layout_alignStart="@+id/tacometro"
             android:layout_alignTop="@+id/tacometro"
-            android:layout_alignRight="@+id/tacometro"
+            android:layout_alignEnd="@+id/tacometro"
             android:layout_alignBottom="@+id/tacometro"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="30dp"
             android:layout_marginEnd="4dp"
             android:gravity="center"
-            android:text="---"
+            android:text=""
             android:textColor="@color/turquesa"
-            android:textSize="10dp"
+            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/tacometro"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/linearLayout"
+            app:layout_constraintTop_toTopOf="@+id/linearLayoutFecha"
             app:layout_constraintVertical_bias="0"
             app:typeface="robotoLight" />
 
+        <neto.com.mx.reporte.utils.font.RobotoTextView
+            android:id="@+id/lugar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/tacometro"
+            android:layout_alignTop="@+id/tacometro"
+            android:layout_alignEnd="@+id/tacometro"
+            android:layout_alignBottom="@+id/tacometro"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="4dp"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@color/turquesa"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tacometro"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/linearLayoutFecha"
+            app:layout_constraintVertical_bias="0"
+            app:typeface="robotoLight" />
 
         <com.eralp.circleprogressview.CircleProgressView
             android:id="@+id/tacometro"
-            android:layout_width="210dp"
-            android:layout_height="210dp"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
@@ -114,48 +138,25 @@
             app:cpv_text_color="@color/colorPrimaryDark"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rangoFechas">
+            app:layout_constraintTop_toBottomOf="@+id/lugar">
 
         </com.eralp.circleprogressview.CircleProgressView>
-
-
-        <neto.com.mx.reporte.utils.font.RobotoTextView
-            android:id="@+id/lugar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/tacometro"
-            android:layout_alignTop="@+id/tacometro"
-            android:layout_alignRight="@+id/tacometro"
-            android:layout_alignBottom="@+id/tacometro"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:fontFamily="sans-serif-light"
-            android:gravity="center"
-            android:textColor="@color/blanco"
-            android:textSize="13sp"
-            app:layout_constraintBottom_toBottomOf="@+id/tacometro"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.502"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tacometro"
-            app:layout_constraintVertical_bias="0.15"
-            tools:text="" />
 
 
         <neto.com.mx.reporte.utils.font.RobotoTextView
             android:id="@+id/total"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/tacometro"
+            android:layout_alignStart="@+id/tacometro"
             android:layout_alignTop="@+id/tacometro"
-            android:layout_alignRight="@+id/tacometro"
+            android:layout_alignEnd="@+id/tacometro"
             android:layout_alignBottom="@+id/tacometro"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:fontFamily="sans-serif-light"
             android:gravity="center"
             android:textColor="@color/blanco"
-            android:textSize="30sp"
+            android:textSize="28sp"
             app:layout_constraintBottom_toBottomOf="@+id/tacometro"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.502"
@@ -168,16 +169,16 @@
             android:id="@+id/ventareal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/tacometro"
+            android:layout_alignStart="@+id/tacometro"
             android:layout_alignTop="@+id/tacometro"
-            android:layout_alignRight="@+id/tacometro"
+            android:layout_alignEnd="@+id/tacometro"
             android:layout_alignBottom="@+id/tacometro"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:gravity="center"
             android:text="@string/venta_real"
             android:textColor="@color/blanco"
-            android:textSize="18dp"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/tacometro"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -198,9 +199,9 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="0dp"
             android:gravity="center"
-            android:text="$18"
+            android:text=""
             android:textColor="@color/turquesa"
-            android:textSize="14dp"
+            android:textSize="14sp"
             android:visibility="gone"
             app:layout_constraintEnd_toStartOf="@+id/robotoTextView"
             app:layout_constraintHorizontal_bias="1.0"
@@ -212,9 +213,9 @@
             android:id="@+id/robotoTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/tacometro"
+            android:layout_alignStart="@+id/tacometro"
             android:layout_alignTop="@+id/tacometro"
-            android:layout_alignRight="@+id/tacometro"
+            android:layout_alignEnd="@+id/tacometro"
             android:layout_alignBottom="@+id/tacometro"
             android:layout_marginTop="4dp"
             android:gravity="center"
@@ -243,6 +244,8 @@
             app:layout_constraintTop_toBottomOf="@+id/robotoTextView"
             app:typeface="robotoLight"
             tools:text="@string/mdpTotal" />
+
+
 
         <View
             android:id="@+id/view2"
@@ -307,7 +310,7 @@
                     android:fontFamily="sans-serif-light"
                     android:text="@string/ticket_promedio"
                     android:textColor="@color/blanco"
-                    android:textSize="10dp" />
+                    android:textSize="10sp" />
 
                 <neto.com.mx.reporte.utils.font.RobotoTextView
                     android:id="@+id/tiendas_promedio"
@@ -315,7 +318,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:textColor="@color/blanco"
-                    android:textSize="22dp"
+                    android:textSize="22sp"
                     app:typeface="robotoRegular"
                     tools:text="660" />
 
@@ -334,7 +337,7 @@
                     android:fontFamily="sans-serif-light"
                     android:text="@string/venta_perdida"
                     android:textColor="@color/blanco"
-                    android:textSize="10dp" />
+                    android:textSize="10sp" />
 
                 <neto.com.mx.reporte.utils.font.RobotoTextView
                     android:id="@+id/venta_perdida"
@@ -342,7 +345,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:textColor="@color/blanco"
-                    android:textSize="22dp"
+                    android:textSize="22sp"
                     app:typeface="robotoRegular"
                     tools:text="660" />
 
@@ -365,7 +368,7 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerview"
             android:layout_width="match_parent"
-            android:layout_height="230dp"
+            android:layout_height="207dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -373,7 +376,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view3"
-            app:layout_constraintVertical_bias="0.0"></android.support.v7.widget.RecyclerView>
+            app:layout_constraintVertical_bias="0.0" />
 
 
     </android.support.constraint.ConstraintLayout>

@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -56,10 +57,10 @@ public class FragmentTiendas extends DialogFragment implements TiendasHolder.Lis
 
     ProgressDialog progressDialog;
 
-    public void obtenerTiendas(String usuario) {
+    public void obtenerTiendas(String usuario, int tipoTienda) {
         progressDialog = new ProgressDialog(getContext());
         Util.loadingProgress(progressDialog, 0);
-        ProviderTiendas.getInstance(getContext()).getVentas(usuario, new ProviderTiendas.ConsultaTiendas() {
+        ProviderTiendas.getInstance(getContext()).getVentas(usuario,tipoTienda, new ProviderTiendas.ConsultaTiendas() {
             @Override
             public void resolve(Tiendas tiendas) {
                 if (tiendas != null) {
@@ -104,7 +105,8 @@ public class FragmentTiendas extends DialogFragment implements TiendasHolder.Lis
 
         adapter = new AdapterTiendas(getContext(), ALPHABETICAL_COMPARATOR, this);
         binding.recyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
-        obtenerTiendas(usuario);
+        final int type = getArguments().getInt("typeTiendas");
+        obtenerTiendas(usuario, type);
 
 
         binding.buscar.addTextChangedListener(new TextWatcher() {
@@ -156,13 +158,15 @@ public class FragmentTiendas extends DialogFragment implements TiendasHolder.Lis
 
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("zona", String.valueOf(model.getIdZona()));
+        editor.putString("zonaNombre", model.getNombreZona());
         editor.putString("region", String.valueOf(model.getIdRegion()));
+        editor.putString("regionNombre", model.getNombreRegion());
         editor.putString("tienda", String.valueOf(model.getIdTienda()));
         editor.apply();
 
         Intent intent = new Intent(getContext(), ActivityTiendas.class);
         startActivity(intent);
 
-
+        dismiss();
     }
 }

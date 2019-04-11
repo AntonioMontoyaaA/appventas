@@ -8,14 +8,18 @@ public class Consulta {
     private String tienda;
     private String fechaInicial;
     private String fechaFinal;
+    private int tipoTienda;
+    private int tipoVenta;
 
-    public Consulta(String numeroEmpleado, String region, String zona, String tienda, String fechaInicial, String fechaFinal) {
+    public Consulta(String numeroEmpleado, String region, String zona, String tienda, String fechaInicial, String fechaFinal, int tipoTienda, int tipoVenta ) {
         this.numeroEmpleado = numeroEmpleado;
         this.region = region;
         this.zona = zona;
         this.tienda = tienda;
         this.fechaInicial = fechaInicial;
         this.fechaFinal = fechaFinal;
+        this.tipoTienda = tipoTienda;
+        this.tipoVenta = tipoVenta;
     }
 
     public String getNumeroEmpleado() {
@@ -64,5 +68,21 @@ public class Consulta {
 
     public void setFechaFinal(String fechaFinal) {
         this.fechaFinal = fechaFinal;
+    }
+
+    public int getTipoTienda() {
+        return tipoTienda;
+    }
+
+    public void setTipoTienda(int tipoTienda) {
+        this.tipoTienda = tipoTienda;
+    }
+
+    public int getTipoVenta() {
+        return tipoVenta;
+    }
+
+    public void setTipoVenta(int tipoVenta) {
+        this.tipoVenta = tipoVenta;
     }
 }

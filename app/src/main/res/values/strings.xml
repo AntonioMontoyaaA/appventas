@@ -23,7 +23,7 @@
     <string name="semana">SEMANA</string>
     <string name="mes">MES</string>
     <string name="venta_real">VENTA REAL</string>
-    <string name="tiendas_venta">TIENDAS CON VENTA</string>
+    <string name="tiendas_venta">TIENDAS</string>
     <string name="ticket_promedio">TICKET PROMEDIO</string>
     <string name="venta_perdida">VENTA PERDIDA</string>
     <string name="zero">0</string>
@@ -42,4 +42,8 @@
     <string name="idapp">4</string>
 
     <string name="aceptar">Aceptar</string>
+    <string name="con_ventas">Con ventas</string>
+    <string name="sin_ventas">Sin ventas</string>
+    <string name="apertura">Apertura</string>
+    <string name="activas">Activas</string>
 </resources>

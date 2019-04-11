@@ -26,9 +26,9 @@ public class ProviderDashboard {
     String NAMESPACE = "http://servicio.rutas.movil.abasto.neto";
     String METHOD_NAME = "obtieneVentasPorEmpleado2";
 
-     //String URL = "http://10.81.12.46:7777/appWSSIANMovilesPAR/services/WSRutasMovil/"; //QA
-    // String URL = "http://10.81.12.45:7777/WSSIANMoviles/services/WSRutasMovil/"; //DESA
-    String URL = "https://www.servicios.tiendasneto.com/WSSIANMoviles/services/WSRutasMovil/";
+    //String URL = "http://10.81.12.46:7777/appWSSIANMovilesPAR/services/WSRutasMovil/"; //QA
+    String URL = "http://10.81.12.45:7777/WSSIAN/services/WSRutasMovil/"; //DESA
+    //String URL = "https://www.servicios.tiendasneto.com/WSSIANMoviles/services/WSRutasMovil/";
 
     private Context context;
 
@@ -75,13 +75,15 @@ public class ProviderDashboard {
                     request.addProperty("tienda", consulta.getTienda());
                     request.addProperty("fechaInicial", consulta.getFechaInicial());
                     request.addProperty("fechaFinal", consulta.getFechaFinal());
+                    request.addProperty("tipoTienda", consulta.getTipoTienda());
+                    request.addProperty("tipoVenta", consulta.getTipoVenta());
 
 
                     SoapSerializationEnvelope soapEnvolve = new SoapSerializationEnvelope(SoapEnvelope.VER11);
                     soapEnvolve.dotNet = true;
                     soapEnvolve.setOutputSoapObject(request);
 
-                    HttpTransportSE transport = new HttpTransportSE(URL);
+                    HttpTransportSE transport = new HttpTransportSE(URL,30000);
                     transport.call(NAMESPACE + METHOD_NAME, soapEnvolve);
 
                     SoapObject response = (SoapObject) soapEnvolve.getResponse();

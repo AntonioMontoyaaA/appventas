@@ -107,15 +107,16 @@ public class Util {
                     SoapPrimitive idTienda = (SoapPrimitive) pojoSoap.getProperty("idTienda");
                     SoapPrimitive idZona = (SoapPrimitive) pojoSoap.getProperty("idZona");
                     SoapPrimitive nombreTienda = (SoapPrimitive) pojoSoap.getProperty("nombreTienda");
+                    SoapPrimitive nombreRegion = (SoapPrimitive) pojoSoap.getProperty("nombreRegion");
+                    SoapPrimitive nombreZona = (SoapPrimitive) pojoSoap.getProperty("nombreZona");
 
                     items.setIdPais(Integer.valueOf( (String) idPais.getValue()));
                     items.setIdRegion(Integer.parseInt((String) idRegion.getValue()));
                     items.setIdTienda(Integer.valueOf( (String) idTienda.getValue()));
                     items.setIdZona(Integer.valueOf( (String) idZona.getValue()));
                     items.setNombreTienda((String) nombreTienda.getValue());
-
-
-
+                    items.setNombreRegion((String) nombreRegion.getValue());
+                    items.setNombreZona((String) nombreZona.getValue());
 
                     tiendas.add(items);
                 }
