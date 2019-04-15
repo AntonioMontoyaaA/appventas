@@ -60,17 +60,20 @@ public class FragmentTiendas extends DialogFragment implements TiendasHolder.Lis
     public void obtenerTiendas(String usuario, int tipoTienda) {
         progressDialog = new ProgressDialog(getContext());
         Util.loadingProgress(progressDialog, 0);
-        ProviderTiendas.getInstance(getContext()).getVentas(usuario,tipoTienda, new ProviderTiendas.ConsultaTiendas() {
+        ProviderTiendas.getInstance(getContext()).getVentas(usuario, tipoTienda, new ProviderTiendas.ConsultaTiendas() {
             @Override
             public void resolve(Tiendas tiendas) {
                 if (tiendas != null) {
+                    if (tiendas.getTiendas() != null) {
+                        Util.loadingProgress(progressDialog, 1);
+                        listaTiendas = tiendas.getTiendas();
+                        adapter.edit().replaceAll(tiendas.getTiendas()).commit();
+                        adapter.notifyItemRangeRemoved(0, adapter.getItemCount());
+                        binding.recyclerview.setAdapter(adapter);
+                        binding.view.setVisibility(View.VISIBLE);
+                    }
+                    dismiss();
                     Util.loadingProgress(progressDialog, 1);
-                    listaTiendas = tiendas.getTiendas();
-                    adapter.edit().replaceAll(tiendas.getTiendas()).commit();
-                    adapter.notifyItemRangeRemoved(0, adapter.getItemCount());
-                    binding.recyclerview.setAdapter(adapter);
-                    binding.view.setVisibility(View.VISIBLE);
-
                 } else {
                     dismiss();
                     Util.loadingProgress(progressDialog, 1);

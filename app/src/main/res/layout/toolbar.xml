@@ -63,7 +63,7 @@
                     android:layout_height="20dp"
                     android:layout_gravity="center"
                     android:layout_marginTop="-2dp"
-                    android:background="@drawable/tiendaa" />
+                    android:background="@drawable/carritopuerta_azul_lupa" />
             </LinearLayout>
 
             <LinearLayout
@@ -140,6 +140,23 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="-2dp"
                     android:background="@drawable/ic_date_range_black_24dp"
+
+                    android:backgroundTint="@color/turquesa" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/information"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/img_information"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="-2dp"
+                    android:background="@drawable/ic_action_information"
 
                     android:backgroundTint="@color/turquesa" />
             </LinearLayout>

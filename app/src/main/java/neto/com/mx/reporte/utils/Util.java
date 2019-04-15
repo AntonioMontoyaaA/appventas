@@ -33,6 +33,7 @@ public class Util {
 
     /**
      * Método que muestra el progress bar de manera horizontal programáticamente
+     *
      * @param context
      * @param view
      * @param index
@@ -60,13 +61,14 @@ public class Util {
 
     /**
      * Método que obtiene un SoapObject y regresa el modelo completo de la respuesta del Actualizar Servicio
+     *
      * @param servicio
      * @return
      */
-    public Login modelLoginParse(SoapObject servicio){
+    public Login modelLoginParse(SoapObject servicio) {
         Login item = new Login();
         final String str = servicio.toString();
-        if(!str.contains("null")){
+        if (!str.contains("null")) {
 
             SoapPrimitive codigo = (SoapPrimitive) servicio.getProperty(0);
             SoapPrimitive esUsuarioValido = (SoapPrimitive) servicio.getProperty(1);
@@ -85,7 +87,7 @@ public class Util {
     }
 
 
-    public Tiendas modelTiendasParse(SoapObject servicio, Context context){
+    public Tiendas modelTiendasParse(SoapObject servicio, Context context) {
 
         final String str = servicio.toString();
         Tiendas item = new Tiendas();
@@ -94,36 +96,38 @@ public class Util {
         final String men = servicio.toString();
 
 
-        if(count > 0){
+        if (count > 0) {
             tiendas = new ArrayList<>();
             for (int i = 0; i < count; i++) {
                 Tienda items = new Tienda();
-                if(servicio.getPropertyAsString(i).contains("TiendaBean")){
+                if (!men.contains("Error")) {
+                    if (servicio.getPropertyAsString(i).contains("TiendaBean")) {
 
-                    SoapObject pojoSoap = (SoapObject) servicio.getProperty(i);
+                        SoapObject pojoSoap = (SoapObject) servicio.getProperty(i);
 
-                    SoapPrimitive idPais = (SoapPrimitive) pojoSoap.getProperty("idPais");
-                    SoapPrimitive idRegion = (SoapPrimitive) pojoSoap.getProperty("idRegion");
-                    SoapPrimitive idTienda = (SoapPrimitive) pojoSoap.getProperty("idTienda");
-                    SoapPrimitive idZona = (SoapPrimitive) pojoSoap.getProperty("idZona");
-                    SoapPrimitive nombreTienda = (SoapPrimitive) pojoSoap.getProperty("nombreTienda");
-                    SoapPrimitive nombreRegion = (SoapPrimitive) pojoSoap.getProperty("nombreRegion");
-                    SoapPrimitive nombreZona = (SoapPrimitive) pojoSoap.getProperty("nombreZona");
+                        SoapPrimitive idPais = (SoapPrimitive) pojoSoap.getProperty("idPais");
+                        SoapPrimitive idRegion = (SoapPrimitive) pojoSoap.getProperty("idRegion");
+                        SoapPrimitive idTienda = (SoapPrimitive) pojoSoap.getProperty("idTienda");
+                        SoapPrimitive idZona = (SoapPrimitive) pojoSoap.getProperty("idZona");
+                        SoapPrimitive nombreTienda = (SoapPrimitive) pojoSoap.getProperty("nombreTienda");
+                        SoapPrimitive nombreRegion = (SoapPrimitive) pojoSoap.getProperty("nombreRegion");
+                        SoapPrimitive nombreZona = (SoapPrimitive) pojoSoap.getProperty("nombreZona");
 
-                    items.setIdPais(Integer.valueOf( (String) idPais.getValue()));
-                    items.setIdRegion(Integer.parseInt((String) idRegion.getValue()));
-                    items.setIdTienda(Integer.valueOf( (String) idTienda.getValue()));
-                    items.setIdZona(Integer.valueOf( (String) idZona.getValue()));
-                    items.setNombreTienda((String) nombreTienda.getValue());
-                    items.setNombreRegion((String) nombreRegion.getValue());
-                    items.setNombreZona((String) nombreZona.getValue());
+                        items.setIdPais(Integer.valueOf((String) idPais.getValue()));
+                        items.setIdRegion(Integer.parseInt((String) idRegion.getValue()));
+                        items.setIdTienda(Integer.valueOf((String) idTienda.getValue()));
+                        items.setIdZona(Integer.valueOf((String) idZona.getValue()));
+                        items.setNombreTienda((String) nombreTienda.getValue());
+                        items.setNombreRegion((String) nombreRegion.getValue());
+                        items.setNombreZona((String) nombreZona.getValue());
 
-                    tiendas.add(items);
+                        tiendas.add(items);
+                    }
                 }
             }
         }
 
-        if(!str.contains("null")){
+        if (!str.contains("null")) {
             SoapPrimitive codigo = (SoapPrimitive) servicio.getProperty("codigo");
             SoapPrimitive mensaje = (SoapPrimitive) servicio.getProperty("mensaje");
             item.setCodigo(Integer.valueOf((String) codigo.getValue()));
@@ -135,7 +139,7 @@ public class Util {
     }
 
 
-    public VentasResponse modelVentasParse(SoapObject servicio, Context context){
+    public VentasResponse modelVentasParse(SoapObject servicio, Context context) {
 
         final String str = servicio.toString();
         VentasResponse item = new VentasResponse();
@@ -144,49 +148,51 @@ public class Util {
 
         final String men = servicio.toString();
 
-        if(men.contains(context.getString(R.string.verifique))){
+        if (men.contains(context.getString(R.string.verifique))) {
             Intent intent = new Intent(context, ActivityLogin.class);
             context.startActivity(intent);
             item.setMensaje(context.getString(R.string.no_tiendas));
-        }else{
-            if(count > 0){
+        } else {
+            if (count > 0) {
                 ventas = new ArrayList<>();
                 for (int i = 0; i < count; i++) {
                     Ventas items = new Ventas();
-                    if(servicio.getPropertyAsString(i).contains("VentaBean")){
+                    if (!men.contains("Error")) {
+                        if (servicio.getPropertyAsString(i).contains("VentaBean")) {
 
-                        SoapObject pojoSoap = (SoapObject) servicio.getProperty(i);
+                            SoapObject pojoSoap = (SoapObject) servicio.getProperty(i);
 
-                        SoapPrimitive idElemento = (SoapPrimitive) pojoSoap.getProperty("idElemento");
-                        SoapPrimitive nombreTienda = (SoapPrimitive) pojoSoap.getProperty("nombreElemento");
-                        SoapPrimitive numeroTiendas = (SoapPrimitive) pojoSoap.getProperty("numeroTiendas");
-                        SoapPrimitive ticketPromedio = (SoapPrimitive) pojoSoap.getProperty("ticketPromedio");
-                        SoapPrimitive ventaReal = (SoapPrimitive) pojoSoap.getProperty("ventaReal");
-                        SoapPrimitive ventaObjetivo = (SoapPrimitive) pojoSoap.getProperty("ventaObjetivo");
-                        SoapPrimitive ventaPerdida = (SoapPrimitive) pojoSoap.getProperty("ventaPerdida");
+                            SoapPrimitive idElemento = (SoapPrimitive) pojoSoap.getProperty("idElemento");
+                            SoapPrimitive nombreTienda = (SoapPrimitive) pojoSoap.getProperty("nombreElemento");
+                            SoapPrimitive numeroTiendas = (SoapPrimitive) pojoSoap.getProperty("numeroTiendas");
+                            SoapPrimitive ticketPromedio = (SoapPrimitive) pojoSoap.getProperty("ticketPromedio");
+                            SoapPrimitive ventaReal = (SoapPrimitive) pojoSoap.getProperty("ventaReal");
+                            SoapPrimitive ventaObjetivo = (SoapPrimitive) pojoSoap.getProperty("ventaObjetivo");
+                            SoapPrimitive ventaPerdida = (SoapPrimitive) pojoSoap.getProperty("ventaPerdida");
 
-                        items.setTiendaId(Integer.valueOf( (String) idElemento.getValue()));
-                        items.setNombreTienda((String) nombreTienda.getValue());
-                        items.setNumeroTiendas(Integer.valueOf( (String) numeroTiendas.getValue()));
-                        items.setTicketPromedio(Integer.valueOf( (String) ticketPromedio.getValue()));
-                        items.setVentaReal(Double.valueOf( (String) ventaReal.getValue()));
-                        items.setVentaObjetivo(Double.valueOf( (String) ventaObjetivo.getValue()));
-                        items.setVentaPerdida(Double.valueOf( (String) ventaPerdida.getValue()));
+                            items.setTiendaId(Integer.valueOf((String) idElemento.getValue()));
+                            items.setNombreTienda((String) nombreTienda.getValue());
+                            items.setNumeroTiendas(Integer.valueOf((String) numeroTiendas.getValue()));
+                            items.setTicketPromedio(Integer.valueOf((String) ticketPromedio.getValue()));
+                            items.setVentaReal(Double.valueOf((String) ventaReal.getValue()));
+                            items.setVentaObjetivo(Double.valueOf((String) ventaObjetivo.getValue()));
+                            items.setVentaPerdida(Double.valueOf((String) ventaPerdida.getValue()));
 
-                        double real = Double.valueOf(items.getVentaReal());
-                        double objetivo = Double.valueOf(items.getVentaObjetivo());
+                            double real = Double.valueOf(items.getVentaReal());
+                            double objetivo = Double.valueOf(items.getVentaObjetivo());
 
-                        double operacion = (real/objetivo)*100;
+                            double operacion = (real / objetivo) * 100;
 
 
-                        items.setPorcentaje(operacion);
+                            items.setPorcentaje(operacion);
 
-                        ventas.add(items);
+                            ventas.add(items);
+                        }
                     }
                 }
             }
 
-            if(!str.contains("null")){
+            if (!str.contains("null")) {
 
                 SoapPrimitive codigo = (SoapPrimitive) servicio.getProperty("codigo");
                 SoapPrimitive mensaje = (SoapPrimitive) servicio.getProperty("mensaje");
@@ -217,14 +223,14 @@ public class Util {
         return item;
     }
 
-    public static void loadingProgress(ProgressDialog progressDialog, int i){
-        if(i == 0){
+    public static void loadingProgress(ProgressDialog progressDialog, int i) {
+        if (i == 0) {
             progressDialog.dismiss();
             progressDialog.setTitle("Consultando...");
             progressDialog.setMessage("Espera mientras se carga la informacion...");
             progressDialog.setCancelable(false);
             progressDialog.show();
-        }else{
+        } else {
             progressDialog.dismiss();
         }
     }
@@ -256,6 +262,7 @@ public class Util {
 
     /**
      * Método que regresa un Typeface con el tipo de letra según el caso
+     *
      * @param context
      * @param tipo
      * @return

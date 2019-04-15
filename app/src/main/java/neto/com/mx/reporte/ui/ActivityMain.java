@@ -1,5 +1,7 @@
 package neto.com.mx.reporte.ui;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -20,6 +22,7 @@ import android.widget.Toast;
 
 import com.eralp.circleprogressview.ProgressAnimationListener;
 
+import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -102,15 +105,15 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
         year = preferences.getInt("year", 0);
         editor = preferences.edit();
         peticion = 1;
-        if(tipoTienda == 1){
+        if (tipoTienda == 1) {
             editor.putInt("tipoTienda", 1);
             binding.header.imgNuevaTiendaApertura.setImageResource(R.drawable.carritopuerta_azul);
-        }else{
+        } else {
             binding.header.imgNuevaTiendaApertura.setImageResource(R.drawable.carritopuerta_naranja);
         }
         if (tipoVenta == 0) {
             binding.header.imgTiendasSinVentas.setImageResource(R.drawable.carritonaranja);
-        }else {
+        } else {
             binding.header.imgTiendasSinVentas.setImageResource(R.drawable.carritoturquesa);
         }
         editor.apply();
@@ -256,14 +259,14 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
                     editor.apply();
                     tipoVenta = 0;
                     Consulta consulta = new Consulta(usuario, getString(R.string.zero), getString(R.string.zero), getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta);
-                    peticion =2;
+                    peticion = 2;
                     obtenerVentas(binding, consulta);
                     binding.header.imgTiendasSinVentas.setImageResource(R.drawable.carritonaranja);
-                } else{
+                } else {
                     editor.putInt("tipoVenta", 1);
                     editor.apply();
                     tipoVenta = 1;
-                    peticion =3;
+                    peticion = 3;
                     Consulta consulta = new Consulta(usuario, getString(R.string.zero), getString(R.string.zero), getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta);
                     obtenerVentas(binding, consulta);
                     binding.header.imgTiendasSinVentas.setImageResource(R.drawable.carritoturquesa);
@@ -285,23 +288,30 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
         binding.header.nuevasTiendasAperturas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(tipoTienda ==1){
+                if (tipoTienda == 1) {
                     editor.putInt("tipoTienda", 2);
                     editor.apply();
                     tipoTienda = 2;
                     Consulta consulta = new Consulta(usuario, getString(R.string.zero), getString(R.string.zero), getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta);
-                    peticion =4;
+                    peticion = 4;
                     obtenerVentas(binding, consulta);
                     binding.header.imgNuevaTiendaApertura.setImageResource(R.drawable.carritopuerta_naranja);
-                }else{
+                } else {
                     editor.putInt("tipoTienda", 1);
                     editor.apply();
                     tipoTienda = 1;
                     Consulta consulta = new Consulta(usuario, getString(R.string.zero), getString(R.string.zero), getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta);
-                    peticion =5;
+                    peticion = 5;
                     obtenerVentas(binding, consulta);
                     binding.header.imgNuevaTiendaApertura.setImageResource(R.drawable.carritopuerta_azul);
                 }
+            }
+        });
+
+        binding.header.information.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
 
@@ -384,53 +394,63 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
             @Override
             public void resolve(VentasResponse ventasResponse) {
                 if (ventasResponse != null) {
-                    if (!ventasResponse.getMensaje().contains("no tiendas")) {
-                        logicaPintadatos();
-                        Util.loadingProgress(progressDialog, 1);
-                        binding.tiendasVenta.setText(ventasResponse.getTiendasConVentaGeneral() + "");
-                        binding.tiendasPromedio.setText(converter(Double.parseDouble(ventasResponse.getTickPromGeneral())));
-                        binding.ventaPerdida.setText(converter(Double.parseDouble(ventasResponse.getvPerdidaGeneral())));
-                        binding.ventaObjetivo.setText(String.valueOf("$" + ventasResponse.getvObjetivoGeneral()));
-                        binding.total.setText(converter(Double.parseDouble(ventasResponse.getvRealGeneral())));
-                        double real = Integer.valueOf(ventasResponse.getvRealGeneral());
-                        double objetivo = Integer.valueOf(ventasResponse.getvObjetivoGeneral());
-                        double operacion = real / objetivo * 100;
-                        StringBuilder stringBuilder = new StringBuilder();
-                        stringBuilder.append(converter(Double.parseDouble(ventasResponse.getvObjetivoGeneral())));
-                        stringBuilder.append(getString(R.string.mdp));
-                        binding.robotoTextView.setText(stringBuilder);
-                        if (banderaBoton == 1 || banderaBoton == 2) {
-                            binding.robotoTextViewTotal.setVisibility(View.VISIBLE);
-                            StringBuilder stringBuilderTotal = new StringBuilder();
-                            stringBuilderTotal.append(converter(Double.parseDouble(ventasResponse.getvObjetivoTotal())));
-                            stringBuilderTotal.append(getString(R.string.mdpTotal));
-                            binding.robotoTextViewTotal.setText(stringBuilderTotal);
-                        } else {
-                            binding.robotoTextViewTotal.setVisibility(View.GONE);
-                        }
-                        binding.tacometro.setTextEnabled(false);
-                        binding.tacometro.setInterpolator(new AccelerateDecelerateInterpolator());
-                        binding.tacometro.setStartAngle(270);
-                        binding.tacometro.setProgressWithAnimation((float) operacion, 2000);
-                        binding.tacometro.addAnimationListener(new ProgressAnimationListener() {
-                            @Override
-                            public void onValueChanged(float value) {
+                    if (ventasResponse.getListaVentas() != null) {
+                        if (!ventasResponse.getMensaje().contains("no tiendas")) {
+                            logicaPintadatos();
+                            Util.loadingProgress(progressDialog, 1);
+                            binding.tiendasVenta.setText(ventasResponse.getTiendasConVentaGeneral() + "");
+                            binding.tiendasPromedio.setText(converter(Double.parseDouble(ventasResponse.getTickPromGeneral())));
+                            binding.ventaPerdida.setText(converter(Double.parseDouble(ventasResponse.getvPerdidaGeneral())));
+                            binding.ventaObjetivo.setText(String.valueOf("$" + ventasResponse.getvObjetivoGeneral()));
+                            binding.total.setText(converter(Double.parseDouble(ventasResponse.getvRealGeneral())));
+                            double real = Integer.valueOf(ventasResponse.getvRealGeneral());
+                            double objetivo = Integer.valueOf(ventasResponse.getvObjetivoGeneral());
+                            double operacion = real / objetivo * 100;
+                            StringBuilder stringBuilder = new StringBuilder();
+                            stringBuilder.append(converter(Double.parseDouble(ventasResponse.getvObjetivoGeneral())));
+                            stringBuilder.append(getString(R.string.mdp));
+                            binding.robotoTextView.setText(stringBuilder);
+                            if (banderaBoton == 1 || banderaBoton == 2) {
+                                binding.robotoTextViewTotal.setVisibility(View.VISIBLE);
+                                StringBuilder stringBuilderTotal = new StringBuilder();
+                                stringBuilderTotal.append(converter(Double.parseDouble(ventasResponse.getvObjetivoTotal())));
+                                stringBuilderTotal.append(getString(R.string.mdpTotal));
+                                binding.robotoTextViewTotal.setText(stringBuilderTotal);
+                            } else {
+                                binding.robotoTextViewTotal.setVisibility(View.GONE);
                             }
+                            binding.tacometro.setTextEnabled(false);
+                            binding.tacometro.setInterpolator(new AccelerateDecelerateInterpolator());
+                            binding.tacometro.setStartAngle(270);
+                            binding.tacometro.setProgressWithAnimation((float) operacion, 2000);
+                            binding.tacometro.addAnimationListener(new ProgressAnimationListener() {
+                                @Override
+                                public void onValueChanged(float value) {
+                                }
 
-                            @Override
-                            public void onAnimationEnd() {
-                            }
-                        });
-                        adapter = new AdapterVentas(getApplicationContext(), ALPHABETICAL_COMPARATOR, ActivityMain.this);
-                        binding.recyclerview.setLayoutManager(new LinearLayoutManager(ActivityMain.this));
-                        adapter.edit().replaceAll(ventasResponse.getListaVentas()).commit();
-                        adapter.notifyItemRangeRemoved(0, adapter.getItemCount());
-                        binding.recyclerview.setAdapter(adapter);
-                    } else {
+                                @Override
+                                public void onAnimationEnd() {
+                                }
+                            });
+                            adapter = new AdapterVentas(getApplicationContext(), ALPHABETICAL_COMPARATOR, ActivityMain.this);
+                            binding.recyclerview.setLayoutManager(new LinearLayoutManager(ActivityMain.this));
+                            adapter.edit().replaceAll(ventasResponse.getListaVentas()).commit();
+                            adapter.notifyItemRangeRemoved(0, adapter.getItemCount());
+                            binding.recyclerview.setAdapter(adapter);
+                        } else {
+                            editor.apply();
+                            Toast.makeText(getApplicationContext(), getString(R.string.notiendas), Toast.LENGTH_SHORT).show();
+                            Util.loadingProgress(progressDialog, 1);
+                        }
+                    }else{
                         editor.apply();
-                        Toast.makeText(getApplicationContext(), getString(R.string.notiendas), Toast.LENGTH_SHORT).show();
                         Util.loadingProgress(progressDialog, 1);
+                        Aceptar a = new Aceptar();
+                        a.setMensaje("Sin datos en BD");
+                        a.show(getSupportFragmentManager(), "child");
+                        actualizaSiUnaPetiiconFalla();
                     }
+
                 } else {
                     editor.apply();
                     Util.loadingProgress(progressDialog, 1);
@@ -439,6 +459,7 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
                     a.show(getSupportFragmentManager(), "child");
                     actualizaSiUnaPetiiconFalla();
                 }
+
             }
 
             @Override
@@ -502,17 +523,17 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
         }
     }
 
-    public void actualizaSiUnaPetiiconFalla(){
-        if(peticion == 2){
+    public void actualizaSiUnaPetiiconFalla() {
+        if (peticion == 2) {
             binding.header.imgTiendasSinVentas.setImageResource(R.drawable.carritoturquesa);
         }
-        if(peticion == 3){
+        if (peticion == 3) {
             binding.header.imgTiendasSinVentas.setImageResource(R.drawable.carritonaranja);
         }
-        if(peticion == 4){
+        if (peticion == 4) {
             binding.header.imgNuevaTiendaApertura.setImageResource(R.drawable.carritopuerta_azul);
         }
-        if(peticion == 5){
+        if (peticion == 5) {
             binding.header.imgNuevaTiendaApertura.setImageResource(R.drawable.carritopuerta_naranja);
         }
     }
@@ -520,4 +541,5 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
 /**
  * tonios [13:54]
  * ,paTipoTiendas      IN NUMBER ----- 1= Activas, 2= nuevas, 3= por aperturar
- *  ,paTipoVentas       IN NUMBER ---- 1= CON VENTA, 0=SIN VENTA*/
+ * ,paTipoVentas       IN NUMBER ---- 1= CON VENTA, 0=SIN VENTA
+ */

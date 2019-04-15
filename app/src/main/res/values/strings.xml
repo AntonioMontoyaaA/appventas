@@ -13,7 +13,7 @@
     <string name="usuarioLogin">Usuario</string>
     <string name="contraLogin">Contraseña</string>
     <string name="entrarLogin">Iniciar sesión</string>
-   <!-- <string name="accion_ver">Ver 2.0.1</string>-->
+    <!-- <string name="accion_ver">Ver 2.0.1</string>-->
     <string name="intentaSalir">Presiona de nuevo para salir\u0020</string>
 
     <!-- activity main -->
@@ -46,4 +46,7 @@
     <string name="sin_ventas">Sin ventas</string>
     <string name="apertura">Apertura</string>
     <string name="activas">Activas</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

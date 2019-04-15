@@ -55,8 +55,7 @@ public class FragmentCalendario extends DialogFragment {
     private int tipoTienda = 1;
 
     @Override
-    public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_calendario, container, false);
         View view = binding.getRoot();
