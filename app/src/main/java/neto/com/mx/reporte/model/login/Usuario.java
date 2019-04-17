@@ -85,7 +85,7 @@ public class Usuario {
                 new ProviderLogin.ConsultaLogin() {
                     @Override
                     public void resolve(Login login) {
-                        if(login.getEsUsuarioValido()==true){
+                        if(login.getEsUsuarioValido()){
 
                             Intent main = new Intent(context, ActivityMain.class);
                             context.startActivity(main);

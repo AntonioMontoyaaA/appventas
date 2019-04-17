@@ -1,19 +1,15 @@
 package neto.com.mx.reporte.ui;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -74,7 +70,7 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
         if (height <= 1775) {
             resizeRecycler(binding, 140, this);
         } else if (height <= 1920) {
-            resizeRecycler(binding, 190, this);
+            resizeRecycler(binding, 170, this);
         } else if (height <= 2049) {
             resizeRecycler(binding, 240, this);
         } else {
@@ -122,11 +118,7 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
         fechaInicial = sdf.format(date);
         fechaFinal = sdf.format(date);
         binding.header.back.setVisibility(View.INVISIBLE);
-        try {
-            binding.header.txtappversion.setText("v" + getPackageManager().getPackageInfo(getPackageName(), 0).versionName);
-        } catch (PackageManager.NameNotFoundException ne) {
-            Log.e("CARGA_FOLIO_TAG", "Error al obtener la versión: " + ne.getMessage());
-        }
+
 
         final Consulta[] consulta = {new Consulta(usuario, getString(R.string.zero), getString(R.string.zero), getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta)};
 
@@ -311,7 +303,8 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
         binding.header.information.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(ActivityMain.this, ActivityInformacion.class);
+                startActivity(intent);
             }
         });
 

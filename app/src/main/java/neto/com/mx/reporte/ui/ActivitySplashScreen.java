@@ -37,8 +37,7 @@ public class ActivitySplashScreen extends AppCompatActivity {
 		binding  = DataBindingUtil.setContentView(this, R.layout.activity_splash_screen);
 
 		View decoracion = getWindow().getDecorView();
-		int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-				| View.SYSTEM_UI_FLAG_FULLSCREEN;
+		int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN;
 		decoracion.setSystemUiVisibility(uiOptions);
 
 		SharedPreferences preferences = getSharedPreferences("datosReporte", Context.MODE_PRIVATE);
@@ -125,35 +124,22 @@ public class ActivitySplashScreen extends AppCompatActivity {
 						goMainActivity();
 					} else {
 						snackbar[0] = Snackbar.make(binding.container,
-								Html.fromHtml("<b><font color=\"#254581\">" +
-										getString(R.string.internet) +
-										"</font></b>"), Snackbar.LENGTH_LONG);
-
-						snackbar[0].setAction(Html.fromHtml("<b><font color=\"#254581\">" +
-								getString(R.string.reintentar)  +
-								"</font></b>"), new View.OnClickListener() {
+								Html.fromHtml("<b><font color=\"#254581\">" + getString(R.string.internet) + "</font></b>"), Snackbar.LENGTH_LONG);
+						snackbar[0].setAction(Html.fromHtml("<b><font color=\"#254581\">" + getString(R.string.reintentar)  + "</font></b>"), new View.OnClickListener() {
 							@Override
 							public void onClick(View v) {
 								if(Util.isOnline(ActivitySplashScreen.this) && !usuario.equals("")){
 									goMainActivity();
 								}else{
-									snackbar[0] = Snackbar.make(binding.container,
-											Html.fromHtml("<b><font color=\"#FF20609F\">" +
-													getString(R.string.internet) +
-													"</font></b>"), Snackbar.LENGTH_LONG);
+									snackbar[0] = Snackbar.make(binding.container, Html.fromHtml("<b><font color=\"#FF20609F\">" + getString(R.string.internet) + "</font></b>"), Snackbar.LENGTH_LONG);
 
-									snackbar[0].setAction(Html.fromHtml("<b><font color=\"#254581\">" +
-											getString(R.string.reintentar) +
-											"</font></b>"), new View.OnClickListener() {
+									snackbar[0].setAction(Html.fromHtml("<b><font color=\"#254581\">" + getString(R.string.reintentar) + "</font></b>"), new View.OnClickListener() {
 										@Override
 										public void onClick(View v) {
 											if(Util.isOnline(ActivitySplashScreen.this) && !usuario.equals("")){
 												goMainActivity();
 											}else{
-												snackbar[0] = Snackbar.make(binding.container,
-														Html.fromHtml("<b><font color=\"#254581\">" +
-																getString(R.string.reintenta) +
-																"</font></b>"), Snackbar.LENGTH_LONG);
+												snackbar[0] = Snackbar.make(binding.container, Html.fromHtml("<b><font color=\"#254581\">" + getString(R.string.reintenta) + "</font></b>"), Snackbar.LENGTH_LONG);
 											}
 										}
 									});
@@ -180,38 +166,22 @@ public class ActivitySplashScreen extends AppCompatActivity {
 					if(Util.isOnline(ActivitySplashScreen.this)){
 						goLogin();
 					} else {
-						snackbar[0] = Snackbar.make(binding.container,
-								Html.fromHtml("<b><font color=\"#254581\">" +
-										getString(R.string.internet) +
-										"</font></b>"), Snackbar.LENGTH_LONG);
-
-						snackbar[0].setAction(Html.fromHtml("<b><font color=\"#254581\">" +
-								getString(R.string.reintentar)  +
-								"</font></b>"), new View.OnClickListener() {
+						snackbar[0] = Snackbar.make(binding.container, Html.fromHtml("<b><font color=\"#254581\">" + getString(R.string.internet) + "</font></b>"), Snackbar.LENGTH_LONG);
+						snackbar[0].setAction(Html.fromHtml("<b><font color=\"#254581\">" + getString(R.string.reintentar)  + "</font></b>"), new View.OnClickListener() {
 							@Override
 							public void onClick(View v) {
 								if(Util.isOnline(ActivitySplashScreen.this)){
 									goLogin();
 								}else{
-									snackbar[0] = Snackbar.make(binding.container,
-											Html.fromHtml("<b><font color=\"#254581\">" +
-													getString(R.string.internet) +
-													"</font></b>"), Snackbar.LENGTH_LONG);
-
-									snackbar[0].setAction(Html.fromHtml("<b><font color=\"#254581\">" +
-											getString(R.string.reintentar) +
+									snackbar[0] = Snackbar.make(binding.container, Html.fromHtml("<b><font color=\"#254581\">" + getString(R.string.internet) + "</font></b>"), Snackbar.LENGTH_LONG);
+									snackbar[0].setAction(Html.fromHtml("<b><font color=\"#254581\">" + getString(R.string.reintentar) +
 											"</font></b>"), new View.OnClickListener() {
 										@Override
 										public void onClick(View v) {
 											if(Util.isOnline(ActivitySplashScreen.this)){
 												goLogin();
 											}else{
-
-												snackbar[0] = Snackbar.make(binding.container,
-														Html.fromHtml("<b><font color=\"#254581\">" +
-																getString(R.string.reintenta) +
-																"</font></b>"), Snackbar.LENGTH_LONG);
-
+												snackbar[0] = Snackbar.make(binding.container,Html.fromHtml("<b><font color=\"#254581\">" + getString(R.string.reintenta) +"</font></b>"), Snackbar.LENGTH_LONG);
 											}
 										}
 									});

@@ -39,16 +39,7 @@
                     android:backgroundTint="@color/turquesa" />
             </LinearLayout>
 
-            <neto.com.mx.reporte.utils.font.RobotoTextView
-                android:id="@+id/txtappversion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="9dp"
-                android:layout_marginEnd="0dp"
-                android:text=""
-                android:textColor="@color/blanco"
-                android:textSize="8sp"
-                app:typeface="robotoLight" />
+
 
             <LinearLayout
                 android:id="@+id/nuevasTiendas"
@@ -135,7 +126,7 @@
 
                 <ImageView
                     android:id="@+id/agregar"
-                    android:layout_width="20dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="20dp"
                     android:layout_gravity="center"
                     android:layout_marginTop="-2dp"

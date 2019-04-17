@@ -74,15 +74,10 @@ public class ActivityRegion extends AppCompatActivity implements VentasHolder.Li
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         int height = displaymetrics.heightPixels;
 
-        try {
-            binding.header.txtappversion.setText("v" + getPackageManager().getPackageInfo(getPackageName(), 0).versionName);
-        } catch (PackageManager.NameNotFoundException ne) {
-            Log.e("CARGA_FOLIO_TAG", "Error al obtener la versión: " + ne.getMessage());
-        }
         if (height <= 1775) {
             resizeRecycler(binding, 140, this);
         } else if (height <= 1920) {
-            resizeRecycler(binding, 190, this);
+            resizeRecycler(binding, 170, this);
         } else if (height <= 2049) {
             resizeRecycler(binding, 240, this);
         } else {
