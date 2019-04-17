@@ -36,9 +36,6 @@ import neto.com.mx.reporte.provider.ProviderTiendas;
 import neto.com.mx.reporte.ui.ActivityTiendas;
 import neto.com.mx.reporte.utils.Util;
 
-/**
- * Created by Kevin on 26/6/2017.
- */
 
 public class FragmentTiendas extends DialogFragment implements TiendasHolder.Listener {
 
@@ -65,14 +62,12 @@ public class FragmentTiendas extends DialogFragment implements TiendasHolder.Lis
             public void resolve(Tiendas tiendas) {
                 if (tiendas != null) {
                     if (tiendas.getTiendas() != null) {
-                        Util.loadingProgress(progressDialog, 1);
                         listaTiendas = tiendas.getTiendas();
                         adapter.edit().replaceAll(tiendas.getTiendas()).commit();
                         adapter.notifyItemRangeRemoved(0, adapter.getItemCount());
                         binding.recyclerview.setAdapter(adapter);
                         binding.view.setVisibility(View.VISIBLE);
                     }
-                    dismiss();
                     Util.loadingProgress(progressDialog, 1);
                 } else {
                     dismiss();
