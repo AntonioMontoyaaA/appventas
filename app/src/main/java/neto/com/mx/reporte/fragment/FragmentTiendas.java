@@ -72,6 +72,9 @@ public class FragmentTiendas extends DialogFragment implements TiendasHolder.Lis
                 } else {
                     dismiss();
                     Util.loadingProgress(progressDialog, 1);
+                    Aceptar a = new Aceptar();
+                    a.setMensaje("Necesitas estar conectado a internet");
+                    a.show(getFragmentManager(), "child");
                 }
             }
 
@@ -160,11 +163,21 @@ public class FragmentTiendas extends DialogFragment implements TiendasHolder.Lis
         editor.putString("region", String.valueOf(model.getIdRegion()));
         editor.putString("regionNombre", model.getNombreRegion());
         editor.putString("tienda", String.valueOf(model.getIdTienda()));
+        editor.putString("tiendaNombre", String.valueOf(model.getNombreTienda()));
         editor.apply();
 
+
+
         Intent intent = new Intent(getContext(), ActivityTiendas.class);
+        intent.putExtra("tipoTienda", "1");
+        intent.putExtra("tipoVenta", "1");
         startActivity(intent);
 
         dismiss();
     }
 }
+/**
+ * tonios [13:54]
+ * ,paTipoTiendas      IN NUMBER ----- 1= Activas, 2= nuevas, 3= por aperturar
+ * ,paTipoVentas       IN NUMBER ---- 1= CON VENTA, 0=SIN VENTA
+ */

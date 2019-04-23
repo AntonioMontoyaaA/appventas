@@ -1,6 +1,9 @@
 package neto.com.mx.reporte.fragment;
 
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,6 +19,7 @@ import android.view.Window;
 
 import neto.com.mx.reporte.R;
 import neto.com.mx.reporte.databinding.FragmentAceptarBinding;
+import neto.com.mx.reporte.ui.ActivityLogin;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -48,6 +52,16 @@ public class Aceptar extends DialogFragment {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
+                        if (mensaje.contains("no tiene tiendas")) {
+                            Intent intent = new Intent(getContext(), ActivityLogin.class);
+                            getContext().startActivity(intent);
+                            SharedPreferences preferences = getContext().getSharedPreferences("datosReporte", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putString("usuario", "");
+                            editor.putString("contra", "");
+                            editor.apply();
+                        }
                         getDialog().dismiss();
                     }
                 }

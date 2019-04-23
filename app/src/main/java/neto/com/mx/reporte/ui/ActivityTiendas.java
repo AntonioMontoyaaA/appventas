@@ -1,6 +1,7 @@
 package neto.com.mx.reporte.ui;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 
 import com.eralp.circleprogressview.ProgressAnimationListener;
 
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -55,7 +57,7 @@ public class ActivityTiendas extends AppCompatActivity implements VentasHolder.L
     SharedPreferences.Editor editor;
     int day, month, year;
     SharedPreferences preferences;
-    private int tipoTienda = 0, tipoVenta = 0;
+    private int tipoTienda = 0, tipoVenta = 0, banderaFiltroTiendas = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,8 +88,26 @@ public class ActivityTiendas extends AppCompatActivity implements VentasHolder.L
 
         preferences = getSharedPreferences("datosReporte", MODE_PRIVATE);
         final String usuario = preferences.getString("usuario", "");
-        tipoTienda = preferences.getInt("tipoTienda", 0);
-        tipoVenta = preferences.getInt("tipoVenta", 1);
+        Bundle bundle = getIntent().getExtras();
+        try{
+            String tipoTiendaBundel = bundle.getString("tipoTienda");
+            String tipoVentaBundel = bundle.getString("tipoVenta");
+            tipoTienda = Integer.valueOf(tipoTiendaBundel);
+            tipoVenta = Integer.valueOf(tipoVentaBundel);
+            banderaFiltroTiendas = 1;
+
+            preferences = getSharedPreferences("datosReporte", MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putInt("tipoTienda", 1);
+            editor.putInt("tipoVenta", 1);
+            editor.apply();
+        }catch (NullPointerException npe){
+            tipoTienda = preferences.getInt("tipoTienda", 0);
+            tipoVenta = preferences.getInt("tipoVenta", 1);
+        }
+
+
+
         region = preferences.getString("region", "");
         zona = preferences.getString("zona", "");
         tienda = preferences.getString("tienda", "");
@@ -197,7 +217,16 @@ public class ActivityTiendas extends AppCompatActivity implements VentasHolder.L
         binding.header.back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ActivityTiendas.super.onBackPressed();
+                //ActivityTiendas.super.onBackPressed();
+                if(banderaFiltroTiendas == 0 && zona != "0"){
+                    Intent activityMain = new Intent(ActivityTiendas.this, ActivityZona.class);
+                    startActivity(activityMain);
+                }else {
+                    Intent activityMain = new Intent(ActivityTiendas.this, ActivityMain.class);
+                    startActivity(activityMain);
+                }
+                finish();
+
             }
         });
 
@@ -266,6 +295,13 @@ public class ActivityTiendas extends AppCompatActivity implements VentasHolder.L
                 arg.putInt("type", 3);
                 a.setArguments(arg);
                 a.show(getSupportFragmentManager(), "child");
+            }
+        });
+        binding.header.information.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ActivityTiendas.this, ActivityInformacion.class);
+                startActivity(intent);
             }
         });
 
@@ -356,7 +392,12 @@ public class ActivityTiendas extends AppCompatActivity implements VentasHolder.L
                         binding.ventaPerdida.setText(converter(Double.parseDouble(ventasResponse.getvPerdidaGeneral())));
                         binding.ventaObjetivo.setText(String.valueOf("$" + ventasResponse.getvObjetivoGeneral()));
                         binding.total.setText(converter(Double.parseDouble(ventasResponse.getvRealGeneral())));
-                        if (tipoTienda == 1 && tipoVenta == 1) {
+                        if(banderaFiltroTiendas == 1){
+                            String zonaNombre = preferences.getString("zonaNombre", "");
+                            String regionNombre = preferences.getString("regionNombre", "");
+                            String tiendaNombre = preferences.getString("tiendaNombre", "");
+                            binding.lugar.setText(regionNombre + " / " + zonaNombre + " / " + tiendaNombre);
+                        }else if (tipoTienda == 1 && tipoVenta == 1) {
                             String zonaNombre = preferences.getString("zonaNombre", "");
                             String regionNombre = preferences.getString("regionNombre", "");
                             binding.lugar.setText(regionNombre + " / " + zonaNombre + " / " + ventasResponse.getListaVentas().get(0).getNombreTienda());

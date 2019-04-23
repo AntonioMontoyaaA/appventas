@@ -78,7 +78,7 @@ public class ActivityZona extends AppCompatActivity implements VentasHolder.List
         int height = displaymetrics.heightPixels;
 
         if (height <= 1775) {
-            resizeRecycler(binding, 140, this);
+            resizeRecycler(binding, 120, this);
         } else if (height <= 1920) {
             resizeRecycler(binding, 170, this);
         } else if (height <= 2049) {
@@ -98,7 +98,7 @@ public class ActivityZona extends AppCompatActivity implements VentasHolder.List
             binding.robotoTextViewTotal.setTextSize(12);
             binding.ventaObjetivo.setTextSize(12);
             binding.ventareal.setTextSize(12);
-            resizeRecycler(binding, 200, this);
+            resizeRecycler(binding, 170, this);
         }
 
 
@@ -206,7 +206,10 @@ public class ActivityZona extends AppCompatActivity implements VentasHolder.List
         binding.header.back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ActivityZona.super.onBackPressed();
+                //ActivityZona.super.onBackPressed();
+                Intent activityMain = new Intent(ActivityZona.this, ActivityRegion.class);
+                startActivity(activityMain);
+                finish();
             }
         });
 
@@ -316,6 +319,13 @@ public class ActivityZona extends AppCompatActivity implements VentasHolder.List
                     obtenerVentas(binding, consulta);
                     binding.header.imgTiendasSinVentas.setImageResource(R.drawable.carritoturquesa);
                 }
+            }
+        });
+        binding.header.information.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ActivityZona.this, ActivityInformacion.class);
+                startActivity(intent);
             }
         });
 
@@ -457,10 +467,10 @@ public class ActivityZona extends AppCompatActivity implements VentasHolder.List
     public void onProcesoSelect(Ventas model) {
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("tienda", String.valueOf(model.getTiendaId()));
-        editor.putInt("button", 0);
         editor.apply();
         Intent intent = new Intent(this, ActivityTiendas.class);
         startActivity(intent);
+        finish();
     }
 
     public void logicaPintadatos() {

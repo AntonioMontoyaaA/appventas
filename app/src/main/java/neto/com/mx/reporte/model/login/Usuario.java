@@ -1,5 +1,6 @@
 package neto.com.mx.reporte.model.login;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,6 +11,7 @@ import android.view.View;
 import neto.com.mx.reporte.R;
 import neto.com.mx.reporte.databinding.ActivityLoginBinding;
 import neto.com.mx.reporte.provider.ProviderLogin;
+import neto.com.mx.reporte.ui.ActivityLogin;
 import neto.com.mx.reporte.ui.ActivityMain;
 import neto.com.mx.reporte.utils.Util;
 
@@ -17,7 +19,7 @@ import neto.com.mx.reporte.utils.Util;
 /**
  * Created by marcosmarroquin on 21/03/18.
  */
-public class Usuario {
+public class Usuario extends Activity {
 
     String usuario;
     String contra;
@@ -86,13 +88,13 @@ public class Usuario {
                     @Override
                     public void resolve(Login login) {
                         if(login.getEsUsuarioValido()){
-
+                            ActivityLogin al = new ActivityLogin();
+                            al.fa.finish();
                             Intent main = new Intent(context, ActivityMain.class);
+                            main.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                             context.startActivity(main);
                             binding.entrar.setAlpha(1f);
-
-                            sharedSave(context, usuario,
-                                    login.getPassword());
+                            sharedSave(context, usuario, login.getPassword());
                             unblockUI();
 
                         }else{

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -149,9 +150,9 @@ public class Util {
         final String men = servicio.toString();
 
         if (men.contains(context.getString(R.string.verifique))) {
-            Intent intent = new Intent(context, ActivityLogin.class);
-            context.startActivity(intent);
-            item.setMensaje(context.getString(R.string.no_tiendas));
+            /*Intent intent = new Intent(context, ActivityLogin.class);
+            context.startActivity(intent);*/
+            item.setMensaje(context.getString(R.string.notiendas));
         } else {
             if (count > 0) {
                 ventas = new ArrayList<>();

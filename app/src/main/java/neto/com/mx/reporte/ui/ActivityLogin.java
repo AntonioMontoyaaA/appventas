@@ -1,5 +1,6 @@
 package neto.com.mx.reporte.ui;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
@@ -23,6 +24,7 @@ public class ActivityLogin extends AppCompatActivity {
     private ActivityLoginBinding binding;
     private static final int TIME_DELAY = 2000;
     private static long back_pressed;
+    public static Activity fa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +32,7 @@ public class ActivityLogin extends AppCompatActivity {
         getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         initDataBinding();
+        fa = this;
     }
 
     /**
@@ -38,15 +41,15 @@ public class ActivityLogin extends AppCompatActivity {
     private void initDataBinding() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
         binding.scrollBar.setVerticalScrollBarEnabled(false);
-        binding.pass.setTypeface(Util.changeFont(this,1));
-        binding.usuario.setTypeface(Util.changeFont(this,1));
-        binding.entrar.setTypeface(Util.changeFont(this,1));
+        binding.pass.setTypeface(Util.changeFont(this, 1));
+        binding.usuario.setTypeface(Util.changeFont(this, 1));
+        binding.entrar.setTypeface(Util.changeFont(this, 1));
         Usuario usuario = new Usuario("", "", this, binding);
         binding.setLoginViewModel(usuario);
         binding.entrar.setEnabled(true);
-        try{
-        binding.txtAppVersion.setText("v" + getPackageManager().getPackageInfo(getPackageName(), 0).versionName);
-        } catch(PackageManager.NameNotFoundException ne) {
+        try {
+            binding.txtAppVersion.setText("v" + getPackageManager().getPackageInfo(getPackageName(), 0).versionName);
+        } catch (PackageManager.NameNotFoundException ne) {
             Log.e("CARGA_FOLIO_TAG", "Error al obtener la versión: " + ne.getMessage());
         }
     }
@@ -70,4 +73,8 @@ public class ActivityLogin extends AppCompatActivity {
         }
         back_pressed = System.currentTimeMillis();
     }
+
+
+
+
 }

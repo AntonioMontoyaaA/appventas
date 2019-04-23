@@ -95,8 +95,9 @@ public class ActivityRegion extends AppCompatActivity implements VentasHolder.Li
             binding.robotoTextView.setTextSize(12);
             binding.robotoTextViewTotal.setTextSize(12);
             binding.ventareal.setTextSize(12);
-            resizeRecycler(binding, 200, this);
+            resizeRecycler(binding, 170, this);
         }
+
 
         setSupportActionBar(binding.header.toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -135,7 +136,10 @@ public class ActivityRegion extends AppCompatActivity implements VentasHolder.Li
         binding.header.back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ActivityRegion.super.onBackPressed();
+                //ActivityRegion.super.onBackPressed();
+                Intent activityMain = new Intent(ActivityRegion.this, ActivityMain.class);
+                startActivity(activityMain);
+                finish();
             }
         });
 
@@ -322,6 +326,13 @@ public class ActivityRegion extends AppCompatActivity implements VentasHolder.Li
                 }
             }
         });
+        binding.header.information.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ActivityRegion.this, ActivityInformacion.class);
+                startActivity(intent);
+            }
+        });
 
         if (fechaSeleccionada.length() > 0) {
             logicaPintadatos();
@@ -475,13 +486,23 @@ public class ActivityRegion extends AppCompatActivity implements VentasHolder.Li
 
     @Override
     public void onProcesoSelect(Ventas model) {
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("zona", String.valueOf(model.getTiendaId()));
-        editor.putString("zonaNombre", model.getNombreTienda());
-        editor.putInt("button", 0);
-        editor.apply();
-        Intent intent = new Intent(this, ActivityZona.class);
-        startActivity(intent);
+        if (tipoTienda == 1 && tipoVenta == 1) {
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString("zona", String.valueOf(model.getTiendaId()));
+            editor.putString("zonaNombre", model.getNombreTienda());
+            editor.apply();
+            Intent intent = new Intent(this, ActivityZona.class);
+            startActivity(intent);
+            finish();
+        } else {
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString("zona", "0");
+            editor.putString("tienda", String.valueOf(model.getTiendaId()));
+            editor.apply();
+            Intent intent = new Intent(this, ActivityTiendas.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     public void logicaPintadatos() {
