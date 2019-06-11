@@ -27,7 +27,7 @@
 
             <LinearLayout
                 android:id="@+id/back"
-                android:layout_width="40dp"
+                android:layout_width="20dp"
                 android:layout_height="40dp">
 
                 <ImageView
@@ -40,10 +40,9 @@
             </LinearLayout>
 
 
-
             <LinearLayout
                 android:id="@+id/nuevasTiendas"
-                android:layout_width="40dp"
+                android:layout_width="30dp"
                 android:layout_height="40dp"
                 android:gravity="center"
                 android:orientation="vertical">
@@ -59,7 +58,7 @@
 
             <LinearLayout
                 android:id="@+id/nuevasTiendasAperturas"
-                android:layout_width="40dp"
+                android:layout_width="30dp"
                 android:layout_height="40dp"
                 android:gravity="center"
                 android:orientation="vertical">
@@ -69,24 +68,44 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_gravity="center"
-                    android:layout_marginTop="-2dp"/>
+                    android:layout_marginTop="-2dp" />
             </LinearLayout>
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="0dp"
-                android:layout_marginStart="0dp"
                 android:layout_height="match_parent"
+                android:layout_marginStart="0dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"/>
 
+            <LinearLayout
+                android:id="@+id/nuevasPresupuesto"
+                android:layout_width="30dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:orientation="vertical">
 
+                <ImageView
+                    android:id="@+id/img_presupuesto"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="-2dp"
+                    android:background="@drawable/carrito_pesos" />
+            </LinearLayout>
 
-            </android.support.constraint.ConstraintLayout>
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal"/>
 
             <LinearLayout
                 android:id="@+id/tiendasSinVentas"
-                android:layout_width="40dp"
+                android:layout_width="30dp"
                 android:layout_height="40dp"
                 android:gravity="center"
                 android:orientation="vertical">
@@ -104,7 +123,7 @@
             android:backgroundTint="@color/turquesa"-->
             <LinearLayout
                 android:id="@+id/tiendas"
-                android:layout_width="40dp"
+                android:layout_width="30dp"
                 android:layout_height="40dp"
                 android:gravity="center"
                 android:orientation="vertical">
@@ -119,7 +138,7 @@
 
             <LinearLayout
                 android:id="@+id/calendario"
-                android:layout_width="40dp"
+                android:layout_width="30dp"
                 android:layout_height="40dp"
                 android:gravity="center"
                 android:orientation="vertical">
@@ -134,9 +153,10 @@
 
                     android:backgroundTint="@color/turquesa" />
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/information"
-                android:layout_width="40dp"
+                android:layout_width="30dp"
                 android:layout_height="40dp"
                 android:gravity="center"
                 android:orientation="vertical">

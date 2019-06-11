@@ -56,7 +56,7 @@ public class ActivityZona extends AppCompatActivity implements VentasHolder.List
     int banderaBoton = 0;
     SharedPreferences.Editor editor;
     int day, month, year;
-    private int tipoTienda = 0, tipoVenta = 0;
+    private int tipoTienda = 0, tipoVenta = 0, tipoPresupuesto = 2;
 
     //entero para saber que peticion fue hecha si truena regresar a la
     //1= normal, 2=SinVenta, 3=ConVenta, 4=, 5=, 6=, 7=, 8=,
@@ -111,6 +111,7 @@ public class ActivityZona extends AppCompatActivity implements VentasHolder.List
         tipoVenta = preferences.getInt("tipoVenta", 1);
         region = preferences.getString("region", "");
         zona = preferences.getString("zona", "");
+        tipoPresupuesto = preferences.getInt("tipoPresupuesto",2);
         regionNombre = preferences.getString("regionNombre", "");
         editor = preferences.edit();
         peticion = 1;
@@ -124,7 +125,7 @@ public class ActivityZona extends AppCompatActivity implements VentasHolder.List
         fechaInicial = sdf.format(date);
         fechaFinal = sdf.format(date);
 
-        final Consulta[] consulta = {new Consulta(usuario, region, zona, getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta)};
+        final Consulta[] consulta = {new Consulta(usuario, region, zona, getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta,tipoPresupuesto)};
 
         if (tipoTienda == 1) {
             editor.putInt("tipoTienda", 1);
@@ -137,6 +138,12 @@ public class ActivityZona extends AppCompatActivity implements VentasHolder.List
             binding.header.imgTiendasSinVentas.setImageResource(R.drawable.carritonaranja);
         } else {
             binding.header.imgTiendasSinVentas.setImageResource(R.drawable.carritoturquesa);
+        }
+
+        if(tipoPresupuesto == 2){
+            binding.header.imgPresupuesto.setImageResource(R.drawable.carrito_pesos_n);
+        }else{
+            binding.header.imgPresupuesto.setImageResource(R.drawable.carrito_pesos);
         }
 
 
@@ -152,10 +159,10 @@ public class ActivityZona extends AppCompatActivity implements VentasHolder.List
                 if (fechaSeleccionada.length() > 0) {
                     fechaInicial = fechaSeleccionada;
                     fechaFinal = fechaSeleccionada;
-                    consulta[0] = new Consulta(usuario, region, zona, getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta);
+                    consulta[0] = new Consulta(usuario, region, zona, getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta, tipoPresupuesto);
                     obtenerVentas(binding, consulta[0]);
                 } else {
-                    Consulta consulta = new Consulta(usuario, region, zona, getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta);
+                    Consulta consulta = new Consulta(usuario, region, zona, getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta, tipoPresupuesto);
                     obtenerVentas(binding, consulta);
                 }
                 binding.rangoFechas.setText("Consulta al día: " + fechaInicial);
@@ -193,10 +200,10 @@ public class ActivityZona extends AppCompatActivity implements VentasHolder.List
                     date = new Date();
                     fechaInicial = sdf.format(c.getTime());
                     fechaFinal = fechaSeleccionada;
-                    Consulta consulta = new Consulta(usuario, region, zona, getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta);
+                    Consulta consulta = new Consulta(usuario, region, zona, getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta, tipoPresupuesto);
                     obtenerVentas(binding, consulta);
                 } else {
-                    Consulta consulta = new Consulta(usuario, region, zona, getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta);
+                    Consulta consulta = new Consulta(usuario, region, zona, getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta, tipoPresupuesto);
                     obtenerVentas(binding, consulta);
                 }
                 binding.rangoFechas.setText("Consulta del " + fechaInicial + " al " + fechaFinal);
@@ -233,10 +240,10 @@ public class ActivityZona extends AppCompatActivity implements VentasHolder.List
                     sdf = new SimpleDateFormat("dd/MM/yyyy");
                     fechaInicial = sdf.format(c.getTime());
                     fechaFinal = fechaSeleccionada;
-                    consulta[0] = new Consulta(usuario, region, zona, getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta);
+                    consulta[0] = new Consulta(usuario, region, zona, getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta, tipoPresupuesto);
                     obtenerVentas(binding, consulta[0]);
                 } else {
-                    Consulta consulta = new Consulta(usuario, region, zona, getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta);
+                    Consulta consulta = new Consulta(usuario, region, zona, getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta, tipoPresupuesto);
                     obtenerVentas(binding, consulta);
                 }
                 binding.rangoFechas.setText("Consulta del " + fechaInicial + " al " + fechaFinal);
@@ -283,7 +290,7 @@ public class ActivityZona extends AppCompatActivity implements VentasHolder.List
                     editor.putInt("tipoTienda", 2);
                     editor.apply();
                     tipoTienda = 2;
-                    Consulta consulta = new Consulta(usuario, region, zona, getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta);
+                    Consulta consulta = new Consulta(usuario, region, zona, getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta, tipoPresupuesto);
                     peticion = 4;
                     obtenerVentas(binding, consulta);
                     binding.header.imgNuevaTiendaApertura.setImageResource(R.drawable.carritopuerta_naranja);
@@ -291,7 +298,7 @@ public class ActivityZona extends AppCompatActivity implements VentasHolder.List
                     editor.putInt("tipoTienda", 1);
                     editor.apply();
                     tipoTienda = 1;
-                    Consulta consulta = new Consulta(usuario, region, zona, getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta);
+                    Consulta consulta = new Consulta(usuario, region, zona, getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta, tipoPresupuesto);
                     peticion = 5;
                     obtenerVentas(binding, consulta);
                     binding.header.imgNuevaTiendaApertura.setImageResource(R.drawable.carritopuerta_azul);
@@ -306,7 +313,7 @@ public class ActivityZona extends AppCompatActivity implements VentasHolder.List
                     editor.putInt("tipoVenta", 0);
                     editor.apply();
                     tipoVenta = 0;
-                    Consulta consulta = new Consulta(usuario, region, zona, getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta);
+                    Consulta consulta = new Consulta(usuario, region, zona, getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta, tipoPresupuesto);
                     peticion = 2;
                     obtenerVentas(binding, consulta);
                     binding.header.imgTiendasSinVentas.setImageResource(R.drawable.carritonaranja);
@@ -314,11 +321,35 @@ public class ActivityZona extends AppCompatActivity implements VentasHolder.List
                     editor.putInt("tipoVenta", 1);
                     editor.apply();
                     tipoVenta = 1;
-                    Consulta consulta = new Consulta(usuario, region, zona, getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta);
+                    Consulta consulta = new Consulta(usuario, region, zona, getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta, tipoPresupuesto);
                     peticion = 3;
                     obtenerVentas(binding, consulta);
                     binding.header.imgTiendasSinVentas.setImageResource(R.drawable.carritoturquesa);
                 }
+            }
+        });
+
+        binding.header.nuevasPresupuesto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(tipoPresupuesto == 1){
+                    editor.putInt("tipoPresupuesto", 2);
+                    editor.apply();
+                    tipoPresupuesto = 2;
+                    Consulta consulta = new Consulta(usuario, region, zona, getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta, tipoPresupuesto);
+                    peticion = 6;
+                    obtenerVentas(binding,consulta);
+                    binding.header.imgPresupuesto.setImageResource(R.drawable.carrito_pesos_n);
+                }else{
+                    editor.putInt("tipoPresupuesto", 1);
+                    editor.apply();
+                    tipoPresupuesto = 1;
+                    Consulta consulta = new Consulta(usuario, region, zona, getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta, tipoPresupuesto);
+                    peticion = 7;
+                    obtenerVentas(binding,consulta);
+                    binding.header.imgPresupuesto.setImageResource(R.drawable.carrito_pesos);
+                }
+
             }
         });
         binding.header.information.setOnClickListener(new View.OnClickListener() {
@@ -334,7 +365,7 @@ public class ActivityZona extends AppCompatActivity implements VentasHolder.List
             if (banderaBoton == 0) {
                 fechaInicial = fechaSeleccionada;
                 fechaFinal = fechaSeleccionada;
-                consulta[0] = new Consulta(usuario, region, zona, getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta);
+                consulta[0] = new Consulta(usuario, region, zona, getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta, tipoPresupuesto);
                 obtenerVentas(binding, consulta[0]);
                 binding.rangoFechas.setText("Consulta al día: " + fechaInicial);
             } else if (banderaBoton == 1) {
@@ -356,7 +387,7 @@ public class ActivityZona extends AppCompatActivity implements VentasHolder.List
                 date = new Date();
                 fechaInicial = sdf.format(c.getTime());
                 fechaFinal = fechaSeleccionada;
-                consulta[0] = new Consulta(usuario, region, zona, getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta);
+                consulta[0] = new Consulta(usuario, region, zona, getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta, tipoPresupuesto);
                 obtenerVentas(binding, consulta[0]);
                 binding.rangoFechas.setText("Consulta del " + fechaInicial + " al " + fechaFinal);
             } else if (banderaBoton == 2) {
@@ -367,7 +398,7 @@ public class ActivityZona extends AppCompatActivity implements VentasHolder.List
                 sdf = new SimpleDateFormat("dd/MM/yyyy");
                 fechaInicial = sdf.format(c.getTime());
                 fechaFinal = fechaSeleccionada;
-                consulta[0] = new Consulta(usuario, region, zona, getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta);
+                consulta[0] = new Consulta(usuario, region, zona, getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta, tipoPresupuesto);
                 obtenerVentas(binding, consulta[0]);
                 binding.rangoFechas.setText("Consulta del " + fechaInicial + " al " + fechaFinal);
             }
@@ -502,15 +533,33 @@ public class ActivityZona extends AppCompatActivity implements VentasHolder.List
     public void actualizaSiUnaPetiiconFalla() {
         if (peticion == 2) {
             binding.header.imgTiendasSinVentas.setImageResource(R.drawable.carritoturquesa);
+            editor.putInt("tipoVenta", 1);
+            editor.apply();
         }
         if (peticion == 3) {
             binding.header.imgTiendasSinVentas.setImageResource(R.drawable.carritonaranja);
+            editor.putInt("tipoVenta", 0);
+            editor.apply();
         }
         if (peticion == 4) {
             binding.header.imgNuevaTiendaApertura.setImageResource(R.drawable.carritopuerta_azul);
+            editor.putInt("tipoTienda", 1);
+            editor.apply();
         }
         if (peticion == 5) {
             binding.header.imgNuevaTiendaApertura.setImageResource(R.drawable.carritopuerta_naranja);
+            editor.putInt("tipoTienda", 2);
+            editor.apply();
+        }
+        if (peticion == 6) {
+            binding.header.imgPresupuesto.setImageResource(R.drawable.carrito_pesos);
+            editor.putInt("tipoPresupuesto", 1);
+            editor.apply();
+        }
+        if (peticion == 7) {
+            binding.header.imgPresupuesto.setImageResource(R.drawable.carrito_pesos_n);
+            editor.putInt("tipoPresupuesto", 2);
+            editor.apply();
         }
     }
 }

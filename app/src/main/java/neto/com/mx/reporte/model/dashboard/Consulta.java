@@ -10,8 +10,9 @@ public class Consulta {
     private String fechaFinal;
     private int tipoTienda;
     private int tipoVenta;
+    private int paTipoPpto;
 
-    public Consulta(String numeroEmpleado, String region, String zona, String tienda, String fechaInicial, String fechaFinal, int tipoTienda, int tipoVenta ) {
+    public Consulta(String numeroEmpleado, String region, String zona, String tienda, String fechaInicial, String fechaFinal, int tipoTienda, int tipoVenta, int paTipoPpto ) {
         this.numeroEmpleado = numeroEmpleado;
         this.region = region;
         this.zona = zona;
@@ -20,6 +21,7 @@ public class Consulta {
         this.fechaFinal = fechaFinal;
         this.tipoTienda = tipoTienda;
         this.tipoVenta = tipoVenta;
+        this.paTipoPpto = paTipoPpto;
     }
 
     public String getNumeroEmpleado() {
@@ -84,5 +86,13 @@ public class Consulta {
 
     public void setTipoVenta(int tipoVenta) {
         this.tipoVenta = tipoVenta;
+    }
+
+    public int getPaTipoPpto() {
+        return paTipoPpto;
+    }
+
+    public void setPaTipoPpto(int paTipoPpto) {
+        this.paTipoPpto = paTipoPpto;
     }
 }

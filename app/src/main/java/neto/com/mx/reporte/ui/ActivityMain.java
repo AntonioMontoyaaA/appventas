@@ -50,11 +50,10 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
     SharedPreferences.Editor editor;
     int banderaBoton = 0;
     int day, month, year;
-    private int tipoTienda = 1;
-    private int tipoVenta = 1;
+    private int tipoTienda = 0, tipoVenta = 0, tipoPresupuesto = 2;
 
     //entero para saber que peticion fue hecha si truena regresar a la
-    //1= normal, //2=SinVenta, 3=ConVenta, 4=ventasAperturas, 5=ventasTodas
+    //1= normal, //2=SinVenta, 3=ConVenta, 4=ventasAperturas, 5=ventasTodas, 6= presupuestoNormal, 7 = presupuesto2
     int peticion = 1;
 
     @Override
@@ -95,6 +94,7 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
         final String usuario = preferences.getString("usuario", "");
         tipoTienda = preferences.getInt("tipoTienda", 1);
         tipoVenta = preferences.getInt("tipoVenta", 1);
+        tipoPresupuesto = preferences.getInt("tipoPresupuesto",2);
         day = preferences.getInt("day", 0);
         month = preferences.getInt("month", 0);
         year = preferences.getInt("year", 0);
@@ -111,6 +111,12 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
         } else {
             binding.header.imgTiendasSinVentas.setImageResource(R.drawable.carritoturquesa);
         }
+        if(tipoPresupuesto == 2){
+            binding.header.imgPresupuesto.setImageResource(R.drawable.carrito_pesos_n);
+        }else{
+            binding.header.imgPresupuesto.setImageResource(R.drawable.carrito_pesos);
+        }
+
         editor.apply();
         date = new Date();
         sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -119,7 +125,7 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
         binding.header.back.setVisibility(View.INVISIBLE);
 
 
-        final Consulta[] consulta = {new Consulta(usuario, getString(R.string.zero), getString(R.string.zero), getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta)};
+        final Consulta[] consulta = {new Consulta(usuario, getString(R.string.zero), getString(R.string.zero), getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta,tipoPresupuesto)};
 
         binding.dia.setBackground(getDrawable(R.drawable.fill_left));
 
@@ -137,10 +143,10 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
                 if (fechaSeleccionada.length() > 0) {
                     fechaInicial = fechaSeleccionada;
                     fechaFinal = fechaSeleccionada;
-                    consulta[0] = new Consulta(usuario, getString(R.string.zero), getString(R.string.zero), getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta);
+                    consulta[0] = new Consulta(usuario, getString(R.string.zero), getString(R.string.zero), getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta,tipoPresupuesto);
                     obtenerVentas(binding, consulta[0]);
                 } else {
-                    Consulta consulta = new Consulta(usuario, getString(R.string.zero), getString(R.string.zero), getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta);
+                    Consulta consulta = new Consulta(usuario, getString(R.string.zero), getString(R.string.zero), getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta,tipoPresupuesto);
                     obtenerVentas(binding, consulta);
                 }
                 binding.rangoFechas.setText("Consulta al día: " + fechaInicial);
@@ -183,7 +189,7 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
                 }
                 date = new Date();
                 fechaInicial = sdf.format(c.getTime());
-                Consulta consulta = new Consulta(usuario, getString(R.string.zero), getString(R.string.zero), getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta);
+                Consulta consulta = new Consulta(usuario, getString(R.string.zero), getString(R.string.zero), getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta,tipoPresupuesto);
                 peticion = 1;
                 obtenerVentas(binding, consulta);
                 binding.rangoFechas.setText("Consulta del " + fechaInicial + " al " + fechaFinal);
@@ -210,10 +216,10 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
                     sdf = new SimpleDateFormat("dd/MM/yyyy");
                     fechaInicial = sdf.format(c.getTime());
                     fechaFinal = fechaSeleccionada;
-                    consulta[0] = new Consulta(usuario, getString(R.string.zero), getString(R.string.zero), getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta);
+                    consulta[0] = new Consulta(usuario, getString(R.string.zero), getString(R.string.zero), getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta, tipoPresupuesto);
                     obtenerVentas(binding, consulta[0]);
                 } else {
-                    Consulta consulta = new Consulta(usuario, getString(R.string.zero), getString(R.string.zero), getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta);
+                    Consulta consulta = new Consulta(usuario, getString(R.string.zero), getString(R.string.zero), getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta, tipoPresupuesto);
                     obtenerVentas(binding, consulta);
                 }
                 binding.rangoFechas.setText("Consulta del " + fechaInicial + " al " + fechaFinal);
@@ -249,7 +255,7 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
                     editor.putInt("tipoVenta", 0);
                     editor.apply();
                     tipoVenta = 0;
-                    Consulta consulta = new Consulta(usuario, getString(R.string.zero), getString(R.string.zero), getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta);
+                    Consulta consulta = new Consulta(usuario, getString(R.string.zero), getString(R.string.zero), getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta, tipoPresupuesto);
                     peticion = 2;
                     obtenerVentas(binding, consulta);
                     binding.header.imgTiendasSinVentas.setImageResource(R.drawable.carritonaranja);
@@ -258,7 +264,7 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
                     editor.apply();
                     tipoVenta = 1;
                     peticion = 3;
-                    Consulta consulta = new Consulta(usuario, getString(R.string.zero), getString(R.string.zero), getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta);
+                    Consulta consulta = new Consulta(usuario, getString(R.string.zero), getString(R.string.zero), getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta, tipoPresupuesto);
                     obtenerVentas(binding, consulta);
                     binding.header.imgTiendasSinVentas.setImageResource(R.drawable.carritoturquesa);
                 }
@@ -283,7 +289,7 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
                     editor.putInt("tipoTienda", 2);
                     editor.apply();
                     tipoTienda = 2;
-                    Consulta consulta = new Consulta(usuario, getString(R.string.zero), getString(R.string.zero), getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta);
+                    Consulta consulta = new Consulta(usuario, getString(R.string.zero), getString(R.string.zero), getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta, tipoPresupuesto);
                     peticion = 4;
                     obtenerVentas(binding, consulta);
                     binding.header.imgNuevaTiendaApertura.setImageResource(R.drawable.carritopuerta_naranja);
@@ -291,11 +297,35 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
                     editor.putInt("tipoTienda", 1);
                     editor.apply();
                     tipoTienda = 1;
-                    Consulta consulta = new Consulta(usuario, getString(R.string.zero), getString(R.string.zero), getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta);
+                    Consulta consulta = new Consulta(usuario, getString(R.string.zero), getString(R.string.zero), getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta, tipoPresupuesto);
                     peticion = 5;
                     obtenerVentas(binding, consulta);
                     binding.header.imgNuevaTiendaApertura.setImageResource(R.drawable.carritopuerta_azul);
                 }
+            }
+        });
+
+        binding.header.nuevasPresupuesto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(tipoPresupuesto == 1){
+                    editor.putInt("tipoPresupuesto", 2);
+                    editor.apply();
+                    tipoPresupuesto = 2;
+                    Consulta consulta = new Consulta(usuario,getString(R.string.zero),getString(R.string.zero),getString(R.string.zero),fechaInicial,fechaFinal,tipoTienda,tipoVenta, tipoPresupuesto);
+                    peticion = 6;
+                    obtenerVentas(binding,consulta);
+                    binding.header.imgPresupuesto.setImageResource(R.drawable.carrito_pesos_n);
+                }else if(tipoPresupuesto == 2) {
+                    editor.putInt("tipoPresupuesto", 1);
+                    editor.apply();
+                    tipoPresupuesto = 1;
+                    Consulta consulta = new Consulta(usuario,getString(R.string.zero),getString(R.string.zero),getString(R.string.zero),fechaInicial,fechaFinal,tipoTienda,tipoVenta, tipoPresupuesto);
+                    peticion = 7;
+                    obtenerVentas(binding,consulta);
+                    binding.header.imgPresupuesto.setImageResource(R.drawable.carrito_pesos);
+                }
+
             }
         });
 
@@ -312,7 +342,7 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
             if (banderaBoton == 0) {
                 fechaInicial = fechaSeleccionada;
                 fechaFinal = fechaSeleccionada;
-                consulta[0] = new Consulta(usuario, getString(R.string.zero), getString(R.string.zero), getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta);
+                consulta[0] = new Consulta(usuario, getString(R.string.zero), getString(R.string.zero), getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta, tipoPresupuesto);
                 obtenerVentas(binding, consulta[0]);
                 binding.rangoFechas.setText("Consulta al día: " + fechaInicial);
             } else if (banderaBoton == 1) {
@@ -335,7 +365,7 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
                 }
                 fechaInicial = sdf.format(c.getTime());
                 fechaFinal = fechaSeleccionada;
-                consulta[0] = new Consulta(usuario, getString(R.string.zero), getString(R.string.zero), getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta);
+                consulta[0] = new Consulta(usuario, getString(R.string.zero), getString(R.string.zero), getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta, tipoPresupuesto);
                 obtenerVentas(binding, consulta[0]);
                 binding.rangoFechas.setText("Consulta del " + fechaInicial + " al " + fechaFinal);
             } else if (banderaBoton == 2) {
@@ -345,7 +375,7 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
                 sdf = new SimpleDateFormat("dd/MM/yyyy");
                 fechaInicial = sdf.format(c.getTime());
                 fechaFinal = fechaSeleccionada;
-                consulta[0] = new Consulta(usuario, getString(R.string.zero), getString(R.string.zero), getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta);
+                consulta[0] = new Consulta(usuario, getString(R.string.zero), getString(R.string.zero), getString(R.string.zero), fechaInicial, fechaFinal, tipoTienda, tipoVenta, tipoPresupuesto);
                 obtenerVentas(binding, consulta[0]);
                 binding.rangoFechas.setText("Consulta del " + fechaInicial + " al " + fechaFinal);
             }
@@ -518,15 +548,33 @@ public class ActivityMain extends AppCompatActivity implements VentasHolder.List
     public void actualizaSiUnaPetiiconFalla() {
         if (peticion == 2) {
             binding.header.imgTiendasSinVentas.setImageResource(R.drawable.carritoturquesa);
+            editor.putInt("tipoVenta", 1);
+            editor.apply();
         }
         if (peticion == 3) {
             binding.header.imgTiendasSinVentas.setImageResource(R.drawable.carritonaranja);
+            editor.putInt("tipoVenta", 0);
+            editor.apply();
         }
         if (peticion == 4) {
             binding.header.imgNuevaTiendaApertura.setImageResource(R.drawable.carritopuerta_azul);
+            editor.putInt("tipoTienda", 1);
+            editor.apply();
         }
         if (peticion == 5) {
             binding.header.imgNuevaTiendaApertura.setImageResource(R.drawable.carritopuerta_naranja);
+            editor.putInt("tipoTienda", 2);
+            editor.apply();
+        }
+        if (peticion == 6) {
+            binding.header.imgPresupuesto.setImageResource(R.drawable.carrito_pesos);
+            editor.putInt("tipoPresupuesto", 1);
+            editor.apply();
+        }
+        if (peticion == 7) {
+            binding.header.imgPresupuesto.setImageResource(R.drawable.carrito_pesos_n);
+            editor.putInt("tipoPresupuesto", 2);
+            editor.apply();
         }
     }
 }

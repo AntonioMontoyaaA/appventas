@@ -1,304 +1,361 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="?attr/colorPrimary"
     android:orientation="vertical"
     tools:context="neto.com.mx.reporte.ui.ActivityInformacion">
 
-
-    <LinearLayout
-        android:id="@+id/back"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="15dp">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="-2dp"
-            android:background="@drawable/flechaizqblanca"
-            android:backgroundTint="@color/turquesa" />
-    </LinearLayout>
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:layout_width="70dp"
-            android:layout_height="40dp"
-            android:gravity="center" >
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/carritopuerta_azul_lupa" />
+            <LinearLayout
+                android:id="@+id/back"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="15dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="-2dp"
+                    android:background="@drawable/flechaizqblanca"
+                    android:backgroundTint="@color/turquesa" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="70dp"
+                    android:layout_height="35dp"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/carritopuerta_azul_lupa" />
+                </LinearLayout>
+
+                <neto.com.mx.reporte.utils.font.RobotoTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Buscador de tiendas de apertura"
+                    android:textColor="#fff"
+                    app:typeface="robotoLight" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="70dp"
+                    android:layout_height="35dp"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/carritopuerta_naranja" />
+                </LinearLayout>
+
+                <neto.com.mx.reporte.utils.font.RobotoTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Filtro de apertura  (16 semanas)"
+                    android:textColor="#fff"
+                    app:typeface="robotoLight" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="70dp"
+                    android:layout_height="35dp"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/carritonaranja" />
+                </LinearLayout>
+
+                <neto.com.mx.reporte.utils.font.RobotoTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Tiendas sin venta"
+                    android:textColor="#fff"
+                    app:typeface="robotoLight" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="70dp"
+                    android:layout_height="35dp"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/carrito_pesos" />
+                </LinearLayout>
+
+                <neto.com.mx.reporte.utils.font.RobotoTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Presupuesto Operativo"
+                    android:textColor="#fff"
+                    app:typeface="robotoLight" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="70dp"
+                    android:layout_height="35dp"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/carrito_pesos_n" />
+                </LinearLayout>
+
+                <neto.com.mx.reporte.utils.font.RobotoTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Presupuesto Financiero"
+                    android:textColor="#fff"
+                    app:typeface="robotoLight" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="70dp"
+                    android:layout_height="35dp"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_shopping_cart_black_24dp" />
+                </LinearLayout>
+
+                <neto.com.mx.reporte.utils.font.RobotoTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Buscador de tiendas activas"
+                    android:textColor="#fff"
+                    app:typeface="robotoLight" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="70dp"
+                    android:layout_height="35dp"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/ic_date_range_black_24dp"
+                        android:backgroundTint="@color/turquesa" />
+                </LinearLayout>
+
+                <neto.com.mx.reporte.utils.font.RobotoTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Calendario"
+                    android:textColor="#fff"
+                    app:typeface="robotoLight" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp">
+
+                <LinearLayout
+                    android:layout_width="70dp"
+                    android:layout_height="35dp"
+                    android:gravity="center"></LinearLayout>
+
+                <neto.com.mx.reporte.utils.font.RobotoTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Combinaciones posibles"
+                    android:textColor="#fff"
+                    app:typeface="robotoLight" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="70dp"
+                    android:layout_height="35dp"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/carritopuerta_azul" />
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/carritoturquesa" />
+                </LinearLayout>
+
+                <neto.com.mx.reporte.utils.font.RobotoTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Tiendas activas con venta"
+                    android:textColor="#fff"
+                    app:typeface="robotoLight" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="70dp"
+                    android:layout_height="35dp"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/carritopuerta_azul" />
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/carritonaranja" />
+                </LinearLayout>
+
+                <neto.com.mx.reporte.utils.font.RobotoTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Tiendas activas sin venta"
+                    android:textColor="#fff"
+                    app:typeface="robotoLight" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="70dp"
+                    android:layout_height="35dp"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/carritopuerta_naranja" />
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/carritoturquesa" />
+                </LinearLayout>
+
+                <neto.com.mx.reporte.utils.font.RobotoTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Tiendas de apertura con venta"
+                    android:textColor="#fff"
+                    app:typeface="robotoLight" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="70dp"
+                    android:layout_height="35dp"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/carritopuerta_naranja" />
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/carritonaranja" />
+                </LinearLayout>
+
+                <neto.com.mx.reporte.utils.font.RobotoTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Tiendas de apertura sin venta"
+                    android:textColor="#fff"
+                    app:typeface="robotoLight" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right">
+
+
+                <neto.com.mx.reporte.utils.font.RobotoTextView
+                    android:id="@+id/txtappversion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginEnd="20dp"
+                    android:text=""
+                    android:textColor="@color/blanco"
+                    android:textSize="12sp"
+                    app:typeface="robotoLight" />
+            </LinearLayout>
         </LinearLayout>
 
-        <neto.com.mx.reporte.utils.font.RobotoTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Buscador de tiendas de apertura"
-            android:textColor="#fff"
-            app:typeface="robotoLight"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:layout_width="70dp"
-            android:layout_height="40dp"
-            android:gravity="center" >
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/carritopuerta_naranja" />
-        </LinearLayout>
-
-        <neto.com.mx.reporte.utils.font.RobotoTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Filtro de apertura  (16 semanas)"
-            android:textColor="#fff"
-            app:typeface="robotoLight"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:layout_width="70dp"
-            android:layout_height="40dp"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/carritonaranja" />
-        </LinearLayout>
-
-        <neto.com.mx.reporte.utils.font.RobotoTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Tiendas sin venta"
-            android:textColor="#fff"
-            app:typeface="robotoLight"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:layout_width="70dp"
-            android:layout_height="40dp"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/ic_shopping_cart_black_24dp" />
-        </LinearLayout>
-
-        <neto.com.mx.reporte.utils.font.RobotoTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Buscador de tiendas activas"
-            android:textColor="#fff"
-            app:typeface="robotoLight"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:layout_width="70dp"
-            android:layout_height="40dp"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:background="@drawable/ic_date_range_black_24dp"
-                android:backgroundTint="@color/turquesa"/>
-        </LinearLayout>
-
-        <neto.com.mx.reporte.utils.font.RobotoTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Calendario"
-            android:textColor="#fff"
-            app:typeface="robotoLight"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp">
-
-        <LinearLayout
-            android:layout_width="70dp"
-            android:layout_height="40dp"
-            android:gravity="center" >
-        </LinearLayout>
-
-        <neto.com.mx.reporte.utils.font.RobotoTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Combinaciones posibles"
-            android:textColor="#fff"
-            app:typeface="robotoLight"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:layout_width="70dp"
-            android:layout_height="40dp"
-            android:gravity="center" >
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/carritopuerta_azul" />
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/carritoturquesa" />
-        </LinearLayout>
-
-        <neto.com.mx.reporte.utils.font.RobotoTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Tiendas activas con venta"
-            android:textColor="#fff"
-            app:typeface="robotoLight"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:layout_width="70dp"
-            android:layout_height="40dp"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/carritopuerta_azul" />
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/carritonaranja" />
-        </LinearLayout>
-
-        <neto.com.mx.reporte.utils.font.RobotoTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Tiendas activas sin venta"
-            android:textColor="#fff"
-            app:typeface="robotoLight"/>
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:layout_width="70dp"
-            android:layout_height="40dp"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/carritopuerta_naranja" />
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/carritoturquesa" />
-        </LinearLayout>
-
-        <neto.com.mx.reporte.utils.font.RobotoTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Tiendas de apertura con venta"
-            android:textColor="#fff"
-            app:typeface="robotoLight"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:layout_width="70dp"
-            android:layout_height="40dp"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/carritopuerta_naranja" />
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/carritonaranja" />
-        </LinearLayout>
-
-        <neto.com.mx.reporte.utils.font.RobotoTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Tiendas de apertura sin venta"
-            android:textColor="#fff"
-            app:typeface="robotoLight"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="right">
-
-
-
-        <neto.com.mx.reporte.utils.font.RobotoTextView
-            android:id="@+id/txtappversion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="9dp"
-            android:layout_marginEnd="20dp"
-            android:text=""
-            android:textColor="@color/blanco"
-            android:textSize="12sp"
-            app:typeface="robotoLight" />
-    </LinearLayout>
-
-
+    </ScrollView>
 
 </LinearLayout>
