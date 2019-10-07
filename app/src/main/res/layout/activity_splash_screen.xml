@@ -1,61 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <data>
-
-    </data>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login"
+    tools:context=".ui.ActivitySplashScreen">
 
     <LinearLayout
-            android:background="@drawable/background"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:orientation="vertical">
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="30dp">
+
 
         <LinearLayout
-            android:background="@drawable/background"
-            android:id="@+id/container"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:gravity="center_vertical"
             android:orientation="vertical">
 
-            <neto.com.mx.reporte.utils.desing.KenBurnsView
-                android:id="@+id/ken_burns_images"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/blanco"/>
-
             <ImageView
-                android:id="@+id/logo"
-                android:layout_width="200dp"
-                android:layout_height="140dp"
-                android:layout_below="@+id/view"
-                android:layout_centerHorizontal="true"
+                android:layout_width="300dp"
+                android:layout_height="100dp"
                 android:layout_gravity="center"
-                android:alpha="0.0"
-                android:src="@drawable/logoblanco" />
-
-            <View style="@style/vertical_separator"/>
-
-            <neto.com.mx.reporte.utils.font.RobotoTextView
-                android:id="@+id/welcome_text"
+                android:src="@drawable/log_blanco" />
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
                 android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:alpha="0.0"
-                android:textSize="24dp"
-                app:typeface="robotoBold"
-                android:text="@string/tituloAnimacion"
-                android:textColor="@color/blanco" />
+                android:src="@drawable/apertura_icono" />
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:gravity="center"-->
+                <!--android:text="@string/app_name"-->
+                <!--android:textColor="#000"-->
+                <!--android:textSize="38sp"-->
+                <!--android:textStyle="bold" />-->
 
         </LinearLayout>
-
     </LinearLayout>
 
-</layout>
+</LinearLayout>

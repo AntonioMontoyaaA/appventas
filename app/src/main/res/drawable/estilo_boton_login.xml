@@ -7,12 +7,21 @@
     </solid>
 
     <corners
-        android:radius="2dp" />
+        android:radius="10dp" />
 
     <gradient
         android:angle="90"
-        android:endColor="#4EBFCD"
-        android:centerColor="#4EBFCD"
-        android:startColor="#4EBFCD"
+        android:endColor="#1A428A"
+        android:centerColor="#1A428A"
+        android:startColor="#1A428A"
         android:type="linear" />
 </shape>
+
+<!--
+ <gradient
+        android:angle="90"
+        android:endColor="#284451"
+        android:centerColor="#4EBFCD"
+        android:startColor="#272F3A"
+        android:type="linear" />
+-->

@@ -1,50 +1,136 @@
 <resources>
-    <string name="app_name">Reporte de Ventas</string>
+    <string name="app_name">Aperturas Tiendas</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
 
-    <!-- splash screen -->
-
-    <string name="reintenta">Reintente más tarde</string>
-    <string name="reintentar">Reintentar</string>
-    <string name="internet">Necesitas estar conectado a internet</string>
-    <string name="tituloAnimacion">REPORTE DE VENTAS</string>
-
-    <!-- activity login -->
-    <string name="sizeContra">Usuario y contraseña debe tener más de 10 carácteres</string>
-    <string name="usuarioLogin">Usuario</string>
-    <string name="contraLogin">Contraseña</string>
-    <string name="entrarLogin">Iniciar sesión</string>
-    <!-- <string name="accion_ver">Ver 2.0.1</string>-->
-    <string name="intentaSalir">Presiona de nuevo para salir\u0020</string>
-
-    <!-- activity main -->
-
-    <string name="ventas">VENTAS</string>
-    <string name="dia">DÍA</string>
-    <string name="semana">SEMANA</string>
-    <string name="mes">MES</string>
-    <string name="venta_real">VENTA REAL</string>
-    <string name="tiendas_venta">TIENDAS</string>
-    <string name="ticket_promedio">TICKET PROMEDIO</string>
-    <string name="venta_perdida">VENTA PERDIDA</string>
-    <string name="zero">0</string>
-    <string name="mdp">\u0020 VENTA OBJETIVO</string>
-    <string name="mdpTotal">\u0020 VENTA OBJETIVO TOTAL</string>
-
-
-    <!-- item tiendas -->
-    <string name="presupuesto">PRESUPUESTO</string>
-    <string name="buscar">Buscar</string>
-    <string name="ok">OK</string>
-    <!--<string name="sucedio">Algo sucedio, intenta nuevamente</string>-->
-    <string name="notiendas">Este usuario no tiene tiendas asignadas</string>
-    <string name="verifique">El Usuario no cuenta con tiendas asignadas. Por favor verifique</string>
-    <string name="no_tiendas">no tiendas</string>
     <string name="idapp">4</string>
 
+    <string name="usuarioLogin">Usuario</string>
+    <string name="contraLogin">Contraseña</string>
+    <string name="entrarLogin">INICIAR SESIÓN</string>
     <string name="aceptar">Aceptar</string>
-    <string name="con_ventas">Con ventas</string>
-    <string name="sin_ventas">Sin ventas</string>
-    <string name="apertura">Apertura</string>
-    <string name="activas">Activas</string>
+    <string name="direcci_n">Dirección:</string>
+    <string name="fecha_apertura">Fecha Apertura: </string>
+    <string name="buscar">Buscar</string>
+    <string name="tama_o_de_tienda">TAMAÑO DE TIENDA</string>
+    <string name="FRENTE">FRENTE</string>
+    <string name="fondo">FONDO</string>
+    <string name="anaqueles">ANAQUELES</string>
+    <string name="pasillo">PASILLO</string>
+    <string name="bodega">BODEGA</string>
+    <string name="acceso_del_cedis">ACCESO DEL CEDIS</string>
+    <string name="generadores">GENERADORES</string>
+    <string name="caracteristicas">CARACTERISTICAS</string>
+    <string name="facil_acceso_al_cedis">FÁCIL ACCESO AL CEDIS</string>
+    <string name="rampa">RAMPA</string>
+    <string name="esquina">ESQUINA</string>
+    <string name="negocios_de_comida">NEGOCIOS DE COMIDA</string>
+    <string name="negocios_en_general">NEGOCIOS EN GENERAL</string>
+    <string name="mercado">MERCADO</string>
+    <string name="tianguis">TIANGUIS</string>
+    <string name="escuelas">ESCUELAS</string>
+    <string name="iglesias">IGLESIAS</string>
+    <string name="otros">OTROS</string>
+    <string name="oxxo">OXXO</string>
+    <string name="bodega_express">BODEGA EXPRESS</string>
+    <string name="tienda_3b">TIENDA 3B</string>
+    <string name="competencias">COMPETENCIAS</string>
+    <string name="guardar">GUARDAR</string>
+    <string name="venta_alcohol">VENTA ALCOHOL</string>
+    <string name="porcentaje_de_avance">Avance:</string>
+    <string name="rev">Rev</string>
+    <string name="no">No</string>
+    <string name="s">Sí</string>
+    <string name="circulo_del_amor">Circulo del Amor</string>
+    <string name="linea_vida">Linea de vida</string>
+    <string name="alta_de_empleados">Alta de Empleados</string>
+    <string name="horarios_programados">Horarios programados</string>
+    <string name="registro_de_huella">Registro de huella</string>
+    <string name="uniformes_completos">Uniformes Completos</string>
+    <string name="gafetes_completos">Gafetes Completos</string>
+    <string name="registro_de_capacitacion_formato_impreso">Registro de capacitacion (formato impreso)</string>
+    <string name="evaluacion_de_servicio">Evaluacion de servicio</string>
+    <string name="formato_crece">Formato CRECE</string>
+    <string name="acta_administrativa">Acta Administrativa</string>
+    <string name="mapa_ubicacion">Mapa de Ubicación</string>
+    <string name="generadores_y_competencias">Generadores y Competencias</string>
+    <string name="compara">Compara</string>
+    <string name="conteo_trafico">Conteo de Trafico</string>
+    <string name="reporte_fotografico_enviado_pdf_formato_de_invitaci_n">Reporte Fotografico enviado PDF (formato de invitación)</string>
+    <string name="copias_listas_para_toma_de_visita_a_clientes">Copias listas para toma de Visita a Clientes</string>
+    <string name="mapas_individuales_de_trabajo">Mapas individuales de trabajo</string>
+    <string name="capacitaci_n">Capacitación</string>
+    <string name="programa_armado">Programa Armado</string>
+    <string name="d_a">Día</string>
+    <string name="funcionamiento_de_la_vitrina_temperatura">Funcionamiento de la Vitrina ( temperatura)</string>
+    <string name="layout_de_tienda">Layout de tienda</string>
+    <string name="compara_en_carta_y_peque_o">Compara en carta y pequeño</string>
+    <string name="aproveche">Aproveche</string>
+    <string name="papeleria_de_apertura">Papeleria de apertura</string>
+    <string name="busqueda_de_perifonista">Busqueda de Perifonista</string>
+    <string name="seguimiento_visitas">Seguimiento a visitas</string>
+    <string name="reporte_diario_al_cierre_de_visitas_realizadas">Reporte diario al cierre de Visitas realizadas</string>
+    <string name="reporte_diario_de_llegada_de_proveedor">Reporte diario de llegada de proveedor</string>
+    <string name="sistemas">Sistemas</string>
+    <string name="alta_de_proveedores">Alta de proveedores</string>
+    <string name="tienda_asignada_para_transferencias">Tienda asignada para transferencias</string>
+    <string name="alta_articulos_punto_venta">Alta de artículos en punto de venta</string>
+    <string name="cobro_de_tiempo_aire">Cobro de tiempo aire</string>
+    <string name="cobro_de_pago_de_servicios">Cobro de pago de servicios</string>
+    <string name="hc_de_tienda">HC de tienda</string>
+    <string name="hc_de_calidad_operativa">HC de Calidad Operativa</string>
+    <string name="abasto">Abasto</string>
+    <string name="permiso_de_venta_de_alcohol">Permiso de venta de Alcohol</string>
+    <string name="alta_provedorres">Alta de proveedores</string>
+    <string name="fecha_compromiso_de_c_proveedor_con_5_dias_de_antic">Fecha compromiso de c/ proveedor con 5 dias de antic</string>
+    <string name="fecha_de_recepcion_de_cedis">Fecha de recepcion de Cedis</string>
+    <string name="precios_impresos">Precios Impresos</string>
+    <string name="calendario_de_proveedores">Calendario de proveedores</string>
+    <string name="formato_de_stock_out">Formato de Stock Out</string>
+    <string name="cargar_en_sistema_las_oc">Cargar en sistema las OC</string>
+    <string name="antes_de_la_apertura_dia_3">Antes de la Apertura dia- 3</string>
+    <string name="acomodo_del_producto">Acomodo del producto</string>
+    <string name="corte_de_cajas">Corte de cajas</string>
+    <string name="precios">Precios</string>
+    <string name="proveedores_directos">Proveedores directos</string>
+    <string name="despensas_realizadas">Despensas Realizadas</string>
+    <string name="invitaciones">Invitaciones</string>
+    <string name="carpetas">Carpetas</string>
+    <string name="adornos">Adornos</string>
+    <string name="limpieza_de_tienda">Limpieza de tienda</string>
+    <string name="plan_de_limpieza_de_ba_os">Plan de limpieza de baños</string>
+    <string name="se_alizacion">Señalizacion</string>
+    <string name="horarios_cargados">Horarios cargados</string>
+    <string name="plan_de_actividades_del_dia_de_la_apertura">Plan de actividades del dia de la apertura</string>
+    <string name="descarga_de_merma">Descarga de Merma</string>
+    <string name="carros_de_compara">Carros de compara</string>
+    <string name="mesas_armadas_para_degustaci_n">Mesas armadas para degustación</string>
+    <string name="abrir_workplace">ABRIR WORKCHAT</string>
+    <string name="ok">Aceptar</string>
+
+    <string name="indicadores_fechaApertura">Apertura: </string>
+    <string name="indicadores_diasInvConfigurados">DDI Config : </string>
+    <string name="indicadores_existencia">Existencia : </string>
+    <string name="indicadores_frecuencia">Frecuencia : </string>
+    <string name="indicadores_montoVenta">Monto de venta : </string>
+    <string name="indicadores_stockout">Stockout : </string>
+    <string name="indicadores_tamanioTienda">Tamaño de tienda : </string>
+    <string name="indicadores_tiendaId">Id de tienda : </string>
+    <string name="indicadores_ventaAlcohol">Venta de alcohol : </string>
+    <string name="indicadores_ventaPerdida">Venta perdida : </string>
+    <string name="indicadores_ventaPiezas">Piezas vendidas : </string>
+
+    <string name="articulosMayorVta">Artículos de mayor venta</string>
+    <string name="articulosMenorVta">Artículos de menor venta</string>
+
+
+
+
+
+
 
 </resources>

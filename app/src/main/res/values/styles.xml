@@ -8,15 +8,21 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
     <style name="vertical_separator">
         <item name="android:layout_width">@dimen/login_vertical_separation</item>
         <item name="android:layout_height">@dimen/login_vertical_separation</item>
     </style>
-
     <style name="datepicker" parent="Theme.AppCompat.Light.Dialog">
         <item name="colorPrimary">@color/turquesa</item>
         <item name="colorPrimaryDark">@color/turquesa</item>
         <item name="colorAccent">@color/turquesa</item>
     </style>
-
 </resources>
