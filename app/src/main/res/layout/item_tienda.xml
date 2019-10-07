@@ -5,130 +5,44 @@
 
     <data>
 
+
         <variable
             name="listener"
-            type="neto.com.mx.aperturatienda.adapter.TiendasHolder.Listener" />
+            type="neto.com.mx.reporte.adapter.TiendasHolder.Listener" />
 
         <variable
             name="tienda"
-            type="neto.com.mx.aperturatienda.model.tiendasLista.Tienda" />
+            type="neto.com.mx.reporte.model.dashboard.Tienda" />
 
-        <variable
-            name="color"
-            type="String" />
+
     </data>
 
-    <LinearLayout
-        android:id="@+id/llitem"
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="@{view -> listener.OnProcesoSelect(tienda) }"
-        android:orientation="vertical"
-        android:padding="8dp">
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:background="@color/colorPrimaryDark"
+        android:onClick="@{view -> listener.onTiendasSelect(tienda)}"
+        app:typeface="robotoRegular">
 
-        <neto.com.mx.aperturatienda.utils.font.RobotoTextView
+
+        <neto.com.mx.reporte.utils.font.RobotoTextView
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:backgroundTint="@color/blanco"
-            android:gravity="center"
-            android:text="@{tienda.converter(tienda.nombreTienda)}"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="18sp"
-            app:typeface="robotoBold" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:weightSum="6">
-
-            <neto.com.mx.aperturatienda.utils.font.RobotoTextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:layout_weight="2"
-                android:backgroundTint="@color/negro"
-                android:text="@string/fecha_apertura"
-                android:textColor="@color/negro"
-                android:textSize="14sp"
-                app:typeface="robotoLight" />
-
-            <neto.com.mx.aperturatienda.utils.font.RobotoTextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="4dp"
-                android:layout_marginRight="4dp"
-                android:layout_weight="4"
-                android:backgroundTint="@color/negro"
-                android:text="@{tienda.fechaApertura}"
-                android:textColor="@color/negro"
-                android:textSize="13sp"
-                app:typeface="robotoLight" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:weightSum="6">
-
-            <neto.com.mx.aperturatienda.utils.font.RobotoTextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:layout_weight="2"
-                android:backgroundTint="@color/negro"
-                android:text="@string/porcentaje_de_avance"
-                android:textColor="@color/negro"
-                android:textSize="14sp"
-                app:typeface="robotoLight" />
-
-            <neto.com.mx.aperturatienda.utils.font.RobotoTextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="4dp"
-                android:layout_marginRight="4dp"
-                android:layout_weight="4"
-                android:backgroundTint="@color/negro"
-                android:text="@{tienda.converter(tienda.porcentajeAvance)}"
-                android:textColor="@color/negro"
-                android:textSize="13sp"
-                app:typeface="robotoLight" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:weightSum="6">
-
-            <neto.com.mx.aperturatienda.utils.font.RobotoTextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:layout_weight="2"
-                android:backgroundTint="@color/negro"
-                android:text="@string/direcci_n"
-                android:textColor="@color/negro"
-                android:textSize="14sp"
-                app:typeface="robotoLight" />
-
-            <neto.com.mx.aperturatienda.utils.font.RobotoTextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="4dp"
-                android:layout_marginRight="4dp"
-                android:layout_weight="4"
-                android:backgroundTint="@color/negro"
-                android:text="@{tienda.direccion}"
-                android:textColor="@color/negro"
-                android:textSize="13sp"
-                app:typeface="robotoLight" />
-
-        </LinearLayout>
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="@{tienda.nombreTienda}"
+            android:textColor="@color/amarillo"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:typeface="robotoRegular"
+            tools:text="$18, 888, 888" />
 
 
-    </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
+
 </layout>

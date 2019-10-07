@@ -1,8 +1,0 @@
-<TextView android:id="@+id/tvInformId"
-    android:textColor="@color/colorPrimary"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="INFORME 777"
-    xmlns:android="http://schemas.android.com/apk/res/android" />
-
-
