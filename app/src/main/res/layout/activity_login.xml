@@ -89,7 +89,7 @@
                             app:typeface="robotoLight" />
 
                         <EditText
-                            android:maxLength="6"
+                            android:maxLength="7"
                             android:textColorLink="@color/blanco"
                             android:shadowColor="@color/blanco"
                             android:id="@+id/usuario"
